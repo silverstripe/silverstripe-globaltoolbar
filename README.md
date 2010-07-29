@@ -33,6 +33,10 @@ Only certain parameters are configurable by URL for security reasons (e.g. you c
 
 	toolbar.js?sort=bugtracker,api
 	
+### Custom form action
+
+	toolbar.js?formAction=http://myhost.com/opensearch
+	
 ## TODO
 
  * Allow selection of search sources

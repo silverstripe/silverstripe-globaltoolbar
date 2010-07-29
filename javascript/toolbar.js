@@ -191,6 +191,7 @@ var ss = ss || {};
 				var qs = new Querystring(query);
 				if(qs.get('filter')) options.filterEntries = qs.get('filter').split(',');
 				if(qs.get('sort')) options.sortEntries = qs.get('sort').split(',');
+				if(qs.get('formAction')) options.formAction = qs.get('formAction');
 			}
 		});
 
