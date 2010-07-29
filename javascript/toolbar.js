@@ -156,14 +156,14 @@ var ss = ss || {};
 	$(document).ready(function() {
 		var entries = [
 			{
-				'id': 'api',
-				'url': 'http://api.silverstripe.org',
-				'title': 'API docs'
+				'id': 'doc',
+				'url': 'http://doc.silverstripe.org',
+				'title': 'Documentation'
 			},
 			{
-				'id': 'bugtracker',
-				'url': 'http://open.silverstripe.org',
-				'title': 'Bugtracker'
+				'id': 'api',
+				'url': 'http://api.silverstripe.org',
+				'title': 'API'
 			},
 			{
 				'id': 'forums',
@@ -171,14 +171,14 @@ var ss = ss || {};
 				'title': 'Forum'
 			},
 			{
-				'id': 'doc',
-				'url': 'http://doc.silverstripe.org',
-				'title': 'Documentation'
-			},
-			{
 				'id': 'userhelp',
 				'url': 'http://userhelp.silverstripe.org',
 				'title': 'User help'
+			},
+			{
+				'id': 'bugtracker',
+				'url': 'http://open.silverstripe.org',
+				'title': 'Bugtracker'
 			}
 		];
 
