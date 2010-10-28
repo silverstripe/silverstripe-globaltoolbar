@@ -77,10 +77,16 @@ var ss = ss || {};
 					'</div>'
 				);
 				var ul = $('ul', html), inner = $('.inner', html);
+				var linkingMode = "link";
+				console.log(self.options.currentSite);
+				
 				for(var i=0; i<self.entries.length; i++) {
 					var entry = self.entries[i];
+					
+					linkingMode = (self.options.currentSite && (entry.id === self.options.currentSite)) ? "current" : "link";
+					
 					ul.append(
-						'<li>' +
+						'<li class="'+ linkingMode +'">' +
 						' <a href="' + entry.url + '"><span>' + entry.title + '</span></a>' +
 						'</li>'
 					);
@@ -184,7 +190,7 @@ var ss = ss || {};
 
 		// parse query params
 		var js = /toolbar(\.min)?\.js(\?.*)?$/, options = {};
-		jQuery('head script[src]').each(function(i, el) {
+		jQuery('script[src]').each(function(i, el) {
 			var urlMatches = el.src.match(js); // gets query string
 			if(urlMatches && urlMatches[2]) {
 				var query = urlMatches[2].replace(/.*\?/, '');
@@ -192,6 +198,7 @@ var ss = ss || {};
 				if(qs.get('filter')) options.filterEntries = qs.get('filter').split(',');
 				if(qs.get('sort')) options.sortEntries = qs.get('sort').split(',');
 				if(qs.get('formAction')) options.formAction = qs.get('formAction');
+				if(qs.get('site')) options.currentSite = qs.get('site');
 			}
 		});
 
@@ -202,7 +209,6 @@ var ss = ss || {};
 		// Add opensearch
 		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="globalsearch/opensearchdescription" title="silverstripe.org (Global Search)" /> ');
 		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://open.silverstripe.org/search/opensearch" title="open.silverstripe.org (Bugtracker)" />');
-		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');
-		
+		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');		
 	});
 }(jQuery));

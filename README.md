@@ -33,6 +33,19 @@ Only certain parameters are configurable by URL for security reasons (e.g. you c
 
 	toolbar.js?sort=bugtracker,api
 	
+## Current Menu Highlighting
+
+	toolbar.js?site=api
+	
+It is based on the ID of the site which is one of the following
+
+	* doc
+	* api
+	* open
+	* forums
+	* bugtracker
+	* userhelp
+	
 ### Custom form action
 
 	toolbar.js?formAction=http://myhost.com/opensearch
