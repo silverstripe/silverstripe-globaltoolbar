@@ -78,7 +78,6 @@ var ss = ss || {};
 				);
 				var ul = $('ul', html), inner = $('.inner', html);
 				var linkingMode = "link";
-				console.log(self.options.currentSite);
 				
 				for(var i=0; i<self.entries.length; i++) {
 					var entry = self.entries[i];
