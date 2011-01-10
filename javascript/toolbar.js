@@ -12,6 +12,7 @@ var ss = ss || {};
 		var defaults = {
 			prependTo: 'body',
 			titleText: 'SilverStripe.org sites',
+			searchShow: true,
 			searchLabelText: 'Search on SilverStripe.org sites',
 			searchButtonText: '',
 			formAction: 'http://silverstripe.org/opensearch',
@@ -90,16 +91,19 @@ var ss = ss || {};
 						'</li>'
 					);
 				}
-				inner.append(
-					' <form class="Search" action="' + self.options.formAction + '">' +
-					'  <fieldset>' +
-					// '   <label for="q">' + self.options.searchLabelText + '</label>' +
-					'   <input type="text" name="q" class="text" value="' + self.options.searchLabelText + '"/>' +
-					// TODO Add <select> field to select different websites
-					'   <button type="submit" class="submit">' + self.options.searchButtonText + '</button>' +
-					'  </fieldset>' +
-					' </form>'
-				);
+				
+				if(self.options.searchShow) {
+					inner.append(
+						' <form class="Search" action="' + self.options.formAction + '">' +
+						'  <fieldset>' +
+						// '   <label for="q">' + self.options.searchLabelText + '</label>' +
+						'   <input type="text" name="q" class="text" value="' + self.options.searchLabelText + '"/>' +
+						// TODO Add <select> field to select different websites
+						'   <button type="submit" class="submit">' + self.options.searchButtonText + '</button>' +
+						'  </fieldset>' +
+						' </form>'
+					);
+				}
 				
 				// add to body
 				html.prependTo($(self.options.prependTo));
@@ -198,6 +202,7 @@ var ss = ss || {};
 				if(qs.get('sort')) options.sortEntries = qs.get('sort').split(',');
 				if(qs.get('formAction')) options.formAction = qs.get('formAction');
 				if(qs.get('site')) options.currentSite = qs.get('site');
+				if(qs.get('searchShow')) options.searchShow = (qs.get('searchShow') != "false" && qs.get('searchShow') != 0);
 			}
 		});
 
