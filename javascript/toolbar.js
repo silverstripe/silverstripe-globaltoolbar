@@ -210,9 +210,9 @@ var ss = ss || {};
 		ss.GlobalToolbar.init(entries, options);
 		ss.GlobalToolbar.render();
 		
-		// Add opensearch
-		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="globalsearch/opensearchdescription" title="silverstripe.org (Global Search)" /> ');
+		// Add opensearch (TODO Implement globalsearch and doc search)
+		// $('head').append('<link type="application/opensearchdescription+xml" rel="search" href="globalsearch/opensearchdescription" title="silverstripe.org (Global Search)" /> ');
 		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://open.silverstripe.org/search/opensearch" title="open.silverstripe.org (Bugtracker)" />');
-		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');		
+		// $('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');		
 	});
 }(jQuery));
