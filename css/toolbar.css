@@ -16,7 +16,7 @@
 	}
 
 	.ss-globaltoolbar .inner {
-		width: 940px;
+		width: 980px;
 		margin: 0 auto;
 	}
 	.ss-globaltoolbar .logo {
@@ -65,7 +65,6 @@
 		padding: 0 0 0 12px;
 		
 	}
-		
 		.ss-globaltoolbar form input.text {
 			float: left;
 			width: 220px;
