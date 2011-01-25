@@ -108,6 +108,9 @@ var ss = ss || {};
 				// add to body
 				html.prependTo($(self.options.prependTo));
 				
+				// add a class to the body so we can pad it down
+				$("body").addClass('has-ss-globaltoolbar');
+				
 				// Toggle default label for input field
 				$('input.text', html)
 					.focusin(function(e) {
