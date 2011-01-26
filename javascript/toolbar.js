@@ -71,12 +71,15 @@ var ss = ss || {};
 			render: function() {
 				var html = $(
 					'<div class="ss-globaltoolbar">' +
-					' <div class="inner">' +
-					'  <div class="logo"><span>' + self.options.titleText + '</span></div>' +
-					'  <ul></ul>'  +
-					' </div>' +
+					'	<div class="ss-globaltoolbar-shadow">' +
+					'		<div class="inner">' +
+					'			<div class="logo"><span>' + self.options.titleText + '</span></div>' +
+					'			<ul></ul>'  +
+					'		</div>' +
+					'	</div>' +
 					'</div>'
 				);
+				
 				var ul = $('ul', html), inner = $('.inner', html);
 				var linkingMode = "link";
 				
