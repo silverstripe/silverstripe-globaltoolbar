@@ -96,9 +96,7 @@ var ss = ss || {};
 					inner.append(
 						' <form class="Search" action="' + self.options.formAction + '">' +
 						'  <fieldset>' +
-						// '   <label for="q">' + self.options.searchLabelText + '</label>' +
 						'   <input type="text" name="q" class="text" value="' + self.options.searchLabelText + '"/>' +
-						// TODO Add <select> field to select different websites
 						'   <button type="submit" class="submit">' + self.options.searchButtonText + '</button>' +
 						'  </fieldset>' +
 						' </form>'
@@ -112,13 +110,11 @@ var ss = ss || {};
 				$("body").addClass('has-ss-globaltoolbar');
 				
 				// Toggle default label for input field
-				$('input.text', html)
-					.focusin(function(e) {
+				$('input.text', html).focus(function(e) {
 						if($(this).val() == self.options.searchLabelText) $(this).val('').data('emptied', true);
-					})
-					.focusout(function(e) {
-						if($(this).val() == '') $(this).val(self.options.searchLabelText);
-					});
+				}, function(e) {
+					if($(this).val() == '') $(this).val(self.options.searchLabelText);
+				});
 			}
 		}
 	}();
