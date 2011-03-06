@@ -84,6 +84,7 @@ body.has-ss-globaltoolbar {
 			font-size: 11px;
 			color: #CCD9D5;
 			padding-left: 10px;
+			outline: none;
 		}
 			
 		.ss-globaltoolbar button.submit {
