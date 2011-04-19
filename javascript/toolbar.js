@@ -15,7 +15,7 @@ var ss = ss || {};
 			searchShow: true,
 			searchLabelText: 'Search on SilverStripe.org sites',
 			searchButtonText: '',
-			formAction: 'http://silverstripe.org/globalsearch',
+			formAction: 'http://silverstripe.org/search/',
 			filterEntries: null,
 			sortEntries: null
 		};
