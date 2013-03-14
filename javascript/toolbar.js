@@ -13,11 +13,11 @@ var ss = ss || {};
 			prependTo: 'body',
 			titleText: 'SilverStripe.org sites',
 			searchShow: true,
-			searchLabelText: 'Search on SilverStripe.org sites',
-			searchButtonText: '',
-			formAction: 'http://silverstripe.org/search/',
 			filterEntries: null,
-			sortEntries: null
+			sortEntries: null,
+			googleCseId: '006620299726686837192:uigdvjfexik',
+			googleCseResultsUrl: 'http://www.silverstripe.org/search/',
+			profileIframeUrl: 'http://localhost/ssorg-v2/toolbar/profile'
 		};
 		
 		// public
@@ -71,11 +71,9 @@ var ss = ss || {};
 			render: function() {
 				var html = $(
 					'<div class="ss-globaltoolbar">' +
-					'	<div class="ss-globaltoolbar-shadow">' +
 					'		<div class="inner">' +
 					'			<div class="logo"><span>' + self.options.titleText + '</span></div>' +
 					'			<ul></ul>'  +
-					'		</div>' +
 					'	</div>' +
 					'</div>'
 				);
@@ -94,32 +92,54 @@ var ss = ss || {};
 						'</li>'
 					);
 				}
-				
-				if(self.options.searchShow) {
-					inner.append(
-						' <form class="Search" action="' + self.options.formAction + '">' +
-						'  <fieldset>' +
-						'   <input type="text" name="q" class="text" value="' + self.options.searchLabelText + '"/>' +
-						'   <button type="submit" class="submit">' + self.options.searchButtonText + '</button>' +
-						'  </fieldset>' +
-						' </form>'
-					);
-				}
-				
+
 				// add to body
 				html.prependTo($(self.options.prependTo));
+
+				// Add Google CSE if requested and available
+				if(self.options.searchShow) {
+					inner.append('<div id="ss-globaltoolbar-cse-search" class="ss-globaltoolbar-cse-search" />');
+					window.__gcse = {
+						parsetags: 'explicit',
+						callback: function() {
+							var renderSearchElement = function() {
+								google.search.cse.element.render({
+									div: 'ss-globaltoolbar-cse-search',
+									tag: 'searchbox-only',
+									resultsUrl: self.options.googleCseResultsUrl
+								});
+							};
+							if (document.readyState == 'complete') {
+								renderSearchElement();
+							} else {
+								google.setOnLoadCallback(renderSearchElement, true);
+							}
+						}
+					};
+					var cx = self.options.googleCseId;
+					var gcse = document.createElement('script'); gcse.type = 'text/javascript'; 
+					gcse.async = true;
+					gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+						'//www.google.com/cse/cse.js?cx=' + cx;
+			    var s = document.getElementsByTagName('script')[0]; 
+			    s.parentNode.insertBefore(gcse, s);
+				}
+
+				// Add profile iframe
+				profile = $('<div id="ss-globaltoolbar-profile" class="ss-globaltoolbar-profile" />');
+				profileIframe = $('<iframe />').attr({
+					src: self.options.profileIframeUrl,
+					border: 0,
+					width: '100%',
+					height: '40px'
+				});
+				profile.append(profileIframe);
+				inner.append(profile);
 				
 				// add a class to the body so we can pad it down
 				$("body").addClass('has-ss-globaltoolbar');
-				
-				// Toggle default label for input field
-				$('input.text', html).focus(function(e) {
-						if($(this).val() == self.options.searchLabelText) $(this).val('').data('emptied', true);
-				}, function(e) {
-					if($(this).val() == '') $(this).val(self.options.searchLabelText);
-				});
 			}
-		}
+		};
 	}();
 	
 	/* Client-side access to querystring name=value pairs
@@ -202,7 +222,6 @@ var ss = ss || {};
 				var qs = new Querystring(query);
 				if(qs.get('filter')) options.filterEntries = qs.get('filter').split(',');
 				if(qs.get('sort')) options.sortEntries = qs.get('sort').split(',');
-				if(qs.get('formAction')) options.formAction = qs.get('formAction');
 				if(qs.get('site')) options.currentSite = qs.get('site');
 				if(qs.get('searchShow')) options.searchShow = (qs.get('searchShow') != "false" && qs.get('searchShow') != 0);
 			}

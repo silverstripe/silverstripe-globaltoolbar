@@ -93,3 +93,21 @@ body.has-ss-globaltoolbar {
 			height: 22px;
 			background: url(../images/search-rht.gif) top right no-repeat;
 		}
+
+	.ss-globaltoolbar-cse-search {
+		float: left;
+		width: 300px;
+	}
+
+	.ss-globaltoolbar-profile {
+		float: left;
+		width: 200px;
+	}
+
+/* Styles in iframe */
+.ss-globaltoolbar-iframe {
+}
+	.ss-globaltoolbar-iframe .ss-globaltoolbar-login a {
+		color: #22467B;
+		text-decoration: none;	
+	}
