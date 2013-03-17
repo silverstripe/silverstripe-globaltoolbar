@@ -1,0 +1,9 @@
+.svn/*
+css/.svn/*
+images/.svn/*
+javascript/.svn/*
+tools/.svn/*
+.sass-cache/*
+.DS_Store
+images/.DS_Store
+fonts/.DS-Store
