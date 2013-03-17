@@ -1,0 +1,213 @@
+@import "compass";
+
+@font-face {
+	font-family: 'PT Sans';
+	src: url('../../toolbar/fonts/pt_sans_bold-webfont.eot');
+	src: local('PTSansRegular'), url('../../toolbar/fonts/pt_sans_bold-webfont.woff') format('woff'), url('../../toolbar/fonts/PT_Sans-Web-Bold.ttf') format('truetype');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'PT Sans';
+	src: url('../../toolbar/fonts/pt_sans_regular-webfont.eot');
+	src: local('PTSansRegular'), url('../../toolbar/fonts/pt_sans-webfont.woff') format('woff'), url('../../toolbar/fonts/PT_Sans-Web-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('../../toolbar/fonts/icomoon.eot');
+	src:url('../../toolbar/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../../toolbar/fonts/icomoon.woff') format('woff'),
+		url('../../toolbar/fonts/icomoon.ttf') format('truetype'),
+		url('../../toolbar/fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Navigation Bar */
+body.has-ss-globaltoolbar {
+	padding-top: 48px; 
+	overflow-x: hidden;
+	margin:0;
+}
+
+.ss-globaltoolbar {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	background-color: rgba(13,19,31,1);
+	@include filter-gradient(#0d131f, #121929, vertical);
+	@include background-image(linear-gradient( top, rgba(13,19,31,1) 0%, rgba(18,25,41,1) 100%));
+
+
+	* { 
+		font-family: "PT Sans", sans-serif;
+		font-weight: normal;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		box-sizing: border-box;
+	}
+
+	.icon-Search, .icon-Login {
+		font-family: 'icomoon';
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+		-webkit-font-smoothing: antialiased;
+	}
+	.icon-Search:before {
+		content: "\1f50d";
+	}
+	.icon-Login:before {
+		content: "\1f464";
+	}
+
+	.inner {
+		width: 960px;
+		margin: 0 auto;
+		height: 45px;
+	}
+
+	.logo {
+		float: left;
+		width: 30px;
+		height: 45px;
+		background: url(../images/ss-logo-white.png) center center no-repeat;
+		span {
+			display: none;
+		}
+	}
+	form {
+		float: right;
+		padding: 0 0 0 12px;
+		position:relative;
+		margin:5px 40px;
+		input.text {
+			float: left;
+			width: 390px;
+			height: 35px;
+			background: #F5F5F5;
+			border: 2px solid #BBBBBB;
+			font-size: 18px;
+			color: #AAAAAA;
+			padding: 0 35px 0 10px;
+			outline: none;
+		}
+		button.submit {
+			position:absolute;
+			background-color: transparent;
+			cursor: pointer;
+			right:10px;
+			top:7px;
+			width: 22px;
+			height: 22px;
+			span {
+				font-size: 22px;
+				color: #798D85;
+			}
+		}
+	}
+	//dropdown
+	.wrapper-dropdown {
+	    /* Size & position */
+	    position: relative;
+	    width: auto;
+	    height:45px;
+	    margin: 0 auto;
+	    padding: 11px 40px 12px 10px;
+	    float:left;
+	 
+	    /* Styles */
+	    background: transparent;
+	    cursor: pointer;
+	    outline: none;
+	    transition: all 0.3s ease-out;
+	    color:#f7f7f7;
+	    font-size:16px;
+
+	    &:after { /* Little arrow */
+		    content: "";
+		    width: 0;
+		    height: 0;
+		    position: absolute;
+		    top: 50%;
+		    right: 15px;
+		    margin-top: -2px;
+		    border-width: 5px 5px 0 5px;
+		    border-style: solid;
+		    border-color: #f7f7f7 transparent;
+		}
+		.dropdown {
+		    /* Size & position */
+		    position: absolute;
+		    top: 100%;
+		    left: 0;
+		    right: 0;
+		 
+		    /* Styles */
+		    background: #ffffff;
+		    border: 1px solid #f5f5f5;
+		    list-style: none;
+		    transition: all 0.3s ease-out;
+		    @include box-shadow(rgba(18, 25, 41, 0.03) 1px 1px 4px);
+		 
+		    /* Hiding */
+		    max-height: 0;
+		    overflow: hidden;
+		    li {
+			    padding: 0 10px ;
+			    a {
+				    display: block;
+				    text-decoration: none;
+				    color: #121929;
+				    font-size:16px;
+				    padding: 10px 0;
+				    transition: all 0.3s ease-out;
+				}
+				&:last-of-type a {
+				    border: none;
+				}
+				&:hover a {
+				    color: #57a9d9;
+				}
+			}
+		}
+		&.active {
+		    &:after {
+			    border-color: #82d1ff transparent;
+			}
+			.dropdown {
+			    max-height: 400px;
+			}
+		}
+	}
+	.login {
+		/* Size & position */
+		float:right;
+		height:45px;
+		padding: 11px 10px 12px 30px;
+		position:relative;
+		/* Styles */
+		color:#f7f7f7;
+		font-size:16px;
+		span {
+			display:block;
+			width: 25px;
+			height: 45px;
+			position:absolute;
+			left:0;
+			top:0;
+			font-size:20px;
+			line-height:45px;
+
+		}
+	}
+}
+
