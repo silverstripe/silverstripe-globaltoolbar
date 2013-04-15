@@ -71,9 +71,9 @@ var ss = ss || {};
 			render: function() {
 				var html = $(
 					'<div class="ss-globaltoolbar">' +
-					'		<div class="inner">' +
-					'			<div class="logo"><span>' + self.options.titleText + '</span></div>' +
-					'			<ul></ul>'  +
+					'	<div class="inner">' +
+					'		<div class="logo"></div>' +
+					'		<div id="dd" class="wrapper-dropdown" tabindex="1"><span>' + self.options.titleText + '</span><ul class="dropdown"></ul></div>' +
 					'	</div>' +
 					'</div>'
 				);
@@ -234,6 +234,31 @@ var ss = ss || {};
 		// Add opensearch (TODO Implement globalsearch and doc search)
 		// $('head').append('<link type="application/opensearchdescription+xml" rel="search" href="globalsearch/opensearchdescription" title="silverstripe.org (Global Search)" /> ');
 		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://open.silverstripe.org/search/opensearch" title="open.silverstripe.org (Bugtracker)" />');
-		// $('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');		
+		// $('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');
+
+		//Site Dropdown
+
+		function DropDown(el) {
+			this.dd = el;
+			this.initEvents();
+		}
+		DropDown.prototype = {
+			initEvents : function() {
+				var obj = this;
+
+				obj.dd.on('click', function(event){
+					$(this).toggleClass('active');
+					event.stopPropagation();
+				});
+			}
+		}
+
+		$(function() {
+			var dd = new DropDown( $('#dd') );
+			$(document).click(function() {
+				// all dropdowns
+				$('.wrapper-dropdown').removeClass('active');
+			});
+		});
 	});
 }(jQuery));
