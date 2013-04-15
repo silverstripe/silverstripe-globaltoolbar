@@ -1,0 +1,230 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+
+@import "compass";
+
+/* Variables */
+
+$textColor :       #121929;
+$linkColor :       #FFFFFF;
+$linkHover :       #82D1FF;
+$backgroundColor : #F5F5F5;
+$borderColor :     #BBBBBB;
+$searchText :      #AAAAAA;
+
+/* Navigation Bar */
+body.has-ss-globaltoolbar {
+	padding-top: 48px; 
+	overflow-x: hidden;
+	margin:0;
+}
+
+.ss-globaltoolbar {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	background-color: rgb(13,19,31);
+	@include filter-gradient(#0d131f, #121929, vertical);
+	@include background-image(linear-gradient( top, rgba(13,19,31,1) 0%, rgba(18,25,41,1) 100%));
+
+	* {
+		font-family: "PT Sans", sans-serif;
+		font-weight: normal;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		box-sizing: border-box;
+	}
+
+	.inner {
+		width: 960px;
+		margin: 0 auto;
+		height: 45px;
+	}
+
+	.logo {
+		float: left;
+		width: 30px;
+		height: 45px;
+		background: url(../images/ss-logo-white.png) center center no-repeat;
+		span {
+			display: none;
+		}
+	}
+	.ss-globaltoolbar-cse-search {
+		float: left;
+		margin-left: 89px;
+		form.gsc-search-box {
+			width: auto;
+			padding: 0 0 0 12px;
+			position:relative;
+			margin:5px 40px;
+			td.gsc-input {
+				padding-right: 6px;
+			}
+			input.gsc-input {
+				float: left;
+				width: 390px;
+				height: 35px;
+				background-color: $backgroundColor;
+				border: 2px solid $borderColor;
+				font-size: 18px;
+				color: $searchText;
+				padding: 0 35px 0 10px;
+				transition: border 0.3s ease-out;
+				&:focus {
+					border-color: $linkHover;
+				}
+			}
+			td.gsc-search-button {
+				width: 0px;
+			}
+			input.gsc-search-button {
+				position:absolute;
+				background-color: transparent;
+				cursor: pointer;
+				right:30px;
+				top:7px;
+				width: 18px;
+				height: 22px;
+				border:none; //overrides gsc styling
+				min-width:18px; //overrides gsc styling
+				@include hide-text(left);
+				background: url(../images/search.png) 0px center no-repeat;
+				&:hover {
+					background-position:-18px center;
+				}
+				&:active {
+					background-position:-36px center;
+				}
+			}
+			div.gsc-clear-button {
+				margin: 0;
+			}
+		}
+	}
+
+	//dropdown
+	.wrapper-dropdown {
+		/* Size & position */
+		position: relative;
+		width: auto;
+		height:45px;
+		margin: 0 auto;
+		padding: 11px 40px 12px 10px;
+		float:left;
+
+		/* Styles */
+		background: transparent;
+		cursor: pointer;
+		outline: none;
+		transition: color 0.3s ease-out;
+		color: $backgroundColor;
+		font-size:16px;
+
+		&::after { /* Little arrow */
+			content: "";
+			width: 0;
+			height: 0;
+			position: absolute;
+			top: 50%;
+			right: 15px;
+			margin-top: -4px;
+			border-width: 5px 5px 0 5px;
+			border-style: solid;
+			border-color: $linkColor transparent;
+		}
+		.dropdown {
+			/* Size & position */
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+
+			/* Styles */
+			background: $linkColor;
+			border: 1px solid $backgroundColor;
+			list-style: none;
+			transition: color 0.3s ease-out;
+			@include box-shadow(rgba(18, 25, 41, 0.03) 1px 1px 4px);
+
+			/* Hiding */
+			max-height: 0;
+			overflow: hidden;
+			li {
+				padding: 0 10px ;
+				a {
+					display: block;
+					text-decoration: none;
+					color: $textColor;
+					font-size:16px;
+					padding: 10px 0;
+					transition: color 0.3s ease-out;
+				}
+				&:last-of-type a {
+					border: none;
+				}
+				&:hover a {
+					color: darken($linkHover, 20%);
+				}
+			}
+		}
+		&.active {
+			&:after {
+				border-color: $linkHover transparent;
+				border-width: 0 5px 5px 5px;
+			}
+			.dropdown {
+				max-height: 400px;
+			}
+		}
+	}
+}
+
+.ss-globaltoolbar-profile {
+	float: left;
+	width: 150px;
+	iframe {
+		height: 43px; //fix for scrollbar in chrome
+	}
+}
+
+.ss-globaltoolbar-iframe {
+	padding: 11px 0 12px 0px;
+	margin: 0;
+}
+
+.ss-globaltoolbar-login {
+	color: #ffffff;
+	a {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.3s ease-out;
+		&:hover {
+			color: $linkHover;
+		}
+	}
+	.login {
+		padding-left: 25px;
+		display: relative;
+		margin-right: 10px;
+		span {
+			display: block;
+			left: 0;
+			top: 12px;
+			position: absolute;
+			width: 17px;
+			height: 22px;
+			background: url(../images/login.png) 0 0 no-repeat;
+			
+		}
+	}
+}
+
+.gsc-completion-container {
+	/* Styles */
+	background: $linkColor;
+	border: 1px solid $backgroundColor;
+	transition: color 0.3s ease-out;
+	@include box-shadow(rgba(18, 25, 41, 0.03) 1px 1px 4px);
+}
+
