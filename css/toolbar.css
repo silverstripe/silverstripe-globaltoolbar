@@ -5,39 +5,39 @@
 body.has-ss-globaltoolbar { padding-top: 48px; overflow-x: hidden; margin: 0; }
 
 /* line 21, ../sass/toolbar.scss */
-.ss-globaltoolbar { width: 100%; position: absolute; top: 0; background-color: #0d131f; *zoom: 1; filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0D131F', endColorstr='#FF121929'); background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #0d131f), color-stop(100%, #121929)); background-image: -webkit-linear-gradient(top, #0d131f 0%, #121929 100%); background-image: -moz-linear-gradient(top, #0d131f 0%, #121929 100%); background-image: -o-linear-gradient(top, #0d131f 0%, #121929 100%); background-image: linear-gradient(top, #0d131f 0%, #121929 100%); }
-/* line 29, ../sass/toolbar.scss */
+.ss-globaltoolbar { width: 100%; position: absolute; top: 0; background-color: #0d131f; *zoom: 1; filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF0D131F', endColorstr='#FF121929'); background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #0d131f), color-stop(100%, #121929)); background-image: -webkit-linear-gradient(top, #0d131f 0%, #121929 100%); background-image: -moz-linear-gradient(top, #0d131f 0%, #121929 100%); background-image: -o-linear-gradient(top, #0d131f 0%, #121929 100%); background-image: linear-gradient(top, #0d131f 0%, #121929 100%); font-size: 14px; }
+/* line 30, ../sass/toolbar.scss */
 .ss-globaltoolbar * { font-family: "PT Sans", sans-serif; font-weight: normal; margin: 0; padding: 0; border: 0; box-sizing: border-box; }
-/* line 38, ../sass/toolbar.scss */
+/* line 39, ../sass/toolbar.scss */
 .ss-globaltoolbar .inner { width: 960px; margin: 0 auto; height: 45px; }
-/* line 44, ../sass/toolbar.scss */
+/* line 45, ../sass/toolbar.scss */
 .ss-globaltoolbar .logo { float: left; width: 30px; height: 45px; background: url(../images/ss-logo-white.png) center center no-repeat; }
-/* line 49, ../sass/toolbar.scss */
+/* line 50, ../sass/toolbar.scss */
 .ss-globaltoolbar .logo span { display: none; }
-/* line 53, ../sass/toolbar.scss */
+/* line 54, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search { float: left; margin-left: 89px; }
-/* line 56, ../sass/toolbar.scss */
+/* line 57, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box { width: auto; padding: 0 0 0 12px; position: relative; margin: 5px 40px; }
-/* line 61, ../sass/toolbar.scss */
+/* line 62, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box td.gsc-input { padding-right: 6px; }
-/* line 64, ../sass/toolbar.scss */
+/* line 65, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box input.gsc-input { float: left; width: 390px; height: 35px; background-color: whitesmoke; border: 2px solid #bbbbbb; font-size: 18px; color: #aaaaaa; padding: 0 35px 0 10px; transition: border 0.3s ease-out; }
-/* line 74, ../sass/toolbar.scss */
+/* line 75, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box input.gsc-input:focus { border-color: #82d1ff; }
-/* line 78, ../sass/toolbar.scss */
+/* line 79, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box td.gsc-search-button { width: 0px; }
-/* line 81, ../sass/toolbar.scss */
+/* line 82, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box input.gsc-search-button { position: absolute; background-color: transparent; cursor: pointer; right: 30px; top: 7px; width: 18px; height: 22px; border: none; min-width: 18px; text-indent: -119988px; overflow: hidden; text-align: left; background: url(../images/search.png) 0px center no-repeat; }
-/* line 93, ../sass/toolbar.scss */
+/* line 94, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box input.gsc-search-button:hover { background-position: -18px center; }
-/* line 96, ../sass/toolbar.scss */
+/* line 97, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box input.gsc-search-button:active { background-position: -36px center; }
-/* line 100, ../sass/toolbar.scss */
+/* line 101, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box div.gsc-clear-button { margin: 0; }
-/* line 107, ../sass/toolbar.scss */
-.ss-globaltoolbar .wrapper-dropdown { /* Size & position */ position: relative; width: auto; height: 45px; margin: 0 auto; padding: 11px 40px 12px 10px; float: left; /* Styles */ background: transparent; cursor: pointer; outline: none; transition: color 0.3s ease-out; color: whitesmoke; font-size: 16px; }
+/* line 108, ../sass/toolbar.scss */
+.ss-globaltoolbar .wrapper-dropdown { /* Size & position */ position: relative; width: auto; height: 45px; margin: 0 auto; padding: 13px 40px 10px 10px; float: left; /* Styles */ background: transparent; cursor: pointer; outline: none; transition: color 0.3s ease-out; color: whitesmoke; }
 /* line 124, ../sass/toolbar.scss */
-.ss-globaltoolbar .wrapper-dropdown::after { /* Little arrow */ content: ""; width: 0; height: 0; position: absolute; top: 50%; right: 15px; margin-top: -4px; border-width: 5px 5px 0 5px; border-style: solid; border-color: white transparent; }
+.ss-globaltoolbar .wrapper-dropdown::after { /* Little arrow */ content: ""; width: 0; height: 0; position: absolute; top: 50%; right: 15px; margin-top: -2px; border-width: 5px 5px 0 5px; border-style: solid; border-color: white transparent; }
 /* line 136, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown .dropdown { /* Size & position */ position: absolute; top: 100%; left: 0; right: 0; /* Styles */ background: white; border: 1px solid whitesmoke; list-style: none; transition: color 0.3s ease-out; -webkit-box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; -moz-box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; /* Hiding */ max-height: 0; overflow: hidden; }
 /* line 153, ../sass/toolbar.scss */
@@ -59,7 +59,7 @@ body.has-ss-globaltoolbar { padding-top: 48px; overflow-x: hidden; margin: 0; }
 .ss-globaltoolbar-profile iframe { height: 43px; }
 
 /* line 191, ../sass/toolbar.scss */
-.ss-globaltoolbar-iframe { padding: 11px 0 12px 0px; margin: 0; }
+.ss-globaltoolbar-iframe { padding: 13px 0 10px 0px; margin: 0; }
 
 /* line 196, ../sass/toolbar.scss */
 .ss-globaltoolbar-login { color: #ffffff; }
@@ -71,6 +71,3 @@ body.has-ss-globaltoolbar { padding-top: 48px; overflow-x: hidden; margin: 0; }
 .ss-globaltoolbar-login .login { padding-left: 25px; display: relative; margin-right: 10px; }
 /* line 210, ../sass/toolbar.scss */
 .ss-globaltoolbar-login .login span { display: block; left: 0; top: 12px; position: absolute; width: 17px; height: 22px; background: url(../images/login.png) 0 0 no-repeat; }
-
-/* line 223, ../sass/toolbar.scss */
-.gsc-completion-container { /* Styles */ background: white; border: 1px solid whitesmoke; transition: color 0.3s ease-out; -webkit-box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; -moz-box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; }
