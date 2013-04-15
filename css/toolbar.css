@@ -35,39 +35,43 @@ body.has-ss-globaltoolbar { padding-top: 48px; overflow-x: hidden; margin: 0; }
 /* line 101, ../sass/toolbar.scss */
 .ss-globaltoolbar .ss-globaltoolbar-cse-search form.gsc-search-box div.gsc-clear-button { margin: 0; }
 /* line 108, ../sass/toolbar.scss */
-.ss-globaltoolbar .wrapper-dropdown { /* Size & position */ position: relative; width: auto; height: 45px; margin: 0 auto; padding: 13px 40px 10px 10px; float: left; /* Styles */ background: transparent; cursor: pointer; outline: none; transition: color 0.3s ease-out; color: whitesmoke; }
+.ss-globaltoolbar .wrapper-dropdown { /* Size & position */ position: relative; width: auto; height: 45px; margin: 0 auto; padding: 13px 40px 10px 10px; float: left; /* Styles */ background: transparent; cursor: pointer; outline: none; transition: color 0.3s ease-out; }
+/* line 122, ../sass/toolbar.scss */
+.ss-globaltoolbar .wrapper-dropdown > span { color: whitesmoke; }
 /* line 124, ../sass/toolbar.scss */
+.ss-globaltoolbar .wrapper-dropdown > span:hover { color: #82d1ff; }
+/* line 129, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown::after { /* Little arrow */ content: ""; width: 0; height: 0; position: absolute; top: 50%; right: 15px; margin-top: -2px; border-width: 5px 5px 0 5px; border-style: solid; border-color: white transparent; }
-/* line 136, ../sass/toolbar.scss */
+/* line 141, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown .dropdown { /* Size & position */ position: absolute; top: 100%; left: 0; right: 0; /* Styles */ background: white; border: 1px solid whitesmoke; list-style: none; transition: color 0.3s ease-out; -webkit-box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; -moz-box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; box-shadow: rgba(18, 25, 41, 0.03) 1px 1px 4px; /* Hiding */ max-height: 0; overflow: hidden; }
-/* line 153, ../sass/toolbar.scss */
+/* line 158, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown .dropdown li { padding: 0 10px; }
-/* line 155, ../sass/toolbar.scss */
+/* line 160, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown .dropdown li a { display: block; text-decoration: none; color: #121929; font-size: 16px; padding: 10px 0; transition: color 0.3s ease-out; }
-/* line 163, ../sass/toolbar.scss */
+/* line 168, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown .dropdown li:last-of-type a { border: none; }
-/* line 166, ../sass/toolbar.scss */
+/* line 171, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown .dropdown li:hover a { color: #1cabff; }
-/* line 172, ../sass/toolbar.scss */
+/* line 177, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown.active:after { border-color: #82d1ff transparent; border-width: 0 5px 5px 5px; }
-/* line 176, ../sass/toolbar.scss */
+/* line 181, ../sass/toolbar.scss */
 .ss-globaltoolbar .wrapper-dropdown.active .dropdown { max-height: 400px; }
 
-/* line 183, ../sass/toolbar.scss */
+/* line 188, ../sass/toolbar.scss */
 .ss-globaltoolbar-profile { float: left; width: 150px; }
-/* line 186, ../sass/toolbar.scss */
+/* line 191, ../sass/toolbar.scss */
 .ss-globaltoolbar-profile iframe { height: 43px; }
 
-/* line 191, ../sass/toolbar.scss */
+/* line 196, ../sass/toolbar.scss */
 .ss-globaltoolbar-iframe { padding: 13px 0 10px 0px; margin: 0; }
 
-/* line 196, ../sass/toolbar.scss */
+/* line 201, ../sass/toolbar.scss */
 .ss-globaltoolbar-login { color: #ffffff; }
-/* line 198, ../sass/toolbar.scss */
+/* line 203, ../sass/toolbar.scss */
 .ss-globaltoolbar-login a { color: inherit; text-decoration: none; transition: color 0.3s ease-out; }
-/* line 202, ../sass/toolbar.scss */
+/* line 207, ../sass/toolbar.scss */
 .ss-globaltoolbar-login a:hover { color: #82d1ff; }
-/* line 206, ../sass/toolbar.scss */
+/* line 211, ../sass/toolbar.scss */
 .ss-globaltoolbar-login .login { padding-left: 25px; display: relative; margin-right: 10px; }
-/* line 210, ../sass/toolbar.scss */
+/* line 215, ../sass/toolbar.scss */
 .ss-globaltoolbar-login .login span { display: block; left: 0; top: 12px; position: absolute; width: 17px; height: 22px; background: url(../images/login.png) 0 0 no-repeat; }
