@@ -33,6 +33,8 @@ body.has-ss-globaltoolbar {
 		margin: 0;
 		padding: 0;
 		border: 0;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 	}
 
@@ -121,6 +123,7 @@ body.has-ss-globaltoolbar {
 		transition: color 0.3s ease-out;
 		> span {
 			color: $backgroundColor;
+			transition: color 0.3s ease-out;
 			&:hover {
 				color:$linkHover;
 			}
