@@ -26,17 +26,8 @@ body.has-ss-globaltoolbar {
 	@include filter-gradient(#0d131f, #121929, vertical);
 	@include background-image(linear-gradient( top, rgba(13,19,31,1) 0%, rgba(18,25,41,1) 100%));
 	font-size: 14px;
-
-	* {
-		font-family: "PT Sans", sans-serif;
-		font-weight: normal;
-		margin: 0;
-		padding: 0;
-		border: 0;
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-	}
+	font-family: "PT Sans", sans-serif;
+	font-weight: normal;
 
 	.inner {
 		width: 960px;
@@ -111,7 +102,7 @@ body.has-ss-globaltoolbar {
 		/* Size & position */
 		position: relative;
 		width: auto;
-		height:45px;
+		height:22px;
 		margin: 0 auto;
 		padding: 13px 40px 10px 10px;
 		float:left;
@@ -147,6 +138,8 @@ body.has-ss-globaltoolbar {
 			top: 100%;
 			left: 0;
 			right: 0;
+			margin: 0;
+			padding: 0;
 
 			/* Styles */
 			background: $linkColor;
@@ -193,6 +186,7 @@ body.has-ss-globaltoolbar {
 	width: 150px;
 	iframe {
 		height: 43px; //fix for scrollbar in chrome
+		border: none;
 	}
 }
 
