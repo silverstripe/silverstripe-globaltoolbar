@@ -13,7 +13,7 @@ $searchText :      #AAAAAA;
 
 /* Navigation Bar */
 body.has-ss-globaltoolbar {
-	padding-top: 48px; 
+	padding-top: 45px; 
 	overflow-x: hidden;
 	margin:0;
 }
@@ -40,9 +40,6 @@ body.has-ss-globaltoolbar {
 		width: 30px;
 		height: 45px;
 		background: url(../images/ss-logo-white.png) center center no-repeat;
-		span {
-			display: none;
-		}
 	}
 	.ss-globaltoolbar-cse-search {
 		float: left;
@@ -64,7 +61,9 @@ body.has-ss-globaltoolbar {
 				font-size: 18px;
 				color: $searchText;
 				padding: 0 35px 0 10px;
-				transition: border 0.3s ease-out;
+				@include transition-property(border);
+				@include transition-duration(0.3s);
+				@include transition-timing-function(ease-out);
 				&:focus {
 					border-color: $linkHover;
 				}
@@ -111,10 +110,14 @@ body.has-ss-globaltoolbar {
 		background: transparent;
 		cursor: pointer;
 		outline: none;
-		transition: color 0.3s ease-out;
+		@include transition-property(color);
+		@include transition-duration(0.3s);
+		@include transition-timing-function(ease-out);
 		> span {
 			color: $backgroundColor;
-			transition: color 0.3s ease-out;
+			@include transition-property(color);
+			@include transition-duration(0.3s);
+			@include transition-timing-function(ease-out);
 			&:hover {
 				color:$linkHover;
 			}
@@ -145,7 +148,9 @@ body.has-ss-globaltoolbar {
 			background: $linkColor;
 			border: 1px solid $backgroundColor;
 			list-style: none;
-			transition: color 0.3s ease-out;
+			@include transition-property(color);
+			@include transition-duration(0.3s);
+			@include transition-timing-function(ease-out);
 			@include box-shadow(rgba(18, 25, 41, 0.03) 1px 1px 4px);
 
 			/* Hiding */
@@ -159,7 +164,9 @@ body.has-ss-globaltoolbar {
 					color: $textColor;
 					font-size:16px;
 					padding: 10px 0;
-					transition: color 0.3s ease-out;
+					@include transition-property(color);
+					@include transition-duration(0.3s);
+					@include transition-timing-function(ease-out);
 				}
 				&:last-of-type a {
 					border: none;
@@ -200,7 +207,9 @@ body.has-ss-globaltoolbar {
 	a {
 		color: inherit;
 		text-decoration: none;
-		transition: color 0.3s ease-out;
+		@include transition-property(color);
+		@include transition-duration(0.3s);
+		@include transition-timing-function(ease-out);
 		&:hover {
 			color: $linkHover;
 		}
