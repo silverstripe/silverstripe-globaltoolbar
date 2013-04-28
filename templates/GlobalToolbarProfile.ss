@@ -1,4 +1,8 @@
-<html>
+<!doctype html>
+<!--[if lt IE 7 ]><html lang="en" class="ie ie6"><![endif]-->
+<!--[if IE 7 ]>   <html lang="en" class="ie ie7"><![endif]-->
+<!--[if IE 8 ]>   <html lang="en" class="ie ie8"><![endif]-->
+<!--[if !IE]> --> <html lang="en">               <!-- <![endif]-->
   <head>
 		<base target="_parent" />
 		<link rel="icon" type="image/png" href="favicon.png">
