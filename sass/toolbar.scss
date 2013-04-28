@@ -70,6 +70,10 @@ body.has-ss-globaltoolbar {
 				&:focus {
 					border-color: $linkHover;
 				}
+				.ie7 & {
+					padding-top: 5px;
+					height: 26px;
+				}
 			}
 			td.gsc-search-button {
 				width: 0px;
