@@ -49,13 +49,16 @@ body.has-ss-globaltoolbar {
 			padding: 0 0 0 12px;
 			position:relative;
 			margin:5px 40px;
+			.ie7 & {
+				width: 413px;
+			}
 			td.gsc-input {
 				padding-right: 6px;
 			}
 			input.gsc-input {
 				float: left;
-				width: 390px;
-				height: 35px;
+				width: 345px;
+				height: 31px;
 				background-color: $backgroundColor;
 				border: 2px solid $borderColor;
 				font-size: 18px;
@@ -72,22 +75,23 @@ body.has-ss-globaltoolbar {
 				width: 0px;
 			}
 			input.gsc-search-button {
-				position:absolute;
+				position: absolute;
 				background-color: transparent;
 				cursor: pointer;
-				right:30px;
-				top:7px;
+				right: 30px;
+				top: 7px;
 				width: 18px;
 				height: 22px;
-				border:none; //overrides gsc styling
-				min-width:18px; //overrides gsc styling
-				@include hide-text(left);
+				border: none; //overrides gsc styling
+				min-width: 18px; //overrides gsc styling
+				@include hide-text();
+				text-transform: capitalize; //fix for IE7
 				background: url(../images/search.png) 0px center no-repeat;
 				&:hover {
-					background-position:-18px center;
+					background-position: -18px center;
 				}
 				&:active {
-					background-position:-36px center;
+					background-position: -36px center;
 				}
 			}
 			div.gsc-clear-button {
@@ -100,20 +104,26 @@ body.has-ss-globaltoolbar {
 	.wrapper-dropdown {
 		/* Size & position */
 		position: relative;
-		width: auto;
 		height:22px;
-		margin: 0 auto;
 		padding: 13px 40px 10px 10px;
-		float:left;
+		float: left;
 
 		/* Styles */
-		background: transparent;
 		cursor: pointer;
 		outline: none;
 		@include transition-property(color);
 		@include transition-duration(0.3s);
 		@include transition-timing-function(ease-out);
-		> span {
+		&.active {
+			&:after {
+				border-color: $linkHover transparent;
+				border-width: 0 5px 5px 5px;
+			}
+			.dropdown {
+				max-height: 400px;
+			}
+		}
+		.dropdown-placeholder {
 			color: $backgroundColor;
 			@include transition-property(color);
 			@include transition-duration(0.3s);
@@ -176,21 +186,13 @@ body.has-ss-globaltoolbar {
 				}
 			}
 		}
-		&.active {
-			&:after {
-				border-color: $linkHover transparent;
-				border-width: 0 5px 5px 5px;
-			}
-			.dropdown {
-				max-height: 400px;
-			}
-		}
 	}
 }
 
 .ss-globaltoolbar-profile {
-	float: left;
+	float: right;
 	width: 150px;
+	height: 45px;
 	iframe {
 		height: 43px; //fix for scrollbar in chrome
 		border: none;
@@ -203,9 +205,9 @@ body.has-ss-globaltoolbar {
 }
 
 .ss-globaltoolbar-login {
-	color: #ffffff;
+	color: $linkColor;
 	a {
-		color: inherit;
+		color: $linkColor;
 		text-decoration: none;
 		@include transition-property(color);
 		@include transition-duration(0.3s);

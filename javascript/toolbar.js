@@ -17,7 +17,7 @@ var ss = ss || {};
 			sortEntries: null,
 			googleCseId: '006620299726686837192:uigdvjfexik',
 			googleCseResultsUrl: 'http://www.silverstripe.org/search/',
-			profileIframeUrl: 'http://localhost/ssorg-v2/toolbar/profile'
+			profileIframeUrl: 'http://localhost/ssorg_toolbar/toolbar/profile'
 		};
 		
 		// public
@@ -73,7 +73,7 @@ var ss = ss || {};
 					'<div class="ss-globaltoolbar">' +
 					'	<div class="inner">' +
 					'		<div class="logo"></div>' +
-					'		<div id="dd" class="wrapper-dropdown" tabindex="1"><span>' + self.options.titleText + '</span><ul class="dropdown"></ul></div>' +
+					'		<div id="dd" class="wrapper-dropdown" tabindex="1"><span class="dropdown-placeholder">' + self.options.titleText + '</span><ul class="dropdown"></ul></div>' +
 					'	</div>' +
 					'</div>'
 				);
@@ -130,6 +130,7 @@ var ss = ss || {};
 				profileIframe = $('<iframe />').attr({
 					src: self.options.profileIframeUrl,
 					border: 0,
+					frameBorder: 0,
 					width: '100%',
 					height: '40px'
 				});
@@ -236,7 +237,7 @@ var ss = ss || {};
 		$('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://open.silverstripe.org/search/opensearch" title="open.silverstripe.org (Bugtracker)" />');
 		// $('head').append('<link type="application/opensearchdescription+xml" rel="search" href="http://doc.silverstripe.org/lib/exe/opensearch.php" title="doc.silverstripe.org (Wiki)" /> ');
 
-		//Site Dropdown
+		//Site Dropdown 
 
 		function DropDown(el) {
 			this.dd = el;
