@@ -1,5 +1,5 @@
 {
-	"name":"silverstripe/globaltoolbar",
+	"name":"silverstripe/toolbar",
 	"type": "silverstripe-module",
 	"description": "Navigation bar include showing SilverStripe community sites",
 	"keywords": ["silverstripe"],
