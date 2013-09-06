@@ -15,5 +15,5 @@
 	{
 		"php": ">=5.3.2"
 	},
-	"target-dir": "toolbar"
+	"target-dir": "../../../toolbar"
 }
