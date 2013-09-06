@@ -17,7 +17,7 @@ var ss = ss || {};
 			sortEntries: null,
 			googleCseId: '006620299726686837192:uigdvjfexik',
 			googleCseResultsUrl: 'http://www.silverstripe.org/search/',
-			profileIframeUrl: 'http://localhost/ssorg_toolbar/toolbar/profile'
+			profileIframeUrl: 'http://www.silverstripe.org/toolbar/profile'
 		};
 		
 		// public
@@ -135,7 +135,9 @@ var ss = ss || {};
 					height: '40px'
 				});
 				profile.append(profileIframe);
-				inner.append(profile);
+				
+				// TODO Fix profile styling
+				// inner.append(profile);
 				
 				// add a class to the body so we can pad it down
 				$("body").addClass('has-ss-globaltoolbar');
@@ -189,6 +191,16 @@ var ss = ss || {};
 		var entries = [
 			{
 				'id': 'doc',
+				'url': 'http://www.silverstripe.org',
+				'title': 'Main Website'
+			},
+			{
+				'id': 'addons',
+				'url': 'http://addons.silverstripe.org',
+				'title': 'Addons'
+			},
+			{
+				'id': 'doc',
 				'url': 'http://doc.silverstripe.org',
 				'title': 'Documentation'
 			},
@@ -209,7 +221,7 @@ var ss = ss || {};
 			},
 			{
 				'id': 'bugtracker',
-				'url': 'http://open.silverstripe.org',
+				'url': 'http://doc.silverstripe.org/framework/en/trunk/misc/contributing/issues',
 				'title': 'Bugtracker'
 			}
 		];
