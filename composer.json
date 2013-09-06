@@ -1,0 +1,19 @@
+{
+	"name":"silverstripe/globaltoolbar",
+	"type": "silverstripe-module",
+	"description": "Navigation bar include showing SilverStripe community sites",
+	"keywords": ["silverstripe"],
+	"license": "BSD-3-Clause",
+	"homepage": "https://github.com/silverstripe/silverstripe-globaltoolbar/",
+	"authors":[
+		{
+			"name": "Ingo Schommer",
+			"homepage": "http://chillu.com",
+			"email" : "ingo@silverstripe.com"
+		}
+	],
+	"require": 
+		{
+			"php": ">=5.3.2"
+		}
+}
