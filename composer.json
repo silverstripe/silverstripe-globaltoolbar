@@ -1,5 +1,6 @@
 {
 	"name":"silverstripe/globaltoolbar",
+	"type": "silverstripe-module",
 	"description": "Navigation bar include showing SilverStripe community sites",
 	"keywords": ["silverstripe"],
 	"license": "BSD-3-Clause",
@@ -14,6 +15,5 @@
 	"require": 
 	{
 		"php": ">=5.3.2"
-	},
-	"target-dir": "../../../toolbar"
+	}
 }
