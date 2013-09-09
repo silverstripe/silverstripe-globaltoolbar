@@ -13,6 +13,7 @@ var ss = ss || {};
 			prependTo: 'body',
 			titleText: 'SilverStripe.org sites',
 			searchShow: true,
+			searchPlaceholder: "Search all SilverStripe.org sites",
 			filterEntries: null,
 			sortEntries: null,
 			googleCseId: '006620299726686837192:uigdvjfexik',
@@ -108,6 +109,8 @@ var ss = ss || {};
 									tag: 'searchbox-only',
 									resultsUrl: self.options.googleCseResultsUrl
 								});
+								console.debug($('.ss-globaltoolbar-cse-search input[name=search]'));
+								$('.ss-globaltoolbar-cse-search input[name=search]').attr('placeholder', self.options.searchPlaceholder);
 							};
 							if (document.readyState == 'complete') {
 								renderSearchElement();

@@ -9,7 +9,7 @@ $linkColor :       #FFFFFF;
 $linkHover :       #82D1FF;
 $backgroundColor : #F5F5F5;
 $borderColor :     #BBBBBB;
-$searchText :      #AAAAAA;
+$searchText :      #0d131f;
 
 /* Navigation Bar */
 body.has-ss-globaltoolbar {
@@ -42,13 +42,13 @@ body.has-ss-globaltoolbar {
 		background: url(../images/ss-logo-white.png) center center no-repeat;
 	}
 	.ss-globaltoolbar-cse-search {
-		float: left;
+		float: right;
 		margin-left: 89px;
 		form.gsc-search-box {
 			width: auto;
 			padding: 0 0 0 12px;
 			position:relative;
-			margin:5px 40px;
+			margin:5px 0 5px 40px;
 			.ie7 & {
 				width: 413px;
 			}
@@ -61,8 +61,9 @@ body.has-ss-globaltoolbar {
 				height: 31px;
 				background-color: $backgroundColor;
 				border: 2px solid $borderColor;
-				font-size: 18px;
+				font-size: 13px;
 				color: $searchText;
+				margin: 0;
 				padding: 0 35px 0 10px;
 				@include transition-property(border);
 				@include transition-duration(0.3s);
