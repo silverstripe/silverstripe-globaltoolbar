@@ -109,7 +109,6 @@ var ss = ss || {};
 									tag: 'searchbox-only',
 									resultsUrl: self.options.googleCseResultsUrl
 								});
-								console.debug($('.ss-globaltoolbar-cse-search input[name=search]'));
 								$('.ss-globaltoolbar-cse-search input[name=search]').attr('placeholder', self.options.searchPlaceholder);
 							};
 							if (document.readyState == 'complete') {
@@ -198,11 +197,6 @@ var ss = ss || {};
 				'title': 'Main Website'
 			},
 			{
-				'id': 'addons',
-				'url': 'http://addons.silverstripe.org',
-				'title': 'Addons'
-			},
-			{
 				'id': 'doc',
 				'url': 'http://doc.silverstripe.org',
 				'title': 'Documentation'
@@ -221,6 +215,11 @@ var ss = ss || {};
 				'id': 'userhelp',
 				'url': 'http://userhelp.silverstripe.org',
 				'title': 'User help'
+			},
+			{
+				'id': 'addons',
+				'url': 'http://addons.silverstripe.org',
+				'title': 'Addons'
 			},
 			{
 				'id': 'bugtracker',
