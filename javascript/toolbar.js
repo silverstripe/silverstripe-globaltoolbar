@@ -71,7 +71,7 @@ var ss = ss || {};
 			 */
 			render: function() {
 				var html = $(
-					'<div class="ss-globaltoolbar">' +
+					'<div id="ss-globaltoolbar">' +
 					'	<div class="inner">' +
 					'		<div class="logo"></div>' +
 					'		<div id="dd" class="wrapper-dropdown" tabindex="1"><span class="dropdown-placeholder">' + self.options.titleText + '</span><ul class="dropdown"></ul></div>' +

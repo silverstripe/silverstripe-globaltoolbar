@@ -18,7 +18,9 @@ body.has-ss-globaltoolbar {
 	margin:0;
 }
 
-.ss-globaltoolbar {
+#ss-globaltoolbar {
+	@include nested-reset();
+
 	width: 100%;
 	position: absolute;
 	top: 0;
@@ -100,7 +102,20 @@ body.has-ss-globaltoolbar {
 				}
 			}
 			div.gsc-clear-button {
+				display: inline;
+				text-align: right;
 				margin: 0;
+				padding-left: 10px;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-image: url('//www.google.com/uds/css/clear.gif');
+				cursor: pointer;
+			}
+			table {
+				border: 0;
+				margin: 0;
+				padding: 0;
+				background-color: transparent;
 			}
 		}
 	}
