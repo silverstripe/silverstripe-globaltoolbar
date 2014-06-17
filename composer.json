@@ -10,11 +10,12 @@
 			"name": "Ingo Schommer",
 			"homepage": "http://chillu.com",
 			"email" : "ingo@silverstripe.com"
+		},
+		{
+			"name": "Uncle Cheese",
+			"homepage": "http://leftandmain.com",
+			"email" : "unclecheese@leftandmain.com"
 		}
-	],
-	"require": 
-	{
-		"php": ">=5.3.2",
-		"ajshort/silverstripe-gridfieldextensions": "dev-master"
-	}
+
+	]
 }
