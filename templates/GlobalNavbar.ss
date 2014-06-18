@@ -16,7 +16,7 @@
 
         <%-- Profile menu --%>
         <ul class="nav navbar-nav global-right hidden-xs">
-            <iframe src="http://ssorg.dev/toolbar/profile" width="100%" height="40" frameborder="0" border="0"></iframe>
+            <iframe src="http://ssorg-another.test.silverstripe.com/toolbar/profile" width="100%" height="40" frameborder="0" border="0"></iframe>
         </ul>
 
         <%-- Navigation top level --%>
