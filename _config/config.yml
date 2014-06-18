@@ -2,7 +2,7 @@ SiteTree:
   extensions:
     - GlobalNavExtension
 GlobalNav:
-  hostname: 'http://ssorg.dev'
+  hostname: 'http://ssorg-another.test.silverstripe.com'
   snippet_path: '/global_nav.html'
 Director:
   routes:
