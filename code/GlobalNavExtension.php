@@ -8,6 +8,7 @@ class GlobalNavExtension extends DataExtension
     );
 
 
+
     public function updateSettingsFields(FieldList $fields) {
         if($this->owner->ParentID == 0) {
             $fields->addFieldToTab("Root.Settings", CheckboxField::create('ShowInGlobalNav','Show in global nav'));
@@ -21,6 +22,7 @@ class GlobalNavExtension extends DataExtension
         }
 
         $path = Config::inst()->get('GlobalNav','snippet_path');
+
         $html = @file_get_contents($this->getToolbarHostname().$path);
 
         return $html;
@@ -32,6 +34,7 @@ class GlobalNavExtension extends DataExtension
             $this->createNav();
         }
     }
+
 
 
     protected function getToolbarHostname() {

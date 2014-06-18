@@ -16,6 +16,7 @@
 
         <%-- Profile menu --%>
         <ul class="nav navbar-nav global-right hidden-xs">
+
             <iframe src="{$ToolbarHostname}/toolbar/profile" width="100%" height="40" frameborder="0" border="0"></iframe>
         </ul>
 
