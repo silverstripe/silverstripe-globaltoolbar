@@ -5,5 +5,5 @@ GlobalNav:
   hostname: 'http://ssorg-another.test.silverstripe.com'
   snippet_path: '/global_nav.html'
 Director:
-  routes:
+  rules:
     'toolbar//$Action': 'GlobalToolbarController'
