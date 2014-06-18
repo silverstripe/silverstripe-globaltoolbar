@@ -1,0 +1,9 @@
+SiteTree:
+  extensions:
+    - GlobalNavExtension
+GlobalNav:
+  hostname: 'http://ssorg.dev'
+  snippet_path: '/global_nav.html'  
+Director:
+  rules:
+    'toolbar//$Action': 'GlobalToolbarController'
