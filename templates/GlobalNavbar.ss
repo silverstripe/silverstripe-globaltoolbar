@@ -24,7 +24,7 @@
         
             <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
                 <% loop $Pages %>    
-                    <li class="$LinkingMode">
+                    <li>
                         <a href="$Link" title="Go to the $Title.XML page">$MenuTitle.XML</a>
                     </li>
                 <% end_loop %>
@@ -34,3 +34,8 @@
     </div>
 </nav>
 </div>
+<script type="text/javascript">
+(function() {
+var a;if(a = document.querySelector('.nav a[href="'+window.location.pathname+'"]')) a.parentNode.classList.add('current');
+})();
+</script>
