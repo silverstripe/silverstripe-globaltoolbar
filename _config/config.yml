@@ -1,0 +1,9 @@
+SiteTree:
+  extensions:
+    - GlobalNavExtension
+GlobalNav:
+  snippet_path: '/assets/global-nav.html'
+  css_path: '/toolbar/css/toolbar.css'
+Director:
+  rules:
+    'toolbar//$Action': 'GlobalToolbarController'

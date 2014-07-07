@@ -1,0 +1,262 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
+
+@import "compass";
+
+/* Variables */
+
+$textColor :       #121929;
+$linkColor :       #FFFFFF;
+$linkHover :       #82D1FF;
+$backgroundColor : #F5F5F5;
+$borderColor :     #BBBBBB;
+$searchText :      #0d131f;
+
+/* Navigation Bar */
+body.has-ss-globaltoolbar {
+	padding-top: 45px; 
+	overflow-x: hidden;
+	margin:0;
+}
+
+#ss-globaltoolbar {
+	@include nested-reset();
+
+	width: 100%;
+	position: absolute;
+	top: 0;
+	background-color: rgb(13,19,31);
+	@include filter-gradient(#0d131f, #121929, vertical);
+	@include background-image(linear-gradient( top, rgba(13,19,31,1) 0%, rgba(18,25,41,1) 100%));
+	font-size: 14px;
+	font-family: "PT Sans", sans-serif;
+	font-weight: normal;
+
+	.inner {
+		width: 960px;
+		margin: 0 auto;
+		height: 45px;
+	}
+
+	.logo {
+		float: left;
+		width: 30px;
+		height: 45px;
+		background: url(../images/ss-logo-white.png) center center no-repeat;
+	}
+	.ss-globaltoolbar-cse-search {
+		float: right;
+		margin-left: 89px;
+		form.gsc-search-box {
+			width: auto;
+			padding: 0 0 0 12px;
+			position:relative;
+			margin:5px 0 5px 40px;
+			.ie7 & {
+				width: 413px;
+			}
+			td.gsc-input {
+				padding-right: 6px;
+			}
+			input.gsc-input {
+				float: left;
+				width: 345px;
+				height: 31px;
+				background-color: $backgroundColor;
+				border: 2px solid $borderColor;
+				font-size: 13px;
+				color: $searchText;
+				margin: 0;
+				padding: 0 35px 0 10px;
+				@include transition-property(border);
+				@include transition-duration(0.3s);
+				@include transition-timing-function(ease-out);
+				&:focus {
+					border-color: $linkHover;
+				}
+				.ie7 & {
+					padding-top: 5px;
+					height: 26px;
+				}
+			}
+			td.gsc-search-button {
+				width: 0px;
+			}
+			input.gsc-search-button {
+				position: absolute;
+				background-color: transparent;
+				cursor: pointer;
+				right: 30px;
+				top: 7px;
+				width: 18px;
+				height: 22px;
+				border: none; //overrides gsc styling
+				min-width: 18px; //overrides gsc styling
+				@include hide-text();
+				text-transform: capitalize; //fix for IE7
+				background: url(../images/search.png) 0px center no-repeat;
+				&:hover {
+					background-position: -18px center;
+				}
+				&:active {
+					background-position: -36px center;
+				}
+			}
+			div.gsc-clear-button {
+				display: inline;
+				text-align: right;
+				margin: 0;
+				padding-left: 10px;
+				background-repeat: no-repeat;
+				background-position: center center;
+				background-image: url('//www.google.com/uds/css/clear.gif');
+				cursor: pointer;
+			}
+			table {
+				border: 0;
+				margin: 0;
+				padding: 0;
+				background-color: transparent;
+			}
+		}
+	}
+
+	//dropdown
+	.wrapper-dropdown {
+		/* Size & position */
+		position: relative;
+		height:22px;
+		padding: 13px 40px 10px 10px;
+		float: left;
+
+		/* Styles */
+		cursor: pointer;
+		outline: none;
+		@include transition-property(color);
+		@include transition-duration(0.3s);
+		@include transition-timing-function(ease-out);
+		&.active {
+			&:after {
+				border-color: $linkHover transparent;
+				border-width: 0 5px 5px 5px;
+			}
+			.dropdown {
+				max-height: 400px;
+			}
+		}
+		.dropdown-placeholder {
+			color: $backgroundColor;
+			@include transition-property(color);
+			@include transition-duration(0.3s);
+			@include transition-timing-function(ease-out);
+			&:hover {
+				color:$linkHover;
+			}
+		}
+
+		&::after { /* Little arrow */
+			content: "";
+			width: 0;
+			height: 0;
+			position: absolute;
+			top: 50%;
+			right: 15px;
+			margin-top: -2px;
+			border-width: 5px 5px 0 5px;
+			border-style: solid;
+			border-color: $linkColor transparent;
+		}
+		.dropdown {
+			display: none;
+
+			/* Size & position */
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			margin: 0;
+			padding: 0;
+			z-index: 99999;
+
+			/* Styles */
+			background: $linkColor;
+			border: 1px solid $borderColor;
+			list-style: none;
+			@include transition-property(color);
+			@include transition-duration(0.3s);
+			@include transition-timing-function(ease-out);
+			@include box-shadow(rgba(18, 25, 41, 0.03) 1px 1px 4px);
+
+			/* Hiding */
+			max-height: 0;
+			overflow: hidden;
+			li {
+				padding: 0 10px ;
+				a {
+					display: block;
+					text-decoration: none;
+					color: $textColor;
+					font-size:16px;
+					padding: 10px 0;
+					@include transition-property(color);
+					@include transition-duration(0.3s);
+					@include transition-timing-function(ease-out);
+				}
+				&:last-of-type a {
+					border: none;
+				}
+				&:hover a {
+					color: darken($linkHover, 20%);
+				}
+			}
+		}
+
+		&.active .dropdown {
+			display: block;
+		}
+	}
+}
+
+.ss-globaltoolbar-profile {
+	float: right;
+	width: 150px;
+	height: 45px;
+	iframe {
+		height: 43px; //fix for scrollbar in chrome
+		border: none;
+	}
+}
+
+.ss-globaltoolbar-iframe {
+	padding: 13px 0 10px 0px;
+	margin: 0;
+}
+
+.ss-globaltoolbar-login {
+	color: $linkColor;
+	a {
+		color: $linkColor;
+		text-decoration: none;
+		@include transition-property(color);
+		@include transition-duration(0.3s);
+		@include transition-timing-function(ease-out);
+		&:hover {
+			color: $linkHover;
+		}
+	}
+	.login {
+		padding-left: 25px;
+		display: relative;
+		margin-right: 10px;
+		span {
+			display: block;
+			left: 0;
+			top: 12px;
+			position: absolute;
+			width: 17px;
+			height: 22px;
+			background: url(../images/login.png) 0 0 no-repeat;
+			
+		}
+	}
+}
+
