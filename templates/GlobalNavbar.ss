@@ -44,7 +44,7 @@
 
 <% loop $Pages %>
 <% if $ShouldShowChildren %>
-<nav style="display:none;" class="navbar navbar-inverse navbar-secondary navbar-fixed-top" role="navigation" data-parent-id="$ID">
+<nav style="display:none;" class="navbar navbar-inverse navbar-secondary" role="navigation" data-parent-id="$ID">
     <div class="container">
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" role="navigation">

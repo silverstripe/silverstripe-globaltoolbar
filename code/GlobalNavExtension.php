@@ -76,6 +76,11 @@ class GlobalNavExtension extends DataExtension
     }
 
 
+    public function IsHostSite() {
+        return $this->getToolbarHostname() == Director::absoluteBaseURL();
+    }
+
+
     protected function createNav() {
         $html = ViewableData::create()->customise(array(
             'ToolbarHostname' => $this->getToolbarHostname(),
