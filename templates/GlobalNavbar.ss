@@ -62,6 +62,17 @@
 
 <script type="text/javascript">
 (function() {
+
+var currentHost = window.location.protocol+'//'+window.location.hostname+'/';
+if(currentHost == '$ToolbarHostname') {
+    var navs = document.querySelectorAll('nav');
+    for(var nav in navs) {
+        if(typeof navs[nav] == 'object') {            
+            navs[nav].setAttribute('data-current-host', true);    
+        }
+    }
+}
+
 var parentid, parent;
 a = document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
 if(!a) return;
