@@ -60,15 +60,19 @@
     </nav>
     <% end_if %>
     <% end_loop %>
+
+
+    <div class="container">
+        <div class="search-pane search-pane-desktop" id="toolbarSearch">
+            <a href="#" class="ion-close btn search-close" title="Close search"></a>
+            <gcse:searchbox-only resultsUrl="{$BaseUrl}search/" enableAutoComplete="true" title="Search SilverStripe" placeholder="Search SilverStripe"></gcse:searchbox-only>
+        </div>
+    </div>
+
 </div>
 
 <script type="text/javascript">
 (function() {
-
-var currentHost = document.getElementsByTagName('base')[0].href;
-if(currentHost == '$ToolbarHostname') {
-    document.getElementById('navWrapper').setAttribute('data-current-host', true);
-}
 
 var parentid, parent;
 a = document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
@@ -86,9 +90,18 @@ if(parentid = a.getAttribute('data-parent-id')) {
 })();
 
 (function() {
+    var currentHost = document.getElementsByTagName('base')[0].href;
+    
+    if(currentHost == '$ToolbarHostname') {
+        document.getElementById('navWrapper').setAttribute('data-current-host', true);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
+
         var tabHolderElem = document.querySelector('.search-pane');
-        var desktopSearchElem = document.querySelector('.search-pane-desktop');
+        var desktopSearchElem = (currentHost == '$ToolbarHostname') ? 
+            document.getElementById('desktopSearch') : 
+            document.getElementById('toolbarSearch');
         var navSearchA = document.querySelector('.nav-search a');
         var navTabsSearchA = document.querySelector('.nav-tabs-search a');
         var aSearchClose = document.querySelector('a.search-close');
