@@ -82,7 +82,8 @@ class GlobalNavExtension extends DataExtension
             'Pages' => SiteTree::get()->filter(array(
                 'ParentID' => 0,
                 'ShowInGlobalNav' => true
-            ))
+            )),
+            'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
         ))->renderWith('GlobalNavbar');
 
         $path = Config::inst()->get('GlobalNav','snippet_path');

@@ -4,6 +4,7 @@ SiteTree:
 GlobalNav:
   snippet_path: '/assets/global-nav.html'
   css_path: '/toolbar/css/toolbar.css'
+  google_search_id: 006620299726686837192:uigdvjfexik
 Director:
   rules:
     'toolbar//$Action': 'GlobalToolbarController'

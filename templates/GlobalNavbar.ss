@@ -76,4 +76,49 @@ if(parentid = a.getAttribute('data-parent-id')) {
 }
 
 })();
+
+(function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        var tabHolderElem = document.querySelector('.search-pane');
+        var desktopSearchElem = document.querySelector('.search-pane-desktop');
+        var navSearchA = document.querySelector('.nav-search a');
+        var navTabsSearchA = document.querySelector('.nav-tabs-search a');
+        var aSearchClose = document.querySelector('a.search-close');
+
+        // search tabs
+        if(navSearchA) {
+            navSearchA.addEventListener('click', function (e) {
+                e.preventDefault()
+                e.target.parentNode.classList.add('current');
+                desktopSearchElem.classList.add('show');
+            })
+        }
+        else console.log('no navsearch a');
+
+        if(navTabsSearchA) {
+            navTabsSearchA.addEventListener('click', function (e) {
+                e.preventDefault()
+                e.target.parentNode.classList.toggle('show');
+                tabHolderElem.classList.toggle('show');
+            });
+        }
+
+        if(aSearchClose) {
+            aSearchClose.addEventListener('click', function (e) {
+                e.preventDefault()
+                desktopSearchElem.classList.remove('show');
+            });
+        }
+    });
+
+})();
+
+(function() {
+var cx = '$GoogleCustomSearchId';
+var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+    '//www.google.com/cse/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+})();
+
 </script>
