@@ -16,11 +16,14 @@
                     <span class="ion-navicon"></span>
                 </a>
             </div>
-
+            
             <%-- Profile menu --%>
             <ul class="nav navbar-nav global-right hidden-xs">
                 <li class="nav-search">
-                    <a class="ion-search" href="#NavbarSecondary" title="Search"></a>
+                    <a class="search" href="#NavbarSecondary" title="Search">
+                        <% include SearchSvg %>
+                        <span>Search site</span>
+                    </a>
                 </li>
                 <!-- <li class="hidden-xs">
                     <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
@@ -64,7 +67,9 @@
 
     <div class="container">
         <div class="search-pane search-pane-desktop" id="toolbarSearch">
-            <a href="#" class="ion-close btn search-close" title="Close search"></a>
+            <a href="#" class="search-close" title="Close search">
+                <% include CloseSvg %>
+            </a>
             <gcse:searchbox-only resultsUrl="{$BaseUrl}search/" enableAutoComplete="true" title="Search SilverStripe" placeholder="Search SilverStripe"></gcse:searchbox-only>
         </div>
     </div>
