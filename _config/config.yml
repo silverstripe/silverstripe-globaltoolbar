@@ -1,6 +1,9 @@
 SiteTree:
   extensions:
-    - GlobalNavExtension
+    - GlobalNavSiteTreeExtension
+Controller:
+  extensions:
+    - GlobalNavControllerExtension
 GlobalNav:
   snippet_path: '/assets/global-nav.html'
   css_path: '/toolbar/css/toolbar.css'

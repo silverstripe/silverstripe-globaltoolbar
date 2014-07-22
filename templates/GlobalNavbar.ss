@@ -84,11 +84,11 @@ a = document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
 if(!a) return;
 
 a.parentNode.classList.add('current');
-if(parentid = a.getAttribute('data-parent-id')) {        
-    if(parent = document.querySelector('[data-id="'+parentid+'"]')) {            
+if(parent_id = a.getAttribute('data-parent-id')) {        
+    if(parent = document.querySelector('[data-id="'+parent_id+'"]')) {            
         parent.classList.add('current');
-        var childNav = document.querySelector('nav[data-parent-id="'+parentid+'"]');            
-        document.querySelector('nav[data-parent-id="'+parentid+'"]').style.display='block';
+        var childNav = document.querySelector('nav[data-parent-id="'+parent_id+'"]');            
+        document.querySelector('nav[data-parent-id="'+parent_id+'"]').style.display='block';
     }
 }
 

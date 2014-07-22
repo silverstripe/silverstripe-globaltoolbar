@@ -1,12 +1,35 @@
 <?php
 
-class GlobalNavExtension extends DataExtension
+class GlobalNavSiteTreeExtension extends DataExtension
 {
 
     private static $db = array (
         'ShowInGlobalNav' => 'Boolean',
         'ShowChildrenInGlobalNav' => 'Boolean'
     );
+
+
+    public static function get_toolbar_hostname() {
+        return  Config::inst()->get('GlobalNav','use_localhost') ? 
+                Director::absoluteBaseURL() :
+                Config::inst()->get('GlobalNav','hostname');        
+    }
+
+
+    public static function create_nav() {        
+        $html = ViewableData::create()->customise(array(
+            'ToolbarHostname' => self::get_toolbar_hostname(),
+            'Pages' => SiteTree::get()->filter(array(
+                'ParentID' => 0,
+                'ShowInGlobalNav' => true
+            )),
+            'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
+        ))->renderWith('GlobalNavbar');
+
+        $path = Config::inst()->get('GlobalNav','snippet_path');
+        
+        file_put_contents(BASE_PATH.$path, $html);        
+    }    
 
 
     public function updateSettingsFields(FieldList $fields) {
@@ -47,46 +70,10 @@ class GlobalNavExtension extends DataExtension
     }
 
 
-    public function GlobalNav() {        
-        $host = $this->getToolbarHostname();        
-        if(isset($_REQUEST['flush']) && $host == Director::absoluteBaseURL()) {
-            $this->createNav();        
-        }
-
-        $path = Config::inst()->get('GlobalNav','snippet_path');
-        $html = file_get_contents(Controller::join_links($this->getToolbarHostname(),$path));
-
-        Requirements::css(Controller::join_links($host, Config::inst()->get('GlobalNav','css_path')));
-        return $html;
-    }
-
-
     public function onAfterWrite() {
         if($this->owner->ParentID == 0) {
             $this->createNav();
         }
     }
 
-
-
-    protected function getToolbarHostname() {
-        return  Config::inst()->get('GlobalNav','use_localhost') ? 
-                Director::absoluteBaseURL() :
-                Config::inst()->get('GlobalNav','hostname');        
-    }
-
-
-    protected function createNav() {
-        $html = ViewableData::create()->customise(array(
-            'ToolbarHostname' => $this->getToolbarHostname(),
-            'Pages' => SiteTree::get()->filter(array(
-                'ParentID' => 0,
-                'ShowInGlobalNav' => true
-            )),
-            'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
-        ))->renderWith('GlobalNavbar');
-
-        $path = Config::inst()->get('GlobalNav','snippet_path');
-        file_put_contents(BASE_PATH.$path, $html);        
-    }
 }
