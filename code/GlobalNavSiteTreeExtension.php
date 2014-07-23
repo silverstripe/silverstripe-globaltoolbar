@@ -72,7 +72,7 @@ class GlobalNavSiteTreeExtension extends DataExtension
 
     public function onAfterWrite() {
         if($this->owner->ParentID == 0) {
-            $this->createNav();
+            self::create_nav();
         }
     }
 
