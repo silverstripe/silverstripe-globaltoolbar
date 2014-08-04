@@ -1,7 +1,7 @@
 <div id="navWrapper">
     <nav class="navbar navbar-inverse navbar-global" role="navigation">
         <div class="container">
-            <h1 class="visible-xs">$Title</h1>
+            <h1 class="visible-xs">$CurrentPage.Title</h1>
 
             <%-- Brand and toggle get grouped for better mobile display --%>
             <div class="navbar-header">
