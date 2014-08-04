@@ -109,7 +109,8 @@ if(parent_id = a.getAttribute('data-parent-id')) {
         var searchClose = document.querySelector('a.search-close');
 
         function desktopClose(elem) {
-            $(searchClose).on('click', function () {
+            $(searchClose).on('click', function (e) {
+                e.preventDefault();
                 elem.classList.remove('show');
             });
         }
