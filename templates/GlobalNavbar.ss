@@ -42,7 +42,7 @@
                 <% end_loop %>
             </ul>
 
-            <% include Header_MobileNavigation ToolbarHostname=$ToolbarHostname, Pages=$Pages %>
+            <% include GlobalNavbar_Mobile ToolbarHostname=$ToolbarHostname, Pages=$Pages %>
         </div>
     </nav>
 
@@ -64,16 +64,13 @@
     <% end_if %>
     <% end_loop %>
 
-
+    <% if ToolbarOnly %>
     <div class="container">
         <div class="search-pane search-pane-desktop" id="toolbarSearch">
-            <a href="#" class="search-close" title="Close search">
-                <% include CloseSvg %>
-            </a>
-            <gcse:searchbox-only resultsUrl="{$BaseUrl}search/" enableAutoComplete="true" title="Search SilverStripe" placeholder="Search SilverStripe"></gcse:searchbox-only>
+            <% include SearchBox %>
         </div>
     </div>
-
+    <% end_if %>
 </div>
 
 <script type="text/javascript">
@@ -109,17 +106,12 @@ if(parent_id = a.getAttribute('data-parent-id')) {
             document.getElementById('toolbarSearch');
         var navSearchA = document.querySelector('.nav-search a');
         var navTabsSearchA = document.querySelector('.nav-tabs-search a');
-        var searchInput = document.querySelector('input.gsc-input');
+        var searchClose = document.querySelector('a.search-close');
 
-        var desktopClose = function() {
-            $('a.search-close').on('click', function () {
-                desktopSearchElem.classList.remove('show');
+        function desktopClose(elem) {
+            $(searchClose).on('click', function () {
+                elem.classList.remove('show');
             });
-        }
-        var focusSearch = function() {
-            if( $(desktopSearchElem).hasClass('show')) {
-                $(searchInput).find('input.gsc-input').focus().select();
-            }
         }
 
         // search tabs
@@ -127,10 +119,14 @@ if(parent_id = a.getAttribute('data-parent-id')) {
             navSearchA.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.target.parentNode.classList.add('current');
-                desktopSearchElem.classList.add('show', function() {
-                    focusSearch();
-                });
-                desktopClose();
+                desktopSearchElem.classList.add('show');
+                if($(desktopSearchElem).hasClass('show')) {
+                    var searchBox = $(desktopSearchElem).find('input.gsc-input');
+                    setTimeout(function() {
+                        $(searchBox).focus().select();
+                    }, 10);
+                    desktopClose(desktopSearchElem);
+                }
             });
         }
         else console.log('no navsearch a');
@@ -139,10 +135,14 @@ if(parent_id = a.getAttribute('data-parent-id')) {
             navTabsSearchA.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.target.parentNode.classList.toggle('show');
-                tabHolderElem.classList.toggle('show', function() {
-                    focusSearch();
-                });
-                desktopClose();
+                tabHolderElem.classList.toggle('show');
+                if(tabHolderElem.hasClass('show')) {
+                    tabHolderElem.find('input.gsc-input');
+                    test.focus(function(){
+                        this.select();
+                    });
+                }
+                //desktopClose(tabHolderElem);
             });
         }
 

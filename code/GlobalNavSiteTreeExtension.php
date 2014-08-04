@@ -15,6 +15,12 @@ class GlobalNavSiteTreeExtension extends DataExtension
                 Config::inst()->get('GlobalNav','hostname');        
     }
 
+    public static function ToolbarOnly() {
+        $useLocalhost = Config::inst()->get('GlobalNav','use_localhost');
+        if(isset($useLocalhost)){
+            return true;
+        }
+    }
 
     public static function create_nav() {        
         $html = ViewableData::create()->customise(array(
@@ -28,7 +34,7 @@ class GlobalNavSiteTreeExtension extends DataExtension
 
         $path = Config::inst()->get('GlobalNav','snippet_path');
         
-        file_put_contents(BASE_PATH.$path, $html);        
+        file_put_contents(BASE_PATH.$path, $html);
     }    
 
 
