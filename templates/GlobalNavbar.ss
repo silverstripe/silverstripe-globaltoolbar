@@ -3,7 +3,6 @@
         <div class="container">
             <h1 class="visible-xs">$CurrentPage.Title</h1>
 
-            <%-- Brand and toggle get grouped for better mobile display --%>
             <div class="navbar-header">
                 <div class="navbar-brand">
                     <a class="logo" href="$BaseHref">
@@ -12,13 +11,18 @@
                     </a>
                 </div>
 
-                <a class="navbar-toggle collapsed visible-xs" href="javascript:void(0);" title="Close" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="ion-navicon"></span>
+
+                <a id="nav-expander" class="nav-expander fixed visible-xs"><span class="ion-navicon"></span>
                 </a>
+ 
+                <!-- old mobile nav -->
+                <!-- <a class="navbar-toggle collapsed visible-xs" href="javascript:void(0);" title="Close" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="ion-navicon"></span>
+                </a> -->
             </div>
             
             <%-- Profile menu --%>
-            <ul class="nav navbar-nav global-right hidden-xs">
+            <ul class="nav navbar-nav global-right pull-right">
                 <li class="nav-search">
                     <a class="search" href="#NavbarSecondary" title="Search">
                         <% include SearchSvg %>
@@ -28,7 +32,7 @@
                 <!-- <li class="hidden-xs">
                     <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
                 </li> -->
-                <li class="hidden-xs">                
+                <li class="">                
                     <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" width="40" height="40" frameborder="0" border="0"></iframe>
                 </li>
             </ul>
