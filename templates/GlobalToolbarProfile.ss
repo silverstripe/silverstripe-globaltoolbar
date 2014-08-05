@@ -51,7 +51,7 @@
 <% if CurrentMember %>
 	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">$CurrentMember.Avatar.CroppedImage(22,22)</a>
 
-	<!-- <a target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="24" height="24" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a> -->
+	<a target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="24" height="24" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
 
 <% else %>
 	<a class="login" href="{$BaseHref}Security/login" title="Login">
