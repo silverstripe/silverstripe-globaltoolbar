@@ -15,13 +15,6 @@ class GlobalNavSiteTreeExtension extends DataExtension
                 Config::inst()->get('GlobalNav','hostname');        
     }
 
-    public static function ToolbarOnly() {
-        $useLocalhost = Config::inst()->get('GlobalNav','use_localhost');
-        if(isset($useLocalhost)){
-            return true;
-        }
-    }
-
     public static function create_nav() {        
         $html = ViewableData::create()->customise(array(
             'ToolbarHostname' => self::get_toolbar_hostname(),
