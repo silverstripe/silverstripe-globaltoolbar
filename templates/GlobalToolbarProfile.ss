@@ -66,10 +66,10 @@
 
 <body>
 <% if CurrentMember %>
-	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">$CurrentMember.Avatar.CroppedImage(34,34)</a>
-
+	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">
+	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="26" height="26" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
+	</a>
 	<a target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="24" height="24" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
-
 <% else %>
 	<a class="login" href="{$BaseHref}Security/login" title="Login">
 		<img width="26" height="26" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg">
