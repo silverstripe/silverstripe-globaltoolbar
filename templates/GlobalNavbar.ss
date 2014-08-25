@@ -1,80 +1,70 @@
-<div id="navWrapper">
-    <nav class="navbar navbar-inverse navbar-global" role="navigation">
-        <div class="container">
-            <h1 class="visible-xs">$Title</h1>
+<nav class="navbar navbar-inverse navbar-global" role="navigation">
+    <div class="container">
+        
 
-            <%-- Brand and toggle get grouped for better mobile display --%>
-            <div class="navbar-header">
-                <div class="navbar-brand">
-                    <a class="logo" href="$BaseHref">
-                        <% include BrandSvg %>
-                        <span>SilverStripe</span>
-                    </a>
-                </div>
-
-                <a class="navbar-toggle collapsed visible-xs" href="javascript:void(0);" title="Close" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="ion-navicon"></span>
+        <div class="navbar-header">
+            <div class="navbar-brand">
+                <a class="logo" href="$BaseHref">
+                    <% include BrandSvg %>
+                    <span>SilverStripe</span>
                 </a>
+                <h1 class="visible-xs">$CurrentPage.Title</h1>
             </div>
-            
-            <%-- Profile menu --%>
-            <ul class="nav navbar-nav global-right hidden-xs">
-                <li class="nav-search">
-                    <a class="search" href="#NavbarSecondary" title="Search">
-                        <% include SearchSvg %>
-                        <span>Search site</span>
-                    </a>
-                </li>
-                <!-- <li class="hidden-xs">
-                    <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
-                </li> -->
-                <li class="hidden-xs">                
-                    <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" width="40" height="40" frameborder="0" border="0"></iframe>
-                </li>
-            </ul>
 
-            <%-- Navigation top level --%>
-            <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
-                <% loop $Pages %>    
-                    <li data-id="$ID">
-                        <a href="$GlobalNavLink" data-link="$Link" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+
+            <a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
+                <span class="ion-navicon"></span>
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+        </div>
+        
+        <%-- Profile menu --%>
+        <ul class="nav navbar-nav global-right pull-right">
+            
+            <li class="nav-search">
+                <a class="search" href="#SearchAnchor" title="Search">
+                    <% include SearchSvg %>
+                    <span>Search site</span>
+                </a>
+            </li>
+            <!-- <li class="hidden-xs">
+                <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
+            </li> -->
+            <li>                
+                <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" width="50" height="50" frameborder="0" border="0"></iframe>
+            </li>
+        </ul>
+
+        <%-- Navigation top level --%>
+        <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
+            <% loop $Pages %>    
+                <li data-id="$ID">
+                    <a href="$GlobalNavLink" data-link="$Link" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+                </li>
+            <% end_loop %>
+        </ul>
+
+        <% include GlobalNavbar_Mobile ToolbarHostname=$ToolbarHostname, Pages=$Pages %>
+    </div>
+</nav>
+
+<% loop $Pages %>
+<% if $ShouldShowChildren %>
+<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" data-parent-id="$ID">
+    <div class="container">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav" role="navigation">
+                <% loop $GlobalNavChildren %>
+                    <li class="">
+                        <a data-parent-id="$ParentID" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
                     </li>
                 <% end_loop %>
             </ul>
-
-            <% include Header_MobileNavigation ToolbarHostname=$ToolbarHostname, Pages=$Pages %>
-        </div>
-    </nav>
-
-    <% loop $Pages %>
-    <% if $ShouldShowChildren %>
-    <nav style="display:none;" class="navbar navbar-inverse navbar-secondary" role="navigation" data-parent-id="$ID">
-        <div class="container">
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" role="navigation">
-                    <% loop $GlobalNavChildren %>
-                        <li class="">
-                            <a data-parent-id="$ParentID" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
-                        </li>
-                    <% end_loop %>
-                </ul>
-            </div><!--/.navbar-collapse -->
-        </div>
-    </nav>
-    <% end_if %>
-    <% end_loop %>
-
-
-    <div class="container">
-        <div class="search-pane search-pane-desktop" id="toolbarSearch">
-            <a href="#" class="search-close" title="Close search">
-                <% include CloseSvg %>
-            </a>
-            <gcse:searchbox-only resultsUrl="{$BaseUrl}search/" enableAutoComplete="true" title="Search SilverStripe" placeholder="Search SilverStripe"></gcse:searchbox-only>
-        </div>
+        </div><!--/.navbar-collapse -->
     </div>
-
-</div>
+</nav>
+<% end_if %>
+<% end_loop %>
 
 <script type="text/javascript">
 (function() {
@@ -104,39 +94,54 @@ if(parent_id = a.getAttribute('data-parent-id')) {
     document.addEventListener('DOMContentLoaded', function () {
 
         var tabHolderElem = document.querySelector('.search-pane');
-        var desktopSearchElem = (currentHost == '$ToolbarHostname') ? 
-            document.getElementById('desktopSearch') : 
-            document.getElementById('toolbarSearch');
+        var desktopSearchElem = document.getElementById('desktopSearch');
         var navSearchA = document.querySelector('.nav-search a');
-        var navTabsSearchA = document.querySelector('.nav-tabs-search a');
-        var aSearchClose = document.querySelector('a.search-close');
+        var searchClose = document.querySelector('a.search-close');
+
+        function desktopClose(elem) {
+            $(searchClose).on('click', function (e) {
+                e.preventDefault();
+                elem.classList.remove('show');
+            });
+        }
 
         // search tabs
         if(navSearchA) {
             navSearchA.addEventListener('click', function (e) {
-                e.preventDefault()
+                e.preventDefault();
                 e.target.parentNode.classList.add('current');
                 desktopSearchElem.classList.add('show');
-            })
+                if($(desktopSearchElem).hasClass('show')) {
+                    var searchBox = $(desktopSearchElem).find('input.gsc-input');
+                    setTimeout(function() {
+                        $(searchBox).focus().select();
+                    }, 10);
+                    desktopClose(desktopSearchElem);
+                }
+            });
         }
         else console.log('no navsearch a');
 
-        if(navTabsSearchA) {
-            navTabsSearchA.addEventListener('click', function (e) {
-                e.preventDefault()
-                e.target.parentNode.classList.toggle('show');
-                tabHolderElem.classList.toggle('show');
-            });
-        }
-
-        if(aSearchClose) {
-            aSearchClose.addEventListener('click', function (e) {
-                e.preventDefault()
-                desktopSearchElem.classList.remove('show');
-            });
-        }
     });
 
+})();
+
+// TODO: Is this really the best way to set the placeholder text?
+(function() {
+    var interval = window.setInterval(function() {
+        if($('#gsc-i-id1').length) {                
+            window.clearInterval(interval);                
+            $('#gsc-i-id1').attr('placeholder', 'Search SilverStripe...');
+        }
+        if($('#gsc-i-id2').length) {                
+            window.clearInterval(interval);                
+            $('#gsc-i-id2').attr('placeholder', 'Search SilverStripe...');
+        }
+        if($('#gsc-i-id3').length) {                
+            window.clearInterval(interval);                
+            $('#gsc-i-id3').attr('placeholder', 'Search SilverStripe...');
+        }
+    }.bind(this), 500);
 })();
 
 (function() {

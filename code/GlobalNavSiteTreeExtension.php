@@ -15,7 +15,6 @@ class GlobalNavSiteTreeExtension extends DataExtension
                 Config::inst()->get('GlobalNav','hostname');        
     }
 
-
     public static function create_nav() {        
         $html = ViewableData::create()->customise(array(
             'ToolbarHostname' => self::get_toolbar_hostname(),
@@ -28,7 +27,7 @@ class GlobalNavSiteTreeExtension extends DataExtension
 
         $path = Config::inst()->get('GlobalNav','snippet_path');
         
-        file_put_contents(BASE_PATH.$path, $html);        
+        file_put_contents(BASE_PATH.$path, $html);
     }    
 
 
