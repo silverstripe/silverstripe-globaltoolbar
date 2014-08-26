@@ -13,7 +13,10 @@ class GlobalNavIteratorProperties implements TemplateIteratorProvider
     public function iteratorProperties($pos, $totalItems) {
         $host = GlobalNavSiteTreeExtension::get_toolbar_hostname();
         $path = Config::inst()->get('GlobalNav','snippet_path');
-        $html = file_get_contents(Controller::join_links($host,$path));        
+        $html = @file_get_contents(Controller::join_links($host,$path));
+        if (empty($html)) {
+            $html = ''; // TODO: decide what the default should be
+        }
         $this->globalNav = $html;
     }
 
