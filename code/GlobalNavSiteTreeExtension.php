@@ -14,7 +14,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 	public static function create_nav() {
 		// remove the protocol from the URL, otherwise we run into https/http issues
-		$url = self::removeProtocolFromURL(self::get_toolbar_hostname());
+		$url = self::remove_protocol_from_url(self::get_toolbar_hostname());
 		$html = ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
 				'Pages' => SiteTree::get()->filter(array(
@@ -77,14 +77,14 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	 * @param string URL to remove the protocol from
 	 * @return string URL with protocol removed
 	 */
-	protected function removeProtocolFromURL($url) {
+	protected static function remove_protocol_from_url($url) {
 		$url = parse_url($url);
 		unset($url['scheme']); // remove the scheme
 		return self::unparse_url($url);
 	}
 
 
-	protected function unparse_url($parsed_url) {
+	protected static function unparse_url($parsed_url) {
 		$scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '//';
 		$host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
 		$port = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';
