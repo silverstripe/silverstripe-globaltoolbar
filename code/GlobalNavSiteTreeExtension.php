@@ -53,7 +53,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		if($this->owner instanceof RedirectorPage && $this->owner->ExternalURL) {
 			return $this->owner->ExternalURL;
 		}
-		return Controller::join_links(Director::absoluteBaseURL(), $this->owner->Link());
+		return $this->owner->AbsoluteLink();
 	}
 
 
