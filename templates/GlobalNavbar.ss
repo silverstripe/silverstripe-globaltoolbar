@@ -108,13 +108,15 @@
 </nav>
 <% end_if %>
 <% end_loop %>
-
+<script type="text/javascript" src="toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
 <script type="text/javascript">
 
 (function() {
+var a, parentid, parent;
+// Check if an extrenal link in the nav goes to this site
+a = document.querySelector('.nav a[data-link="'+window.location.origin+'"]') ||
+    document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
 
-var parentid, parent;
-a = document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
 if(!a) return;
 
 a.parentNode.classList.add('current');
@@ -129,7 +131,8 @@ if(parent_id = a.getAttribute('data-parent-id')) {
 })();
 
 (function() {
-    var currentHost = document.getElementsByTagName('base')[0].href;
+    var base = document.getElementsByTagName('base');
+    var currentHost = base ? base[0].href : false;
     
     if(currentHost == '$ToolbarHostname') {
         document.getElementById('navWrapper').setAttribute('data-current-host', true);
@@ -141,6 +144,14 @@ if(parent_id = a.getAttribute('data-parent-id')) {
         var desktopSearchElem = document.getElementById('desktopSearch');
         var navSearchA = document.querySelector('.nav-search a');
         var searchClose = document.querySelector('a.search-close');
+
+        iFrameResize({
+            enablePublicMethods: true,
+            sizeWidth: true,
+            autoResize: false,
+            log: false
+        }, '#toolbar-iframe');
+
 
         setTimeout(function() {
             document.getElementById('profile-menu').style.display='block';

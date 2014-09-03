@@ -50,10 +50,15 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 
 	public function GlobalNavLink() {
-		if($this->owner instanceof RedirectorPage && $this->owner->ExternalURL) {
-			return $this->owner->ExternalURL;
+		if($this->IsExternal()) {
+			return $this->owner->ExternalURL;		
 		}
 		return $this->owner->AbsoluteLink();
+	}
+
+
+	public function IsExternal() {
+		return ($this->owner instanceof RedirectorPage && $this->owner->ExternalURL);
 	}
 
 
