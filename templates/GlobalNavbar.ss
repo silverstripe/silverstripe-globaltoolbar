@@ -19,7 +19,7 @@
         </div>
         
         <%-- Profile menu --%>
-        <ul class="nav navbar-nav global-right pull-right">
+        <ul id="profile-menu" class="nav navbar-nav global-right pull-right" style="display:none;">
             
             <li class="nav-search">
                 <a class="search" href="#SearchAnchor" title="Search">
@@ -30,11 +30,13 @@
             <!-- <li class="hidden-xs">
                 <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
             </li> -->
-            <li>                
-                <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" width="50" height="50" frameborder="0" border="0"></iframe>
+            <li>                                
+                <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
             </li>
         </ul>
-
+        <ul id="loader-menu" class="nav navbar-nav global-right pull-right">
+            <li><span class="icon icon-sm ion-ios7-reloading"></span></li>
+        </ul>
         <%-- Navigation top level --%>
         <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
             <% loop $Pages %>    
@@ -108,6 +110,7 @@
 <% end_loop %>
 
 <script type="text/javascript">
+
 (function() {
 
 var parentid, parent;
@@ -139,8 +142,14 @@ if(parent_id = a.getAttribute('data-parent-id')) {
         var navSearchA = document.querySelector('.nav-search a');
         var searchClose = document.querySelector('a.search-close');
 
+        setTimeout(function() {
+            document.getElementById('profile-menu').style.display='block';
+            document.getElementById('loader-menu').style.display='none';
+        }, 600);
+
+
         function desktopClose(elem) {
-            $(searchClose).on('click', function (e) {
+            searchClose.addEventListener('click', function (e) {
                 e.preventDefault();
                 elem.classList.remove('show');
             });
@@ -152,10 +161,12 @@ if(parent_id = a.getAttribute('data-parent-id')) {
                 e.preventDefault();
                 e.target.parentNode.classList.add('current');
                 desktopSearchElem.classList.add('show');
-                if($(desktopSearchElem).hasClass('show')) {
-                    var searchBox = $(desktopSearchElem).find('input.gsc-input');
+                if(desktopSearchElem.classList.contains('show')) {
+                    var searchBox = document.querySelector('input.gsc-input');
                     setTimeout(function() {
-                        $(searchBox).focus().select();
+                        event = document.createEvent('HTMLEvents');
+                        event.initEvent('focus', true, false);
+                        searchBox.dispatchEvent(event);                                                
                     }, 10);
                     desktopClose(desktopSearchElem);
                 }
@@ -167,20 +178,14 @@ if(parent_id = a.getAttribute('data-parent-id')) {
 
 })();
 
-// TODO: Is this really the best way to set the placeholder text?
 (function() {
     var interval = window.setInterval(function() {
-        if($('#gsc-i-id1').length) {                
-            window.clearInterval(interval);                
-            $('#gsc-i-id1').attr('placeholder', 'Search SilverStripe...');
-        }
-        if($('#gsc-i-id2').length) {                
-            window.clearInterval(interval);                
-            $('#gsc-i-id2').attr('placeholder', 'Search SilverStripe...');
-        }
-        if($('#gsc-i-id3').length) {                
-            window.clearInterval(interval);                
-            $('#gsc-i-id3').attr('placeholder', 'Search SilverStripe...');
+        for(var i=1;i<=3;i++) {
+            if(document.getElementById('gsc-i-id'+i)) {                
+                window.clearInterval(interval);                
+                document.getElementById('gsc-i-id'+i).setAttribute('placeholder', 'Search SilverStripe...');
+            }
+
         }
     }.bind(this), 500);
 })();

@@ -69,14 +69,28 @@
 	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">
 	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="26" height="26" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
 	</a>
-	<a target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="24" height="24" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
+	<a id="logout" target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="24" height="24" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
 <% else %>
-	<a class="login" href="{$BaseHref}Security/login" title="Login">
+	<a class="login" id="login" href="{$BaseHref}Security/login" title="Login">
 		<img width="26" height="26" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg">
 	</a>
 <% end_if %>
+<script src="js/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
 <script>
-	if(document.querySelector('a.logout'))parent.document.getElementById('toolbar-iframe').width = 80;	
+<% if $CurrentMember %>var w=80;<% else %>var w=40;<% end_if %>
+document.addEventListener('DOMContentLoaded', function(){
+	window.setTimeout(function() {
+		parentIFrame.size(39, w);		
+	}, 500);
+});
+
+ var a = document.getElementById('logout');
+ if(a) {
+	 var href = a.getAttribute('href');
+	 href += "?BackURL=" + window.parent.location.pathname;
+	 a.setAttribute('href', href);
+ }
+
 </script>
 </body>
 </html>
