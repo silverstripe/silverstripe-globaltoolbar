@@ -4,11 +4,16 @@
 
         <div class="navbar-header">
             <div class="navbar-brand">
-                <a class="logo" href="$BaseHref">
+                <a class="logo" title="SilverStripe" href="$BaseHref">
                     <% include BrandSvg %>
-                    <span>SilverStripe</span>
                 </a>
-                <h1 class="visible-xs">$CurrentPage.Title</h1>
+                <!--  <span>SilverStripe</span> -->
+                <h1 class="brand-name">
+                    <a title="SilverStripe" href="$BaseHref">
+                        <span>Silver</span>Stripe
+                    </a>
+                </h1>
+                <h1 class="visible-xs">$CurrentPage.MenuTitle</h1>
             </div>
 
 
