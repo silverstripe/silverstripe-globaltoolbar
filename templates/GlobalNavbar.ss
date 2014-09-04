@@ -1,16 +1,18 @@
 <nav class="navbar navbar-inverse navbar-global" role="navigation">
     <div class="container">
         
-
         <div class="navbar-header">
             <div class="navbar-brand">
-                <a class="logo" href="$BaseHref">
+                <a class="logo" title="SilverStripe" href="$BaseHref">
                     <% include BrandSvg %>
-                    <span>SilverStripe</span>
                 </a>
-                <h1 class="visible-xs">$CurrentPage.Title</h1>
+                <h1 class="brand-name">
+                    <a title="SilverStripe" href="$BaseHref">
+                        <span>Silver</span>Stripe
+                    </a>
+                </h1>
+                <h1 class="visible-xs">$CurrentPage.MenuTitle</h1>
             </div>
-
 
             <a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
                 <span class="ion-navicon"></span>
@@ -34,10 +36,13 @@
                 <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
             </li>
         </ul>
+
         <ul id="loader-menu" class="nav navbar-nav global-right pull-right">
             <li><span class="icon icon-sm ion-ios7-reloading"></span></li>
         </ul>
+
         <%-- Navigation top level --%>
+ 
         <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
             <% loop $Pages %>    
                 <li data-id="$ID">
