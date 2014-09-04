@@ -53,24 +53,24 @@
 				<% loop $Pages %>
 				<li class="$LinkingMode<% if $Children %> children<% end_if %>">
 					<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+					<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 					<% if $Children %>
 					<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 						<% loop Children %>
 						<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 							<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-							<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+							<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 							<% if $Children %>
 							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu"> 
 								<% loop Children %>
 								<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 									<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-									<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+									<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 									<% if $Children %>
 									<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 										<% loop Children %>
 										<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
-											<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+											<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
 										</li>
 										<% end_loop %>
 									</ul>
@@ -99,7 +99,7 @@
             <ul class="nav navbar-nav" role="navigation">
                 <% loop $GlobalNavChildren %>
                     <li class="">
-                        <a data-parent-id="$ParentID" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
+                        <a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
                     </li>
                 <% end_loop %>
             </ul>
@@ -112,21 +112,40 @@
 <script type="text/javascript">
 
 (function() {
-var a, parentid, parent;
+var a, parent_id, parent, parents, children;
 // Check if an extrenal link in the nav goes to this site
-a = document.querySelector('.nav a[data-link="'+window.location.origin+'"]') ||
-    document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
-
-if(!a) return;
-
-a.parentNode.classList.add('current');
-if(parent_id = a.getAttribute('data-parent-id')) {        
-    if(parent = document.querySelector('[data-id="'+parent_id+'"]')) {            
-        parent.classList.add('current');
-        var childNav = document.querySelector('nav[data-parent-id="'+parent_id+'"]');            
-        document.querySelector('nav[data-parent-id="'+parent_id+'"]').style.display='block';
-    }
+a = document.querySelectorAll('.nav a[data-link="'+window.location.origin+'"]');
+if(a.length) console.log('got a match for ', window.location.origin, a);
+else {
+    a = document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
+    if(a.length) console.log('got a match for ', window.location.path, a);
 }
+
+if(!a.length) {
+    console.log('no match for ', window.location.origin, window.location.pathname);
+    return;
+}
+
+[].slice.call(a).forEach(function(link) {
+    if(parent_id = link.getAttribute('data-parent-id')) {        
+        link.parentNode.classList.add('active');
+        if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {            
+            [].slice.call(parents).forEach(function(parent) {
+                parent.classList.add('current');                
+                children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
+                [].slice.call(children).forEach(function(child) {
+                    child.style.display='block';
+                });
+            });
+        }
+    }
+    else {
+        link.parentNode.classList.add('current');
+    }
+
+})
+
+
 
 })();
 
