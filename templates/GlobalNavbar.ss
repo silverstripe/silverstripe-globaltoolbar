@@ -117,7 +117,7 @@ var a, parent_id, parent, parents, children;
 a = document.querySelectorAll('.nav a[data-link="'+window.location.origin+'"]');
 if(a.length) console.log('got a match for ', window.location.origin, a);
 else {
-    a = document.querySelector('.nav a[data-link="'+window.location.pathname+'"]');
+    a = document.querySelectorAll('.nav a[data-link="'+window.location.pathname+'"]');
     if(a.length) console.log('got a match for ', window.location.path, a);
 }
 
