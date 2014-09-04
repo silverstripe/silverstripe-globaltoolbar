@@ -5,6 +5,9 @@
 	"keywords": ["silverstripe"],
 	"license": "BSD-3-Clause",
 	"homepage": "https://github.com/silverstripe/silverstripe-globaltoolbar/",
+	"require": {
+        "unclecheese/display-logic": "1.0.*"
+	},
 	"authors":[
 		{
 			"name": "Ingo Schommer",
