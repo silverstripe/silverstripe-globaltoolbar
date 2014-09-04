@@ -108,7 +108,7 @@
 </nav>
 <% end_if %>
 <% end_loop %>
-<script type="text/javascript" src="toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
+<script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
 <script type="text/javascript">
 
 (function() {
