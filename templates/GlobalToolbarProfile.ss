@@ -87,8 +87,13 @@ document.addEventListener('DOMContentLoaded', function(){
  var a = document.getElementById('logout');
  if(a) {
 	 var href = a.getAttribute('href');
-	 href += "?BackURL=" + window.parent.location.pathname;
-	 a.setAttribute('href', href);
+	 try {
+	 	href += "?BackURL=" + window.parent.location.pathname;
+	 	a.setAttribute('href', href);
+	 } catch(e) {
+	 	href += "?BackURL=/";
+	 	a.setAttribute('href', href);
+	 }
  }
 
 </script>
