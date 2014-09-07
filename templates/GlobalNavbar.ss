@@ -38,7 +38,7 @@
         </ul>
 
         <ul id="loader-menu" class="nav navbar-nav global-right pull-right">
-            <li><span class="icon icon-sm ion-ios7-reloading"></span></li>
+            <li class="nav-reload"><span class="icon icon-sm ion-ios7-reloading"></span></li>
         </ul>
 
         <%-- Navigation top level --%>
