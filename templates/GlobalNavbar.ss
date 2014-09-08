@@ -36,11 +36,7 @@
                 <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
             </li>
         </ul>
-
-        <ul id="loader-menu" class="nav navbar-nav global-right pull-right">
-            <li class="nav-reload"><span class="icon icon-sm ion-ios7-reloading"></span></li>
-        </ul>
-
+        <i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios7-reloading"></i>
         <%-- Navigation top level --%>
  
         <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
