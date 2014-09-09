@@ -60,18 +60,18 @@
 						<% loop Children %>
 						<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 							<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-							<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+							<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 							<% if $Children %>
 							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu"> 
 								<% loop Children %>
 								<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 									<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-									<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+									<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 									<% if $Children %>
 									<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 										<% loop Children %>
 										<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
-											<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+											<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
 										</li>
 										<% end_loop %>
 									</ul>
@@ -117,18 +117,16 @@ var a, parent_id, parent, parents, children;
 
 // Check if there's a forced state
 if(window.GLOBAL_NAV_PRIMARY_ID) {
-    a = document.querySelectorAll('.nav li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
+    a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
 }
-else if(window.GLOBAL_NAV_SECONDARY_ID) {
-    console.log('yes');
+else if(window.GLOBAL_NAV_SECONDARY_ID) {   
     a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
-    console.log(a);
 }
-else {
+else {    
     // Check if an extrenal link in the nav goes to this site
-    a = document.querySelectorAll('.nav a[data-link="'+window.location.origin+'"]');
+    a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
     if(!a.length) {
-        a = document.querySelectorAll('.nav a[data-link="'+window.location.pathname+'"]');    
+        a = document.querySelectorAll('a[data-link="'+window.location.pathname+'"]');            
     }
 }
 
@@ -136,8 +134,8 @@ if(!a.length) {
     return;
 }
 
-[].slice.call(a).forEach(function(link) {
-    if(parent_id = link.getAttribute('data-parent-id')) {        
+[].slice.call(a).forEach(function(link) { 
+    if(parent_id = link.getAttribute('data-parent-id')) {         
         link.parentNode.classList.add('active');
         if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {            
             [].slice.call(parents).forEach(function(parent) {
