@@ -99,7 +99,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" role="navigation">
                 <% loop $GlobalNavChildren %>
-                    <li class="">
+                    <li data-id="$ID" class="">
                         <a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
                     </li>
                 <% end_loop %>
@@ -114,16 +114,25 @@
 
 (function() {
 var a, parent_id, parent, parents, children;
-// Check if an extrenal link in the nav goes to this site
-a = document.querySelectorAll('.nav a[data-link="'+window.location.origin+'"]');
-if(a.length) console.log('got a match for ', window.location.origin, a);
+
+// Check if there's a forced state
+if(window.GLOBAL_NAV_PRIMARY_ID) {
+    a = document.querySelectorAll('.nav li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
+}
+else if(window.GLOBAL_NAV_SECONDARY_ID) {
+    console.log('yes');
+    a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
+    console.log(a);
+}
 else {
-    a = document.querySelectorAll('.nav a[data-link="'+window.location.pathname+'"]');
-    if(a.length) console.log('got a match for ', window.location.path, a);
+    // Check if an extrenal link in the nav goes to this site
+    a = document.querySelectorAll('.nav a[data-link="'+window.location.origin+'"]');
+    if(!a.length) {
+        a = document.querySelectorAll('.nav a[data-link="'+window.location.pathname+'"]');    
+    }
 }
 
-if(!a.length) {
-    console.log('no match for ', window.location.origin, window.location.pathname);
+if(!a.length) {    
     return;
 }
 
@@ -203,7 +212,6 @@ if(!a.length) {
                 }
             });
         }
-        else console.log('no navsearch a');
 
     });
 
@@ -226,7 +234,7 @@ var cx = '$GoogleCustomSearchId';
 var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
 gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
     '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);    
 })();
 
 </script>
