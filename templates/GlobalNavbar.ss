@@ -113,7 +113,14 @@
 <script type="text/javascript">
 
 (function() {
-var a, parent_id, parent, parents, children;
+var a, parent_id, parent, parents, children, base, currentHost;
+base = document.getElementsByTagName('base');
+currentHost = base ? base[0].href : false;
+
+if(currentHost == '$ToolbarHostname') {
+    document.getElementById('navWrapper').setAttribute('data-current-host', true);
+}
+
 
 // Check if there's a forced state
 if(window.GLOBAL_NAV_PRIMARY_ID) {
@@ -139,11 +146,14 @@ if(!a.length) {
         link.parentNode.classList.add('active');
         if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {            
             [].slice.call(parents).forEach(function(parent) {
-                parent.classList.add('current');                
-                children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
-                [].slice.call(children).forEach(function(child) {
-                    child.style.display='block';
-                });
+                parent.classList.add('current');
+                // ss.org doesn't render a static secondary nav. Uses its own template.
+                if(!currentHost) {   
+                    children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
+                    [].slice.call(children).forEach(function(child) {
+                        child.style.display='block';
+                    });
+                }
             });
         }
     }
@@ -158,13 +168,6 @@ if(!a.length) {
 })();
 
 (function() {
-    var base = document.getElementsByTagName('base');
-    var currentHost = base ? base[0].href : false;
-    
-    if(currentHost == '$ToolbarHostname') {
-        document.getElementById('navWrapper').setAttribute('data-current-host', true);
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
 
         var tabHolderElem = document.querySelector('.search-pane');
