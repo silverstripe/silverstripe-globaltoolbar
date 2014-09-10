@@ -11,7 +11,7 @@
                         <span>Silver</span>Stripe
                     </a>
                 </h1>
-                <h1 class="visible-xs">$CurrentPage.MenuTitle</h1>
+                <h1 class="page-name">$CurrentPage.MenuTitle</h1>
             </div>
 
             <a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
@@ -32,9 +32,11 @@
             <!-- <li class="hidden-xs">
                 <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
             </li> -->
+            
             <li>                                
                 <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
             </li>
+
         </ul>
         <i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios7-reloading"></i>
         <%-- Navigation top level --%>

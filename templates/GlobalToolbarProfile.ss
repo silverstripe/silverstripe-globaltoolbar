@@ -36,14 +36,20 @@
        		-o-transition: all ease-in-out .1s;
           	transition: all ease-in-out .1s;
 		}
-			a.profile img {
-				width: 100%;
-			}
-			a.profile:hover {
-				width: 30px;
-				height: 30px;
-				margin: 10px 10px 0 4px;
-			}
+		a.profile img {
+			width: 100%;
+		}
+		a.profile img.login {
+			opacity: 0.7;
+		}
+		a.profile img.login:hover {
+			opacity: 1;
+		}
+		a.profile:hover {
+			width: 30px;
+			height: 30px;
+			margin: 10px 10px 0 4px;
+		}
 
 		a.login {
 			margin-top: 10px;
