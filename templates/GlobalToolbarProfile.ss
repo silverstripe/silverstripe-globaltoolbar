@@ -87,7 +87,7 @@
 document.addEventListener('DOMContentLoaded', function(){
 	window.setTimeout(function() {
 		parentIFrame.size(39, w);		
-	}, 500);
+	}, 1000);
 });
 
  var a = document.getElementById('logout');

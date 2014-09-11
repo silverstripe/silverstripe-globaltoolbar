@@ -115,14 +115,10 @@
 <script type="text/javascript">
 
 (function() {
-var a, parent_id, parent, parents, children, base, currentHost;
+var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost;
 base = document.getElementsByTagName('base');
 currentHost = base ? base[0].href : false;
-
-if(currentHost == '$ToolbarHostname') {
-    document.getElementById('navWrapper').setAttribute('data-current-host', true);
-}
-
+isCurrentHost = (currentHost == '$ToolbarHostname');
 
 // Check if there's a forced state
 if(window.GLOBAL_NAV_PRIMARY_ID) {
@@ -150,7 +146,7 @@ if(!a.length) {
             [].slice.call(parents).forEach(function(parent) {
                 parent.classList.add('current');
                 // ss.org doesn't render a static secondary nav. Uses its own template.
-                if(!currentHost) {   
+                if(!isCurrentHost) { 
                     children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
                     [].slice.call(children).forEach(function(child) {
                         child.style.display='block';
