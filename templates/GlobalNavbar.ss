@@ -117,7 +117,7 @@
 (function() {
 var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost;
 base = document.getElementsByTagName('base');
-currentHost = base ? base[0].href : false;
+currentHost = base.length ? base[0].href : false;
 isCurrentHost = (currentHost == '$ToolbarHostname');
 
 // Check if there's a forced state
