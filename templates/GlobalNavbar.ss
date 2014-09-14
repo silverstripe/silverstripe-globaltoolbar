@@ -181,6 +181,42 @@ if(!a.length) {
         }, '#toolbar-iframe');
 
 
+        function scrollToElement(el, scrollDuration, padding) {
+            scrollDuration = scrollDuration || 300;
+            padding = padding || 0;
+
+            if(typeof el === "string") {
+                el = document.querySelector(selector);
+            }
+            
+            if(!el) return;
+            
+            var scrollHeight = window.scrollY,
+                scrollStep = Math.PI / ( scrollDuration / 15 ),                
+                scrollCount = 0,
+                scrollMargin,
+                scrollStop = Math.floor(el.getBoundingClientRect().top + document.body.scrollTop + padding),
+                cosParameter = Math.abs(scrollStop-scrollHeight) / 2,
+                direction = scrollStop > scrollHeight ? 1 : -1;
+            
+            requestAnimationFrame(step);        
+        
+            function step () {                
+                setTimeout(function() {
+                    var nextY;                    
+                    scrollCount = scrollCount + 1;  
+                    scrollMargin = cosParameter - cosParameter * Math.cos( scrollCount * scrollStep );
+                    nextY = Math.round(scrollHeight + (scrollMargin * direction));                     
+                    if(nextY === scrollStop) return;
+                    if(direction > 0 && nextY > scrollStop) return;
+                    if(direction < 0 && nextY < scrollStop) return;
+
+                    requestAnimationFrame(step);
+                    window.scrollTo( 0, nextY );
+                }, 15 );
+            }
+        }
+
         setTimeout(function() {
             document.getElementById('profile-menu').style.display='block';
             document.getElementById('loader-menu').style.display='none';
@@ -199,7 +235,8 @@ if(!a.length) {
             navSearchA.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.target.parentNode.classList.add('current');
-                desktopSearchElem.classList.add('show');
+                desktopSearchElem.classList.add('show');                
+                scrollToElement(desktopSearchElem, 300, 20);                
                 if(desktopSearchElem.classList.contains('show')) {
                     var searchBox = document.querySelector('input.gsc-input');
                     setTimeout(function() {
