@@ -116,8 +116,7 @@
 
 (function() {
 var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost;
-base = document.getElementsByTagName('base');
-currentHost = base.length ? base[0].href : false;
+currentHost = '//'+window.location.hostname;
 isCurrentHost = (currentHost == '$ToolbarHostname');
 
 // Check if there's a forced state
@@ -131,7 +130,7 @@ else {
     // Check if an extrenal link in the nav goes to this site
     a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
     if(!a.length) {
-        a = document.querySelectorAll('a[data-link="'+window.location.pathname+'"]');            
+        a = document.querySelectorAll('a[data-link="'+window.location.pathname.replace(/\\/?$/, '/')+'"]');            
     }
 }
 
