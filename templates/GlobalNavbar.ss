@@ -115,10 +115,12 @@
 <script type="text/javascript">
 
 (function() {
-var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost;
+var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost, toolbarHostname, currentPath;
 currentHost = '//'+window.location.hostname;
-isCurrentHost = (currentHost == '$ToolbarHostname');
-
+currentPath = window.location.pathname.replace(/\\/?$/, '/');
+toolbarHostname = '$ToolbarHostname';
+isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
+console.log(isCurrentHost, currentHost.replace(/\\/?$/, '/'), toolbarHostname.replace(/\\/?$/, '/'));
 // Check if there's a forced state
 if(window.GLOBAL_NAV_PRIMARY_ID) {
     a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
@@ -130,7 +132,7 @@ else {
     // Check if an extrenal link in the nav goes to this site
     a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
     if(!a.length) {
-        a = document.querySelectorAll('a[data-link="'+window.location.pathname.replace(/\\/?$/, '/')+'"]');            
+        a = document.querySelectorAll('a[data-link="'+currentPath+'"]');            
     }
 }
 
