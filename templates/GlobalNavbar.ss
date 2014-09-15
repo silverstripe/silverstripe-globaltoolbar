@@ -120,7 +120,6 @@ currentHost = '//'+window.location.hostname;
 currentPath = window.location.pathname.replace(/\\/?$/, '/');
 toolbarHostname = '$ToolbarHostname';
 isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
-console.log(isCurrentHost, currentHost.replace(/\\/?$/, '/'), toolbarHostname.replace(/\\/?$/, '/'));
 // Check if there's a forced state
 if(window.GLOBAL_NAV_PRIMARY_ID) {
     a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
