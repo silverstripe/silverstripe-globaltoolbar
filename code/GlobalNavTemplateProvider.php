@@ -80,7 +80,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	 * @param int $timeoutMs - milliseconds for transfer timeout
 	 * @return string - the response body
 	 */
-	protected static function curl_call($url, $connectTimeoutMs = 100, $timeoutMs = 200) {
+	protected static function curl_call($url, $connectTimeoutMs = 1000, $timeoutMs = 1000) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, true);
 
