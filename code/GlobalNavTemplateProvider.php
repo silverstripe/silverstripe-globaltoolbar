@@ -10,7 +10,7 @@
  *
  * GlobalNavTemplateProvider:
  *     connection_timeout: 100
- *     transfer_timout: 200
+ *     transfer_timeout: 200
  *
  */
 class GlobalNavTemplateProvider implements TemplateGlobalProvider {
@@ -23,7 +23,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	/**
 	 * @var int - timeout in ms
 	 */
-	private static $transfer_timout = 200;
+	private static $transfer_timeout = 200;
 
 	/**
 	 * @var string|null
@@ -59,7 +59,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 				$path = Config::inst()->get('GlobalNav','snippet_path');
 				$url = Controller::join_links($host, $path, '?globaltoolbar=true');
 				$connectionTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'connection_timeout');
-				$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timout');
+				$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timeout');
 				// Get the HTML and cache it
 				self::$global_nav_html = self::curl_call($url, $connectionTimeout, $transferTimeout);
 			}
@@ -80,7 +80,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	 * @param int $timeoutMs - milliseconds for transfer timeout
 	 * @return string - the response body
 	 */
-	protected static function curl_call($url, $connectTimeoutMs = 1000, $timeoutMs = 1000) {
+	protected static function curl_call($url, $connectTimeoutMs = 100, $timeoutMs = 200) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, true);
 
