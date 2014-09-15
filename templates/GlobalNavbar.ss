@@ -236,7 +236,7 @@ if(!a.length) {
                 e.preventDefault();
                 e.target.parentNode.classList.add('current');
                 desktopSearchElem.classList.add('show');                
-                scrollToElement(desktopSearchElem, 300, 20);                
+                scrollToElement(desktopSearchElem, 300, 0);                
                 if(desktopSearchElem.classList.contains('show')) {
                     var searchBox = document.querySelector('input.gsc-input');
                     setTimeout(function() {
