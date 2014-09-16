@@ -175,7 +175,6 @@ if(!a.length) {
 
 (function() {
     document.addEventListener('DOMContentLoaded', function () {
-
         var tabHolderElem = document.querySelector('.search-pane');
         var desktopSearchElem = document.getElementById('desktopSearch');
         var navSearchA = document.querySelector('.nav-search a');
@@ -203,7 +202,7 @@ if(!a.length) {
                 scrollStep = Math.PI / ( scrollDuration / 15 ),                
                 scrollCount = 0,
                 scrollMargin,
-                scrollStop = Math.floor(el.getBoundingClientRect().top + document.body.scrollTop + padding),
+                scrollStop = Math.floor(el.getBoundingClientRect().top + document.body.scrollTop),
                 cosParameter = Math.abs(scrollStop-scrollHeight) / 2,
                 direction = scrollStop > scrollHeight ? 1 : -1;
             
@@ -211,16 +210,21 @@ if(!a.length) {
 
             function step () {                
                 setTimeout(function() {
-                    var nextY;                    
+                    var nextY, currentOffset, diff;
                     scrollCount = scrollCount + 1;  
                     scrollMargin = cosParameter - cosParameter * Math.cos( scrollCount * scrollStep );
-                    nextY = Math.round(scrollHeight + (scrollMargin * direction));                     
-                    if(nextY === scrollStop) return;
-                    if(direction > 0 && nextY > scrollStop) return;
-                    if(direction < 0 && nextY < scrollStop) return;
-
+                    nextY = Math.round(scrollHeight + (scrollMargin * direction));
+                    currentOffset = Math.floor(el.getBoundingClientRect().top);
+                    diff = currentOffset - padding;
+                    
+                    if(diff == 0) {return;}
+                    if(diff < 0) {
+                    
+                        nextY = document.body.scrollTop - Math.abs(diff);
+                    }
+                    
                     requestAnimationFrame(step);
-                    window.scrollTo( 0, nextY );
+                    window.scrollTo( 0, nextY );                                    
                 }, 15 );
             }
         }
@@ -239,14 +243,14 @@ if(!a.length) {
         }
 
         // search tabs
-        if(navSearchA) {
+        if(navSearchA) {            
             navSearchA.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.target.parentNode.classList.add('current');
                 desktopSearchElem.classList.add('show');
-                if(document.body.classList.contains('top-level')) {              
-                    scrollToElement(desktopSearchElem, 300, 20);
-                }         
+                if(document.body.classList.contains('top-level')) {      
+                    scrollToElement(desktopSearchElem, 300, 65);
+                }
                 if(desktopSearchElem.classList.contains('show')) {
                     var searchBox = document.querySelector('input.gsc-input');
                     setTimeout(function() {
