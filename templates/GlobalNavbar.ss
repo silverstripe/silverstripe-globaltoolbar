@@ -200,7 +200,7 @@ if(!a.length) {
                 direction = scrollStop > scrollHeight ? 1 : -1;
             
             requestAnimationFrame(step);        
-        
+
             function step () {                
                 setTimeout(function() {
                     var nextY;                    
@@ -235,8 +235,10 @@ if(!a.length) {
             navSearchA.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.target.parentNode.classList.add('current');
-                desktopSearchElem.classList.add('show');                
-                scrollToElement(desktopSearchElem, 300, 0);                
+                desktopSearchElem.classList.add('show');
+                if(document.body.classList.contains('top-level')) {              
+                    scrollToElement(desktopSearchElem, 300, 20);
+                }         
                 if(desktopSearchElem.classList.contains('show')) {
                     var searchBox = document.querySelector('input.gsc-input');
                     setTimeout(function() {
