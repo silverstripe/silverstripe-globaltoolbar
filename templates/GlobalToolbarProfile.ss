@@ -85,9 +85,12 @@
 <script>
 <% if $CurrentMember %>var w=80;<% else %>var w=40;<% end_if %>
 document.addEventListener('DOMContentLoaded', function(){
-	window.setTimeout(function() {
-		parentIFrame.size(39, w);		
-	}, 1000);
+	var interval = window.setInterval(function() {
+		if(parentIFrame) {
+			parentIFrame.size(39, w);
+			window.clearInterval(interval);
+		}
+	}, 100);
 });
 
  var a = document.getElementById('logout');
@@ -95,6 +98,9 @@ document.addEventListener('DOMContentLoaded', function(){
 	 var href = a.getAttribute('href');
 	 try {
 	 	href += "?BackURL=" + window.parent.location.pathname;
+	 	if(window.parent.location.search) {
+	 		href += encodeURIComponent(window.parent.location.search);
+	 	}
 	 	a.setAttribute('href', href);
 	 } catch(e) {
 	 	href += "?BackURL=/";
