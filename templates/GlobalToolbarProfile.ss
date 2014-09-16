@@ -86,7 +86,7 @@
 <% if $CurrentMember %>var w=80;<% else %>var w=40;<% end_if %>
 document.addEventListener('DOMContentLoaded', function(){
 	var interval = window.setInterval(function() {
-		if(parentIFrame) {
+		if('parentIFrame' in window) {
 			parentIFrame.size(39, w);
 			window.clearInterval(interval);
 		}

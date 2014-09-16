@@ -16,7 +16,7 @@
                     <svg viewBox="0 0 12.9 44.5" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
                     <path class="nav-breadcrumb-divider" d="M11 0l1.9.5-11 44-1.9-.5 11-44z" fill="#fff" clip-rule="evenodd" fill-rule="evenodd" />
                     </svg>
-                    <h1 class="page-title">$CurrentPage.MenuTitle.LimitCharacters(10)</h1>
+                    <h1 id="mobile-nav-title" class="page-title"></h1>
                 </span>
 
             </div>
@@ -148,7 +148,7 @@ if(!a.length) {
 
 [].slice.call(a).forEach(function(link) { 
     if(parent_id = link.getAttribute('data-parent-id')) {         
-        link.parentNode.classList.add('active');
+        link.parentNode.classList.add('active');        
         if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {            
             [].slice.call(parents).forEach(function(parent) {
                 parent.classList.add('current');
@@ -165,6 +165,7 @@ if(!a.length) {
     else {
         link.parentNode.classList.add('current');
     }
+    document.getElementById('mobile-nav-title').innerHTML = link.innerHTML;            
 
 })
 
@@ -227,7 +228,7 @@ if(!a.length) {
         setTimeout(function() {
             document.getElementById('profile-menu').style.display='block';
             document.getElementById('loader-menu').style.display='none';
-        }, 600);
+        }, 1000);
 
 
         function desktopClose(elem) {
