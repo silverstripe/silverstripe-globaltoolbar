@@ -11,7 +11,14 @@
                         <span>Silver</span>Stripe
                     </a>
                 </h1>
-                <h1 class="page-name">$CurrentPage.MenuTitle</h1>
+                
+                <span class="mobile-page-name visible-xs">
+                    <svg viewBox="0 0 12.9 44.5" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
+                    <path class="nav-breadcrumb-divider" d="M11 0l1.9.5-11 44-1.9-.5 11-44z" fill="#fff" clip-rule="evenodd" fill-rule="evenodd" />
+                    </svg>
+                    <h1 class="page-title">$CurrentPage.MenuTitle.LimitCharacters(10)</h1>
+                </span>
+
             </div>
 
             <a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
@@ -26,7 +33,7 @@
             <li class="nav-search">
                 <a class="search" href="#SearchAnchor" title="Search">
                     <% include SearchSvg %>
-                    <span>Search site</span>
+                    <span class="sr-only">Search site</span>
                 </a>
             </li>
             <!-- <li class="hidden-xs">
