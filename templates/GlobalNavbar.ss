@@ -31,7 +31,7 @@
         <ul id="profile-menu" class="nav navbar-nav global-right pull-right" style="display:none;">
             
             <li class="nav-search">
-                <a class="search" href="#SearchAnchor" title="Search">
+                <a class="search" href="javascript:void(0)" title="Search">
                     <% include SearchSvg %>
                     <span class="sr-only">Search site</span>
                 </a>
