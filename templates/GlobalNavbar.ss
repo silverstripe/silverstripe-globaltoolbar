@@ -198,34 +198,39 @@ if(!a.length) {
             
             if(!el) return;
             
-            var scrollHeight = window.scrollY,
-                scrollStep = Math.PI / ( scrollDuration / 15 ),                
-                scrollCount = 0,
-                scrollMargin,
-                scrollStop = Math.floor(el.getBoundingClientRect().top + document.body.scrollTop),
-                cosParameter = Math.abs(scrollStop-scrollHeight) / 2,
-                direction = scrollStop > scrollHeight ? 1 : -1;
-            
+            var interval = 10;
             requestAnimationFrame(step);        
 
             function step () {                
                 setTimeout(function() {
-                    var nextY, currentOffset, diff;
-                    scrollCount = scrollCount + 1;  
-                    scrollMargin = cosParameter - cosParameter * Math.cos( scrollCount * scrollStep );
-                    nextY = Math.round(scrollHeight + (scrollMargin * direction));
-                    currentOffset = Math.floor(el.getBoundingClientRect().top);
-                    diff = currentOffset - padding;
-                    
-                    if(diff == 0) {return;}
-                    if(diff < 0) {
-                    
-                        nextY = document.body.scrollTop - Math.abs(diff);
+                    if(scrollDuration < 1) {
+                        console.log('time is up. bailing out');
+                        return;
+                    }
+                    var scrollPos = window.scrollY,
+                        offset = el.getBoundingClientRect().top,
+                        togo = offset - padding,
+                        clicksRemaining = scrollDuration/interval,
+                        stepSize = togo/clicksRemaining;
+
+                    if(Math.round(window.scrollY)  == padding) {
+                        console.log('were there. bailing out');
+                        return;
+                    }
+                    console.log('scroll pos is', scrollPos, 'offset is', offset, 'togo is',togo, 'stepsize is',stepSize,'clicks remaining',clicksRemaining);
+                    if(offset - stepSize < padding) {
+                        stepSize = offset - padding;
+                        console.log('getting close.. changing stepsize to ', stepSize);
                     }
                     
-                    requestAnimationFrame(step);
+                    nextY = scrollPos+stepSize;                    
+                    console.log('next y is ', nextY);
                     window.scrollTo( 0, nextY );                                    
-                }, 15 );
+
+                    scrollDuration -= interval;
+                    
+                    requestAnimationFrame(step);
+                }, interval );
             }
         }
 
@@ -249,7 +254,7 @@ if(!a.length) {
                 e.target.parentNode.classList.add('current');
                 desktopSearchElem.classList.add('show');
                 if(document.body.classList.contains('top-level')) {      
-                    scrollToElement(desktopSearchElem, 300, 65);
+                    scrollToElement(desktopSearchElem, 200, 65);
                 }
                 if(desktopSearchElem.classList.contains('show')) {
                     var searchBox = document.querySelector('input.gsc-input');
