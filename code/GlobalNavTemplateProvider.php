@@ -57,11 +57,15 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 			if (empty($_GET['globaltoolbar'])) {
 				$host = GlobalNavSiteTreeExtension::get_toolbar_hostname();
 				$path = Config::inst()->get('GlobalNav','snippet_path');
-				$url = Controller::join_links($host, $path, '?globaltoolbar=true');
-				$connectionTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'connection_timeout');
-				$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timeout');
-				// Get the HTML and cache it
-				self::$global_nav_html = self::curl_call($url, $connectionTimeout, $transferTimeout);
+				if(Config::inst()->get('GlobalNav', 'use_localhost')) {
+					self::$global_nav_html = file_get_contents(BASE_PATH . $path);
+				} else {
+					$url = Controller::join_links($host, $path, '?globaltoolbar=true');
+					$connectionTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'connection_timeout');
+					$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timeout');
+					// Get the HTML and cache it
+					self::$global_nav_html = self::curl_call($url, $connectionTimeout, $transferTimeout);
+				}
 			}
 		}
 
