@@ -159,13 +159,14 @@ if(!a.length) {
                         child.style.display='block';
                     });
                 }
+                document.getElementById('mobile-nav-title').innerHTML = parent.innerHTML;            
+
             });
         }
     }
     else {
         link.parentNode.classList.add('current');
     }
-    document.getElementById('mobile-nav-title').innerHTML = link.innerHTML;            
 
 })
 
@@ -203,8 +204,7 @@ if(!a.length) {
 
             function step () {                
                 setTimeout(function() {
-                    if(scrollDuration < 1) {
-                        console.log('time is up. bailing out');
+                    if(scrollDuration < 1) {                        
                         return;
                     }
                     var scrollPos = window.scrollY,
@@ -213,18 +213,14 @@ if(!a.length) {
                         clicksRemaining = scrollDuration/interval,
                         stepSize = togo/clicksRemaining;
 
-                    if(Math.round(window.scrollY)  == padding) {
-                        console.log('were there. bailing out');
+                    if(Math.round(window.scrollY)  == padding) {                        
                         return;
-                    }
-                    console.log('scroll pos is', scrollPos, 'offset is', offset, 'togo is',togo, 'stepsize is',stepSize,'clicks remaining',clicksRemaining);
+                    }                    
                     if(offset - stepSize < padding) {
-                        stepSize = offset - padding;
-                        console.log('getting close.. changing stepsize to ', stepSize);
+                        stepSize = offset - padding;                     
                     }
                     
-                    nextY = scrollPos+stepSize;                    
-                    console.log('next y is ', nextY);
+                    nextY = scrollPos+stepSize;                                        
                     window.scrollTo( 0, nextY );                                    
 
                     scrollDuration -= interval;
