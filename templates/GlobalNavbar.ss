@@ -127,6 +127,7 @@ currentHost = '//'+window.location.hostname;
 currentPath = window.location.pathname.replace(/\\/?$/, '/');
 toolbarHostname = '$ToolbarHostname';
 isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
+document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
 // Check if there's a forced state
 if(window.GLOBAL_NAV_PRIMARY_ID) {
     a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
@@ -158,8 +159,7 @@ if(!a.length) {
                     [].slice.call(children).forEach(function(child) {
                         child.style.display='block';
                     });
-                }
-                document.getElementById('mobile-nav-title').innerHTML = parent.innerHTML;            
+                }            
 
             });
         }
@@ -167,7 +167,6 @@ if(!a.length) {
     else {
         link.parentNode.classList.add('current');
     }
-
 })
 
 
