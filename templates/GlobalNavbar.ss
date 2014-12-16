@@ -122,167 +122,196 @@
 <script type="text/javascript">
 
 (function() {
-	var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost, toolbarHostname, currentPath;
-	currentHost = '//'+window.location.hostname;
-	currentPath = window.location.pathname.replace(/\\/?$/, '/');
-	toolbarHostname = '$ToolbarHostname';
-	isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
-	document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
-	// Check if there's a forced state
-	if(window.GLOBAL_NAV_PRIMARY_ID) {
-		a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
-	}
-	else if(window.GLOBAL_NAV_SECONDARY_ID) {
-		a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
-	}
-	else {
-		// Check if an extrenal link in the nav goes to this site
-		a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
-		if(!a.length) {
-			a = document.querySelectorAll('a[data-link="'+currentPath+'"]');
+
+	// Define some utility functions - we can't use jQuery, from http://youmightnotneedjquery.com/.
+	function elHasClass(el, className) {
+		if (el.classList) {
+			return el.classList.contains(className);
+		} else {
+			return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
 		}
 	}
 
-	if(!a.length) {
-		return;
+	function elAddClass(el, className) {
+		if (el.classList) {
+			el.classList.add(className);
+		} else {
+			el.className += ' ' + className;
+		}
 	}
 
-	[].slice.call(a).forEach(function(link) {
-		if(parent_id = link.getAttribute('data-parent-id')) {
-			link.parentNode.classList.add('active');
-			if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {
-				[].slice.call(parents).forEach(function(parent) {
-					parent.classList.add('current');
-					// ss.org doesn't render a static secondary nav. Uses its own template.
-					if(!isCurrentHost) {
-						children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
-						[].slice.call(children).forEach(function(child) {
-							child.style.display='block';
-						});
-					}
+	function elRemoveClass(el, className) {
+		if (el.classList) {
+			el.classList.remove(className);
+		} else {
+			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+		}
+	}
 
-				});
-			}
+	(function() {
+		var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost, toolbarHostname, currentPath;
+		currentHost = '//'+window.location.hostname;
+		currentPath = window.location.pathname.replace(/\\/?$/, '/');
+		toolbarHostname = '$ToolbarHostname';
+		isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
+		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
+		// Check if there's a forced state
+		if(window.GLOBAL_NAV_PRIMARY_ID) {
+			a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
+		}
+		else if(window.GLOBAL_NAV_SECONDARY_ID) {
+			a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
 		}
 		else {
-			link.parentNode.classList.add('current');
-		}
-	})
-
-})();
-
-(function() {
-	document.addEventListener('DOMContentLoaded', function () {
-		var tabHolderElem = document.querySelector('.search-pane');
-		var desktopSearchElem = document.getElementById('desktopSearch');
-		var navSearchA = document.querySelector('.nav-search a');
-		var searchClose = document.querySelector('a.search-close');
-
-		iFrameResize({
-			enablePublicMethods: true,
-			sizeWidth: true,
-			autoResize: false,
-			log: false
-		}, '#toolbar-iframe');
-
-
-		function scrollToElement(el, scrollDuration, padding) {
-			scrollDuration = scrollDuration || 300;
-			padding = padding || 0;
-
-			if(typeof el === "string") {
-				el = document.querySelector(selector);
-			}
-
-			if(!el) return;
-
-			var interval = 10;
-			requestAnimationFrame(step);
-
-			function step () {
-				setTimeout(function() {
-					if(scrollDuration < 1) {
-						return;
-					}
-					var scrollPos = window.scrollY,
-						offset = el.getBoundingClientRect().top,
-						togo = offset - padding,
-						clicksRemaining = scrollDuration/interval,
-						stepSize = togo/clicksRemaining;
-
-					if(Math.round(window.scrollY)  == padding) {
-						return;
-					}
-					if(offset - stepSize < padding) {
-						stepSize = offset - padding;
-					}
-
-					nextY = scrollPos+stepSize;
-					window.scrollTo( 0, nextY );
-
-					scrollDuration -= interval;
-
-					requestAnimationFrame(step);
-				}, interval );
+			// Check if an extrenal link in the nav goes to this site
+			a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
+			if(!a.length) {
+				a = document.querySelectorAll('a[data-link="'+currentPath+'"]');
 			}
 		}
 
-		setTimeout(function() {
-			document.getElementById('profile-menu').style.display='block';
-			document.getElementById('loader-menu').style.display='none';
-		}, 1000);
-
-
-		function desktopClose(elem) {
-			searchClose.addEventListener('click', function (e) {
-				e.preventDefault();
-				elem.classList.remove('show');
-			});
+		if(!a.length) {
+			return;
 		}
 
-		// search tabs
-		if(navSearchA) {
-			navSearchA.addEventListener('click', function (e) {
-				e.preventDefault();
-				e.target.parentNode.classList.add('current');
-				desktopSearchElem.classList.add('show');
-				if(document.body.classList.contains('top-level')) {
-					scrollToElement(desktopSearchElem, 200, 65);
+		[].slice.call(a).forEach(function(link) {
+			if(parent_id = link.getAttribute('data-parent-id')) {
+				elAddClass(link.parentNode, 'active');
+				if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {
+					[].slice.call(parents).forEach(function(parent) {
+						elAddClass(parent, 'current');
+						// ss.org doesn't render a static secondary nav. Uses its own template.
+						if(!isCurrentHost) {
+							children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
+							[].slice.call(children).forEach(function(child) {
+								child.style.display='block';
+							});
+						}
+
+					});
 				}
-				if(desktopSearchElem.classList.contains('show')) {
-					var searchBox = document.querySelector('input.gsc-input');
+			}
+			else {
+				elAddClass(link.parentNode, 'current');
+			}
+		})
+
+	})();
+
+	(function() {
+		document.addEventListener('DOMContentLoaded', function () {
+			var tabHolderElem = document.querySelector('.search-pane');
+			var desktopSearchElem = document.getElementById('desktopSearch');
+			var navSearchA = document.querySelector('.nav-search a');
+			var searchClose = document.querySelector('a.search-close');
+
+			iFrameResize({
+				enablePublicMethods: true,
+				sizeWidth: true,
+				autoResize: false,
+				log: false
+			}, '#toolbar-iframe');
+
+
+			function scrollToElement(el, scrollDuration, padding) {
+				scrollDuration = scrollDuration || 300;
+				padding = padding || 0;
+
+				if(typeof el === "string") {
+					el = document.querySelector(selector);
+				}
+
+				if(!el) return;
+
+				var interval = 10;
+				requestAnimationFrame(step);
+
+				function step () {
 					setTimeout(function() {
-						event = document.createEvent('HTMLEvents');
-						event.initEvent('focus', true, false);
-						searchBox.dispatchEvent(event);
-					}, 10);
-					desktopClose(desktopSearchElem);
+						if(scrollDuration < 1) {
+							return;
+						}
+						var scrollPos = window.scrollY,
+							offset = el.getBoundingClientRect().top,
+							togo = offset - padding,
+							clicksRemaining = scrollDuration/interval,
+							stepSize = togo/clicksRemaining;
+
+						if(Math.round(window.scrollY)  == padding) {
+							return;
+						}
+						if(offset - stepSize < padding) {
+							stepSize = offset - padding;
+						}
+
+						nextY = scrollPos+stepSize;
+						window.scrollTo( 0, nextY );
+
+						scrollDuration -= interval;
+
+						requestAnimationFrame(step);
+					}, interval );
 				}
-			});
-		}
-
-	});
-
-})();
-
-(function() {
-	var interval = window.setInterval(function() {
-		for(var i=1;i<=3;i++) {
-			if(document.getElementById('gsc-i-id'+i)) {
-				window.clearInterval(interval);
-				document.getElementById('gsc-i-id'+i).setAttribute('placeholder', 'Search SilverStripe...');
 			}
 
-		}
-	}.bind(this), 500);
-})();
+			setTimeout(function() {
+				document.getElementById('profile-menu').style.display='block';
+				document.getElementById('loader-menu').style.display='none';
+			}, 1000);
 
-(function() {
-	var cx = '$GoogleCustomSearchId';
-	var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-	gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-		'//www.google.com/cse/cse.js?cx=' + cx;
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+
+			function desktopClose(elem) {
+				searchClose.addEventListener('click', function (e) {
+					e.preventDefault();
+					elRemoveClass(elem, 'show');
+				});
+			}
+
+			// search tabs
+			if(navSearchA) {
+				navSearchA.addEventListener('click', function (e) {
+					e.preventDefault();
+					elAddClass(e.target.parentNode, 'current');
+					elAddClass(desktopSearchElem, 'show');
+					if(elHasClass(document.body, 'top-level')) {
+						scrollToElement(desktopSearchElem, 200, 65);
+					}
+					if(elHasClass(desktopSearchElem, 'show')) {
+						var searchBox = document.querySelector('input.gsc-input');
+						setTimeout(function() {
+							event = document.createEvent('HTMLEvents');
+							event.initEvent('focus', true, false);
+							searchBox.dispatchEvent(event);
+						}, 10);
+						desktopClose(desktopSearchElem);
+					}
+				});
+			}
+
+		});
+
+	})();
+
+	(function() {
+		var interval = window.setInterval(function() {
+			for(var i=1;i<=3;i++) {
+				if(document.getElementById('gsc-i-id'+i)) {
+					window.clearInterval(interval);
+					document.getElementById('gsc-i-id'+i).setAttribute('placeholder', 'Search SilverStripe...');
+				}
+
+			}
+		}.bind(this), 500);
+	})();
+
+	(function() {
+		var cx = '$GoogleCustomSearchId';
+		var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+		gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+			'//www.google.com/cse/cse.js?cx=' + cx;
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+	})();
+
 })();
 
 </script>
