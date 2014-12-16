@@ -154,7 +154,6 @@
 		currentPath = window.location.pathname.replace(/\\/?$/, '/');
 		toolbarHostname = '$ToolbarHostname';
 		isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
-		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
 		// Check if there's a forced state
 		if(window.GLOBAL_NAV_PRIMARY_ID) {
 			a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
@@ -168,6 +167,15 @@
 			if(!a.length) {
 				a = document.querySelectorAll('a[data-link="'+currentPath+'"]');
 			}
+		}
+
+		// Set the mobile title.
+		if (window.GLOBAL_NAV_MOBILE_TITLE) {
+			// Set to the explicitly provided title from the global variable in Header.ss.
+			document.getElementById('mobile-nav-title').innerHTML = window.GLOBAL_NAV_MOBILE_TITLE;
+		} else if (a.length>0) {
+			// Set to current page title by reverse engineering it from the URL, as mapped to navigation elements.
+			document.getElementById('mobile-nav-title').innerHTML = a[0].textContent;
 		}
 
 		if(!a.length) {
