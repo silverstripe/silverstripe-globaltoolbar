@@ -1,60 +1,60 @@
 <nav class="navbar navbar-inverse navbar-global" role="navigation">
-    <div class="container">
-        
-        <div class="navbar-header">
-            <div class="navbar-brand">
-                <a class="logo" title="SilverStripe" href="$BaseHref">
-                    <% include BrandSvg %>
-                </a>
-                <h1 class="brand-name">
-                    <a title="SilverStripe" href="$BaseHref">
-                        <span>Silver</span>Stripe
-                    </a>
-                </h1>
-                
-                <span class="mobile-page-name visible-xs">
-                    <svg viewBox="0 0 12.9 44.5" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
-                    <path class="nav-breadcrumb-divider" d="M11 0l1.9.5-11 44-1.9-.5 11-44z" fill="#fff" clip-rule="evenodd" fill-rule="evenodd" />
-                    </svg>
-                    <h1 id="mobile-nav-title" class="page-title"></h1>
-                </span>
+	<div class="container">
 
-            </div>
+		<div class="navbar-header">
+			<div class="navbar-brand">
+				<a class="logo" title="SilverStripe" href="$BaseHref">
+					<% include BrandSvg %>
+				</a>
+				<h1 class="brand-name">
+					<a title="SilverStripe" href="$BaseHref">
+						<span>Silver</span>Stripe
+					</a>
+				</h1>
 
-            <a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
-                <span class="ion-navicon"></span>
-                <span class="sr-only">Toggle navigation</span>
-            </a>
-        </div>
-        
-        <%-- Profile menu --%>
-        <ul id="profile-menu" class="nav navbar-nav global-right pull-right" style="display:none;">
-            
-            <li class="nav-search">
-                <a class="search" href="javascript:void(0)" title="Search">
-                    <% include SearchSvg %>
-                    <span class="sr-only">Search site</span>
-                </a>
-            </li>
-            <!-- <li class="hidden-xs">
-                <a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
-            </li> -->
-            
-            <li>                                
-                <iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
-            </li>
+				<span class="mobile-page-name visible-xs">
+					<svg viewBox="0 0 12.9 44.5" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
+						<path class="nav-breadcrumb-divider" d="M11 0l1.9.5-11 44-1.9-.5 11-44z" fill="#fff" clip-rule="evenodd" fill-rule="evenodd" />
+					</svg>
+					<h1 id="mobile-nav-title" class="page-title"></h1>
+				</span>
 
-        </ul>
-        <i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios7-reloading"></i>
-        <%-- Navigation top level --%>
- 
-        <ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
-            <% loop $Pages %>    
-                <li data-id="$ID">
-                    <a href="$GlobalNavLink" data-link="$Link" title="Go to the $Title.XML page">$MenuTitle.XML</a>
-                </li>
-            <% end_loop %>
-        </ul>
+			</div>
+
+			<a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
+				<span class="ion-navicon"></span>
+				<span class="sr-only">Toggle navigation</span>
+			</a>
+		</div>
+
+		<%-- Profile menu --%>
+		<ul id="profile-menu" class="nav navbar-nav global-right pull-right" style="display:none;">
+
+			<li class="nav-search">
+				<a class="search" href="javascript:void(0)" title="Search">
+					<% include SearchSvg %>
+					<span class="sr-only">Search site</span>
+				</a>
+			</li>
+			<!-- <li class="hidden-xs">
+				<a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
+			</li> -->
+
+			<li>
+				<iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
+			</li>
+
+		</ul>
+		<i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios7-reloading"></i>
+		<%-- Navigation top level --%>
+
+		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
+			<% loop $Pages %>
+				<li data-id="$ID">
+					<a href="$GlobalNavLink" data-link="$Link" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+				</li>
+			<% end_loop %>
+		</ul>
 
 		<nav class="slide-menu visible-xs" role="navigation">
 			<ul class="nav list-unstyled">
@@ -71,7 +71,7 @@
 							<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
 							<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 							<% if $Children %>
-							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu"> 
+							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 								<% loop Children %>
 								<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 									<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
@@ -98,23 +98,23 @@
 			</ul>
 		</nav>
 
-    </div>
+	</div>
 </nav>
 
 <% loop $Pages %>
 <% if $ShouldShowChildren %>
 <nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" data-parent-id="$ID">
-    <div class="container">
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav" role="navigation">
-                <% loop $GlobalNavChildren %>
-                    <li data-id="$ID" class="">
-                        <a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
-                    </li>
-                <% end_loop %>
-            </ul>
-        </div><!--/.navbar-collapse -->
-    </div>
+	<div class="container">
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav" role="navigation">
+				<% loop $GlobalNavChildren %>
+					<li data-id="$ID" class="">
+						<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
+					</li>
+				<% end_loop %>
+			</ul>
+		</div><!--/.navbar-collapse -->
+	</div>
 </nav>
 <% end_if %>
 <% end_loop %>
@@ -122,169 +122,196 @@
 <script type="text/javascript">
 
 (function() {
-var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost, toolbarHostname, currentPath;
-currentHost = '//'+window.location.hostname;
-currentPath = window.location.pathname.replace(/\\/?$/, '/');
-toolbarHostname = '$ToolbarHostname';
-isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
-document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
-// Check if there's a forced state
-if(window.GLOBAL_NAV_PRIMARY_ID) {
-    a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
-}
-else if(window.GLOBAL_NAV_SECONDARY_ID) {   
-    a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
-}
-else {    
-    // Check if an extrenal link in the nav goes to this site
-    a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
-    if(!a.length) {
-        a = document.querySelectorAll('a[data-link="'+currentPath+'"]');            
-    }
-}
 
-if(!a.length) {    
-    return;
-}
+	// Define some utility functions - we can't use jQuery, from http://youmightnotneedjquery.com/.
+	function elHasClass(el, className) {
+		if (el.classList) {
+			return el.classList.contains(className);
+		} else {
+			return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+		}
+	}
 
-[].slice.call(a).forEach(function(link) { 
-    if(parent_id = link.getAttribute('data-parent-id')) {         
-        link.parentNode.classList.add('active');        
-        if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {            
-            [].slice.call(parents).forEach(function(parent) {
-                parent.classList.add('current');
-                // ss.org doesn't render a static secondary nav. Uses its own template.
-                if(!isCurrentHost) { 
-                    children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
-                    [].slice.call(children).forEach(function(child) {
-                        child.style.display='block';
-                    });
-                }            
+	function elAddClass(el, className) {
+		if (el.classList) {
+			el.classList.add(className);
+		} else {
+			el.className += ' ' + className;
+		}
+	}
 
-            });
-        }
-    }
-    else {
-        link.parentNode.classList.add('current');
-    }
-})
+	function elRemoveClass(el, className) {
+		if (el.classList) {
+			el.classList.remove(className);
+		} else {
+			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+		}
+	}
 
+	(function() {
+		var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost, toolbarHostname, currentPath;
+		currentHost = '//'+window.location.hostname;
+		currentPath = window.location.pathname.replace(/\\/?$/, '/');
+		toolbarHostname = '$ToolbarHostname';
+		isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
+		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
+		// Check if there's a forced state
+		if(window.GLOBAL_NAV_PRIMARY_ID) {
+			a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
+		}
+		else if(window.GLOBAL_NAV_SECONDARY_ID) {
+			a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
+		}
+		else {
+			// Check if an extrenal link in the nav goes to this site
+			a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
+			if(!a.length) {
+				a = document.querySelectorAll('a[data-link="'+currentPath+'"]');
+			}
+		}
 
+		if(!a.length) {
+			return;
+		}
 
-})();
+		[].slice.call(a).forEach(function(link) {
+			if(parent_id = link.getAttribute('data-parent-id')) {
+				elAddClass(link.parentNode, 'active');
+				if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {
+					[].slice.call(parents).forEach(function(parent) {
+						elAddClass(parent, 'current');
+						// ss.org doesn't render a static secondary nav. Uses its own template.
+						if(!isCurrentHost) {
+							children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
+							[].slice.call(children).forEach(function(child) {
+								child.style.display='block';
+							});
+						}
 
-(function() {
-    document.addEventListener('DOMContentLoaded', function () {
-        var tabHolderElem = document.querySelector('.search-pane');
-        var desktopSearchElem = document.getElementById('desktopSearch');
-        var navSearchA = document.querySelector('.nav-search a');
-        var searchClose = document.querySelector('a.search-close');
+					});
+				}
+			}
+			else {
+				elAddClass(link.parentNode, 'current');
+			}
+		})
 
-        iFrameResize({
-            enablePublicMethods: true,
-            sizeWidth: true,
-            autoResize: false,
-            log: false
-        }, '#toolbar-iframe');
+	})();
 
+	(function() {
+		document.addEventListener('DOMContentLoaded', function () {
+			var tabHolderElem = document.querySelector('.search-pane');
+			var desktopSearchElem = document.getElementById('desktopSearch');
+			var navSearchA = document.querySelector('.nav-search a');
+			var searchClose = document.querySelector('a.search-close');
 
-        function scrollToElement(el, scrollDuration, padding) {
-            scrollDuration = scrollDuration || 300;
-            padding = padding || 0;
-
-            if(typeof el === "string") {
-                el = document.querySelector(selector);
-            }
-            
-            if(!el) return;
-            
-            var interval = 10;
-            requestAnimationFrame(step);        
-
-            function step () {                
-                setTimeout(function() {
-                    if(scrollDuration < 1) {                        
-                        return;
-                    }
-                    var scrollPos = window.scrollY,
-                        offset = el.getBoundingClientRect().top,
-                        togo = offset - padding,
-                        clicksRemaining = scrollDuration/interval,
-                        stepSize = togo/clicksRemaining;
-
-                    if(Math.round(window.scrollY)  == padding) {                        
-                        return;
-                    }                    
-                    if(offset - stepSize < padding) {
-                        stepSize = offset - padding;                     
-                    }
-                    
-                    nextY = scrollPos+stepSize;                                        
-                    window.scrollTo( 0, nextY );                                    
-
-                    scrollDuration -= interval;
-                    
-                    requestAnimationFrame(step);
-                }, interval );
-            }
-        }
-
-        setTimeout(function() {
-            document.getElementById('profile-menu').style.display='block';
-            document.getElementById('loader-menu').style.display='none';
-        }, 1000);
+			iFrameResize({
+				enablePublicMethods: true,
+				sizeWidth: true,
+				autoResize: false,
+				log: false
+			}, '#toolbar-iframe');
 
 
-        function desktopClose(elem) {
-            searchClose.addEventListener('click', function (e) {
-                e.preventDefault();
-                elem.classList.remove('show');
-            });
-        }
+			function scrollToElement(el, scrollDuration, padding) {
+				scrollDuration = scrollDuration || 300;
+				padding = padding || 0;
 
-        // search tabs
-        if(navSearchA) {            
-            navSearchA.addEventListener('click', function (e) {
-                e.preventDefault();
-                e.target.parentNode.classList.add('current');
-                desktopSearchElem.classList.add('show');
-                if(document.body.classList.contains('top-level')) {      
-                    scrollToElement(desktopSearchElem, 200, 65);
-                }
-                if(desktopSearchElem.classList.contains('show')) {
-                    var searchBox = document.querySelector('input.gsc-input');
-                    setTimeout(function() {
-                        event = document.createEvent('HTMLEvents');
-                        event.initEvent('focus', true, false);
-                        searchBox.dispatchEvent(event);                                                
-                    }, 10);
-                    desktopClose(desktopSearchElem);
-                }
-            });
-        }
+				if(typeof el === "string") {
+					el = document.querySelector(selector);
+				}
 
-    });
+				if(!el) return;
 
-})();
+				var interval = 10;
+				requestAnimationFrame(step);
 
-(function() {
-    var interval = window.setInterval(function() {
-        for(var i=1;i<=3;i++) {
-            if(document.getElementById('gsc-i-id'+i)) {                
-                window.clearInterval(interval);                
-                document.getElementById('gsc-i-id'+i).setAttribute('placeholder', 'Search SilverStripe...');
-            }
+				function step () {
+					setTimeout(function() {
+						if(scrollDuration < 1) {
+							return;
+						}
+						var scrollPos = window.scrollY,
+							offset = el.getBoundingClientRect().top,
+							togo = offset - padding,
+							clicksRemaining = scrollDuration/interval,
+							stepSize = togo/clicksRemaining;
 
-        }
-    }.bind(this), 500);
-})();
+						if(Math.round(window.scrollY)  == padding) {
+							return;
+						}
+						if(offset - stepSize < padding) {
+							stepSize = offset - padding;
+						}
 
-(function() {
-var cx = '$GoogleCustomSearchId';
-var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
-gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-    '//www.google.com/cse/cse.js?cx=' + cx;
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);    
+						nextY = scrollPos+stepSize;
+						window.scrollTo( 0, nextY );
+
+						scrollDuration -= interval;
+
+						requestAnimationFrame(step);
+					}, interval );
+				}
+			}
+
+			setTimeout(function() {
+				document.getElementById('profile-menu').style.display='block';
+				document.getElementById('loader-menu').style.display='none';
+			}, 1000);
+
+
+			function desktopClose(elem) {
+				searchClose.addEventListener('click', function (e) {
+					e.preventDefault();
+					elRemoveClass(elem, 'show');
+				});
+			}
+
+			// search tabs
+			if(navSearchA) {
+				navSearchA.addEventListener('click', function (e) {
+					e.preventDefault();
+					elAddClass(e.target.parentNode, 'current');
+					elAddClass(desktopSearchElem, 'show');
+					if(elHasClass(document.body, 'top-level')) {
+						scrollToElement(desktopSearchElem, 200, 65);
+					}
+					if(elHasClass(desktopSearchElem, 'show')) {
+						var searchBox = document.querySelector('input.gsc-input');
+						setTimeout(function() {
+							event = document.createEvent('HTMLEvents');
+							event.initEvent('focus', true, false);
+							searchBox.dispatchEvent(event);
+						}, 10);
+						desktopClose(desktopSearchElem);
+					}
+				});
+			}
+
+		});
+
+	})();
+
+	(function() {
+		var interval = window.setInterval(function() {
+			for(var i=1;i<=3;i++) {
+				if(document.getElementById('gsc-i-id'+i)) {
+					window.clearInterval(interval);
+					document.getElementById('gsc-i-id'+i).setAttribute('placeholder', 'Search SilverStripe...');
+				}
+
+			}
+		}.bind(this), 500);
+	})();
+
+	(function() {
+		var cx = '$GoogleCustomSearchId';
+		var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+		gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+			'//www.google.com/cse/cse.js?cx=' + cx;
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+	})();
+
 })();
 
 </script>
