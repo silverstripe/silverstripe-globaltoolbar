@@ -109,12 +109,12 @@
 
 <% with $ActiveParent %>
 <% if $ShouldShowChildren %>
-<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation">
+<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" style="display:block;">
 	<div class="container">
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav" role="navigation">
 				<% loop $GlobalNavChildren %>
-					<li <% if $Top.ActivePage.ID == $ID %>class="current"<% end_if %>>
+					<li <% if $Top.ActivePage.ID == $ID %>class="active"<% end_if %>>
 						<a href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
 					</li>
 				<% end_loop %>
