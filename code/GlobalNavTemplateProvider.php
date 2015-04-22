@@ -45,9 +45,10 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	}
 
 	/**
+	 * @param   $key The nav key, e.g. "doc", "userhelp"
 	 * @return HTMLText
 	 */
-	public static function GlobalNav() {
+	public static function GlobalNav($key) {
 		Requirements::css(Controller::join_links(GlobalNavSiteTreeExtension::get_toolbar_hostname(), Config::inst()->get('GlobalNav','css_path')));
 
 		// If this method haven't been called before, get the toolbar and cache it
@@ -57,7 +58,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 			// Prevent recursion from happening
 			if (empty($_GET['globaltoolbar'])) {
 				$host = GlobalNavSiteTreeExtension::get_toolbar_hostname();
-				$path = Config::inst()->get('GlobalNav','snippet_path');
+				$path = GlobalNavSiteTreeExtension::get_navbar_filename($key);
 				if(Config::inst()->get('GlobalNav', 'use_localhost')) {
 					self::$global_nav_html = file_get_contents(BASE_PATH . $path);
 				} else {

@@ -32,6 +32,14 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}
 
 
+	public static function get_navbar_filename($key) {
+		return Controller::join_links(
+			BASE_PATH,
+			Config::inst()->get('GlobalNav', 'snippet_path'),
+			'global-nav-'.$key.'.html'
+		);
+	}
+
 	public static function create_static_navs() {
 		$domains = Config::inst()->get('GlobalNav','static_navs');
 		if($domains) {
@@ -39,11 +47,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 				$page = SiteTree::get()->byID($id);
 				if(!$page) continue;
 
-				$filename = Controller::join_links(
-					BASE_PATH,
-					Config::inst()->get('GlobalNav', 'snippet_path'),
-					'global-nav-'.$key.'.html'
-				);
+				$filename = self::get_navbar_filename($key);
 				file_put_contents($filename, self::get_navbar_html($page));			
 			}
 		}
