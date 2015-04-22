@@ -58,7 +58,8 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 			// Prevent recursion from happening
 			if (empty($_GET['globaltoolbar'])) {
 				$host = GlobalNavSiteTreeExtension::get_toolbar_hostname();
-				$path = GlobalNavSiteTreeExtension::get_navbar_filename($key);
+				$path = Director::makeRelative(GlobalNavSiteTreeExtension::get_navbar_filename($key));
+				
 				if(Config::inst()->get('GlobalNav', 'use_localhost')) {
 					self::$global_nav_html = file_get_contents(BASE_PATH . $path);
 				} else {
@@ -66,6 +67,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 					$connectionTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'connection_timeout');
 					$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timeout');
 					// Get the HTML and cache it
+
 					self::$global_nav_html = self::curl_call($url, $connectionTimeout, $transferTimeout);
 				}
 			}
