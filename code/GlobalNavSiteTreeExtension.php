@@ -12,21 +12,41 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		return Config::inst()->get('GlobalNav','use_localhost') ? Director::absoluteBaseURL() : Config::inst()->get('GlobalNav','hostname');
 	}
 
-	public static function create_nav() {
+
+	public static function get_navbar_html($page = null) {
 		// remove the protocol from the URL, otherwise we run into https/http issues
 		$url = self::remove_protocol_from_url(self::get_toolbar_hostname());
-		$html = ViewableData::create()->customise(array(
+		
+		if(!$page instanceof SiteTree) $page = Director::get_current_page();
+		
+		return ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
 				'Pages' => SiteTree::get()->filter(array(
-				'ParentID' => 0,
-				'ShowInGlobalNav' => true
-			)),
-			'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
+					'ParentID' => 0,
+					'ShowInGlobalNav' => true
+				)),
+				'ActivePage' => $page,
+				'ActiveParent' => $page->Parent()->exists() ? $page->Parent() : $page,
+				'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
 		))->renderWith('GlobalNavbar');
+	}
 
-		$path = Config::inst()->get('GlobalNav', 'snippet_path');
 
-		file_put_contents(BASE_PATH . $path, $html);
+	public static function create_static_navs() {
+		$domains = Config::inst()->get('GlobalNav','static_navs');
+		if($domains) {
+			foreach($domains as $key => $id) {
+				$page = SiteTree::get()->byID($id);
+				if(!$page) continue;
+
+				$filename = Controller::join_links(
+					BASE_PATH,
+					Config::inst()->get('GlobalNav', 'snippet_path'),
+					'global-nav-'.$key.'.html'
+				);
+				file_put_contents($filename, self::get_navbar_html($page));			
+			}
+		}
 	}    
 
 
@@ -53,7 +73,11 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		if($this->IsExternal()) {
 			return $this->owner->ExternalURL;		
 		}
-		return $this->owner->AbsoluteLink();
+		
+		return Controller::join_links(
+			Director::absoluteBaseURL(),
+			RegionalFluent::get_canonical_url($this->owner->Link())
+		);
 	}
 
 
@@ -71,7 +95,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 	public function onAfterWrite() {
 		if ($this->owner->ParentID == 0) {
-			self::create_nav();
+			self::create_static_navs();
 		}
 	}
 

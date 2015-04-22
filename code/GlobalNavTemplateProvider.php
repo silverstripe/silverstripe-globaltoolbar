@@ -40,6 +40,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	public static function get_template_global_variables() {
 		return array(
 			'GlobalNav',
+			'DynamicGlobalNav'
 		);
 	}
 
@@ -72,6 +73,11 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 		$html = DBField::create_field('HTMLText', self::$global_nav_html);
 		$html->setOptions(array('shortcodes' => false));
 		return $html;
+	}
+
+
+	public static function DynamicGlobalNav() {
+		return GlobalNavSiteTreeExtension::get_navbar_html();
 	}
 
 	/**

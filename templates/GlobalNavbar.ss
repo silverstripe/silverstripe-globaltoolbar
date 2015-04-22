@@ -50,8 +50,14 @@
 
 		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
 			<% loop $Pages %>
-				<li data-id="$ID">
-					<a href="$GlobalNavLink" data-link="$Link" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+				<li 
+					<% if $Top.ActivePage.ID == $ID %>
+						class="current"
+					<% else_if $Top.ActivePage.ParentID == $ID %>
+						class="section"
+					<% end_if %>
+				>
+					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML $ActivePage.Title</a>
 				</li>
 			<% end_loop %>
 		</ul>
@@ -63,24 +69,24 @@
 				<% loop $Pages %>
 				<li class="$LinkingMode<% if $Children %> children<% end_if %>">
 					<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-					<a data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 					<% if $Children %>
 					<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 						<% loop Children %>
 						<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 							<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-							<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+							<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 							<% if $Children %>
 							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 								<% loop Children %>
 								<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
 									<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
-									<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+									<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
 									<% if $Children %>
 									<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 										<% loop Children %>
 										<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
-											<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+											<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
 										</li>
 										<% end_loop %>
 									</ul>
@@ -101,15 +107,15 @@
 	</div>
 </nav>
 
-<% loop $Pages %>
+<% with $ActiveParent %>
 <% if $ShouldShowChildren %>
-<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" data-parent-id="$ID">
+<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation">
 	<div class="container">
 		<div class="navbar-collapse collapse">
 			<ul class="nav navbar-nav" role="navigation">
 				<% loop $GlobalNavChildren %>
-					<li data-id="$ID" class="">
-						<a data-parent-id="$ParentID" data-link="$Link" href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
+					<li <% if $Top.ActivePage.ID == $ID %>class="current"<% end_if %>>
+						<a href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
 					</li>
 				<% end_loop %>
 			</ul>
@@ -117,12 +123,11 @@
 	</div>
 </nav>
 <% end_if %>
-<% end_loop %>
+<% end_with %>
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
 <script type="text/javascript">
 
 (function() {
-
 	// Define some utility functions - we can't use jQuery, from http://youmightnotneedjquery.com/.
 	function elHasClass(el, className) {
 		if (el.classList) {
@@ -148,63 +153,6 @@
 		}
 	}
 
-	(function() {
-		var a, parent_id, parent, parents, children, base, currentHost, isCurrentHost, toolbarHostname, currentPath;
-		currentHost = '//'+window.location.hostname;
-		currentPath = window.location.pathname.replace(/\\/?$/, '/');
-		toolbarHostname = '$ToolbarHostname';
-		isCurrentHost = (currentHost.replace(/\\/?$/, '/') == toolbarHostname.replace(/\\/?$/, '/'));
-		// Check if there's a forced state
-		if(window.GLOBAL_NAV_PRIMARY_ID) {
-			a = document.querySelectorAll('li[data-id="'+window.GLOBAL_NAV_PRIMARY_ID+'"] a');
-		}
-		else if(window.GLOBAL_NAV_SECONDARY_ID) {
-			a = document.querySelectorAll('.navbar-secondary li[data-id="'+window.GLOBAL_NAV_SECONDARY_ID+'"] a');
-		}
-		else {
-			// Check if an extrenal link in the nav goes to this site
-			a = document.querySelectorAll('a[data-link="'+window.location.origin+'"]');
-			if(!a.length) {
-				a = document.querySelectorAll('a[data-link="'+currentPath+'"]');
-			}
-		}
-
-		// Set the mobile title.
-		if (window.GLOBAL_NAV_MOBILE_TITLE) {
-			// Set to the explicitly provided title from the global variable in Header.ss.
-			document.getElementById('mobile-nav-title').innerHTML = window.GLOBAL_NAV_MOBILE_TITLE;
-		} else if (a.length>0) {
-			// Set to current page title by reverse engineering it from the URL, as mapped to navigation elements.
-			document.getElementById('mobile-nav-title').innerHTML = a[0].textContent;
-		}
-
-		if(!a.length) {
-			return;
-		}
-
-		[].slice.call(a).forEach(function(link) {
-			if(parent_id = link.getAttribute('data-parent-id')) {
-				elAddClass(link.parentNode, 'active');
-				if(parents = document.querySelectorAll('[data-id="'+parent_id+'"]')) {
-					[].slice.call(parents).forEach(function(parent) {
-						elAddClass(parent, 'current');
-						// ss.org doesn't render a static secondary nav. Uses its own template.
-						if(!isCurrentHost) {
-							children = document.querySelectorAll('nav[data-parent-id="'+parent_id+'"]');
-							[].slice.call(children).forEach(function(child) {
-								child.style.display='block';
-							});
-						}
-
-					});
-				}
-			}
-			else {
-				elAddClass(link.parentNode, 'current');
-			}
-		})
-
-	})();
 
 	(function() {
 		document.addEventListener('DOMContentLoaded', function () {

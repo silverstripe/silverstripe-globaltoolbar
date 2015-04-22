@@ -10,7 +10,7 @@ class GlobalNavControllerExtension extends DataExtension {
 				(Permission::check('ADMIN') || Director::isDev())
 			) {
 			
-				GlobalNavSiteTreeExtension::create_nav();
+				GlobalNavSiteTreeExtension::create_static_navs();
 		}
 	}
 }
