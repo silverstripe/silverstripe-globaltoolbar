@@ -13,11 +13,19 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}
 
 
+	public static function is_host() {
+		return self::get_toolbar_hostname() == Director::absoluteBaseURL();
+	}
+
+
 	public static function get_navbar_html($page = null) {
 		// remove the protocol from the URL, otherwise we run into https/http issues
 		$url = self::remove_protocol_from_url(self::get_toolbar_hostname());
-		
-		if(!$page instanceof SiteTree) $page = Director::get_current_page();
+		$static = true;
+		if(!$page instanceof SiteTree) {
+			$page = Director::get_current_page();
+			$static = false;
+		}
 		
 		return ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
@@ -26,7 +34,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 					'ShowInGlobalNav' => true
 				)),
 				'ActivePage' => $page,
-				'ActiveParent' => $page->Parent()->exists() ? $page->Parent() : $page,
+				'ActiveParent' => ($page instanceof SiteTree && $page->Parent()->exists()) ? $page->Parent() : $page,
+				'StaticRender' => $static,
 				'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
 		))->renderWith('GlobalNavbar');
 	}
@@ -73,11 +82,17 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}
 
 
-	public function GlobalNavLink() {
+	public function GlobalNavLink() {		
+		
+		if(GlobalNavSiteTreeExtension::is_host()) {
+			return $this->owner->Link();
+		}
+
 		if($this->IsExternal()) {
 			return $this->owner->ExternalURL;		
 		}
-		
+
+
 		return Controller::join_links(
 			Director::absoluteBaseURL(),
 			RegionalFluent::get_canonical_url($this->owner->Link())

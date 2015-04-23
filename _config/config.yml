@@ -6,7 +6,7 @@ Controller:
     - GlobalNavControllerExtension
 GlobalNav:
   snippet_path: '/assets/'
-  css_path: '/toolbar/css/toolbar.css'
+  css_file: '/toolbar/css/toolbar.css'
   google_search_id: 006620299726686837192:uigdvjfexik
   # map nav 'keys' to their IDs in the site tree, allowing subdomains
   # to call $GlobalNav('doc'), etc..

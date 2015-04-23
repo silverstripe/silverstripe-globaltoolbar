@@ -49,7 +49,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	 * @return HTMLText
 	 */
 	public static function GlobalNav($key) {
-		Requirements::css(Controller::join_links(GlobalNavSiteTreeExtension::get_toolbar_hostname(), Config::inst()->get('GlobalNav','css_path')));
+		Requirements::css(Controller::join_links(GlobalNavSiteTreeExtension::get_toolbar_hostname(), Config::inst()->get('GlobalNav','css_file')));
 
 		// If this method haven't been called before, get the toolbar and cache it
 		if(self::$global_nav_html === null) {

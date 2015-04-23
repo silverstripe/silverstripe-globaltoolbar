@@ -106,24 +106,25 @@
 
 	</div>
 </nav>
-
-<% with $ActiveParent %>
-<% if $ShouldShowChildren %>
-<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" style="display:block;">
-	<div class="container">
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav" role="navigation">
-				<% loop $GlobalNavChildren %>
-					<li <% if $Top.ActivePage.ID == $ID %>class="active"<% end_if %>>
-						<a href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
-					</li>
-				<% end_loop %>
-			</ul>
-		</div><!--/.navbar-collapse -->
-	</div>
-</nav>
+<% if $StaticRender %>
+	<% with $ActiveParent %>
+		<% if $ShouldShowChildren %>
+		<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" style="display:block;">
+			<div class="container">
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav" role="navigation">
+						<% loop $GlobalNavChildren %>
+							<li <% if $Top.ActivePage.ID == $ID %>class="active"<% end_if %>>
+								<a href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
+							</li>
+						<% end_loop %>
+					</ul>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</nav>
+		<% end_if %>
+	<% end_with %>
 <% end_if %>
-<% end_with %>
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
 <script type="text/javascript">
 
