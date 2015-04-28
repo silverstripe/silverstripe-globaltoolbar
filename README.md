@@ -2,46 +2,50 @@
 
 ## Maintainer
 
- * Ingo Schommer (ingo at silverstripe dot com)
+ * Aaron Carlino (aaron at silverstripe dot com)
 
 ## Description
 
 Injects a toolbar list of available SilverStripe community sites and additional controls. 
-Operates through JavaScript, so can be inserted on any HTML page, regardless
-if it runs on SilverStripe or not. The toolbar code itself is a SilverStripe module though,
-and has some "active" components which determine the login status on the domain
-the toolbar code is hosted (which might be different from the domain it is viewed on).
+Creates static HTML files of the menu for each of the configured subdomains, with the correct state 
+applied to the navigation, e.g. `global-nav-doc.html`, `global-nav-addons.html`.
 
-## Usage
+## Configuration
 
-### Inclusion
+Using arbitrary unique keys to identify each subdomain, map it to the ID a page in the hierarchy of the main site.
 
-See `test.html`. "Entries" refer to the internal array of allowed menu items
-inside the `toolbar.js` file (`entries` array towards the bottom).
+```yml
+---
+Name: my-toolbar
+After:
+  - toolbar/*  
+---
+GlobalNav:
+  static_navs:
+    doc: 1560
+    userhelp: 1556
+    api: 1559
+    addons: 16
+```
+## Usage on the "host" site
 
-	<link rel="stylesheet" type="text/css" href="css/toolbar.css"></link>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="javascript/toolbar.js"></script>
-	
-Only certain parameters are configurable by URL for security reasons (e.g. you can't add menu entries).
+The main site is referred to as the "host" because it serves the static HTML menus from its `assets/` directory. All other sites consume it with a simple HTTP request, e.g. `file_get_contents`.
 
-### Filtering entries
-	
-	toolbar.js?filter=api,bugtracker
-	
-### Sorting entries
+In the CMS, on the `Settings` tab of each page, you can activate **Show in Global nav** to include it. By default, not all pages in the top level navigation are included in the global nav.
 
-	toolbar.js?sort=bugtracker,api
-	
-## Current Menu Highlighting
+You can also activate **Show children in global nav**, which will provide each of the page's children with a **Show in global nav** option.
 
-	toolbar.js?site=api
-	
-It is based on the ID of the site which is one of the following
+When a page is saved, and it is included in the global nav, the new static HTML files are created.
 
-	* doc
-	* api
-	* open
-	* forums
-	* bugtracker
-	* userhelp
+On the main site, the menu is rendered dynamically, and does not read off the static files. Partial caching should be implemented to give static-like performance.
+
+## Usage on a consumer site
+
+Simply invoke `$GlobalNav('key')` in a SilverStripe template, where 'key' is the unique identifier of the consumer, e.g. `$GlobalNav('doc')`.
+
+If the site is not running SilverStripe, it should be trivial to implement a simple HTTP request using cURL or `file_get_contents` to retrieve the `global-nav.html` file or the consumer site.
+
+
+## Forcing regeneration of the nav
+
+Append `?regenerate_nav=1` to the GET request.

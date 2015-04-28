@@ -7,14 +7,6 @@ Controller:
 GlobalNav:
   snippet_path: '/assets/'
   css_file: '/toolbar/css/toolbar.css'
-  google_search_id: 006620299726686837192:uigdvjfexik
-  # map nav 'keys' to their IDs in the site tree, allowing subdomains
-  # to call $GlobalNav('doc'), etc..
-  static_navs:
-    doc: 1560
-    userhelp: 1556
-    api: 1559
-    addons: 16
 GlobalNavTemplateProvider:
   connection_timeout: 100
   transfer_timeout: 200
