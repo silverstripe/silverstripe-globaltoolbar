@@ -8,8 +8,26 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	);
 
 
+	/**
+	 * Gets the hostname
+	 *
+	 * @return string Protocol and hostname only
+	 */
 	public static function get_toolbar_hostname() {
-		return Config::inst()->get('GlobalNav','use_localhost') ? Director::absoluteBaseURL() : Config::inst()->get('GlobalNav','hostname');
+		return Config::inst()->get('GlobalNav','use_localhost')
+			? Director::protocolAndHost()
+			: Config::inst()->get('GlobalNav','hostname');
+	}
+
+	/**
+	 * Gets the base path for the global nav
+	 *
+	 * @return string Path including baseurl
+	 */
+	public static function get_toolbar_baseurl() {
+		return Config::inst()->get('GlobalNav','use_localhost')
+			? Director::absoluteBaseURL()
+			: Config::inst()->get('GlobalNav','hostname');
 	}
 
 
