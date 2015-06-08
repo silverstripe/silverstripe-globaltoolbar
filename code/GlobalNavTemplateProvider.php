@@ -47,7 +47,11 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	 * @return HTMLText
 	 */
 	public static function GlobalNav() {
-		Requirements::css(Controller::join_links(GlobalNavSiteTreeExtension::get_toolbar_hostname(), Config::inst()->get('GlobalNav','css_path')));
+		$baseURL = GlobalNavSiteTreeExtension::get_toolbar_baseurl();
+		Requirements::css(Controller::join_links(
+			$baseURL,
+			Config::inst()->get('GlobalNav','css_path')
+		));
 
 		// If this method haven't been called before, get the toolbar and cache it
 		if(self::$global_nav_html === null) {
@@ -55,12 +59,11 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 			self::$global_nav_html = '';
 			// Prevent recursion from happening
 			if (empty($_GET['globaltoolbar'])) {
-				$host = GlobalNavSiteTreeExtension::get_toolbar_hostname();
 				$path = Config::inst()->get('GlobalNav','snippet_path');
 				if(Config::inst()->get('GlobalNav', 'use_localhost')) {
 					self::$global_nav_html = file_get_contents(BASE_PATH . $path);
 				} else {
-					$url = Controller::join_links($host, $path, '?globaltoolbar=true');
+					$url = Controller::join_links($baseURL, $path, '?globaltoolbar=true');
 					$connectionTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'connection_timeout');
 					$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timeout');
 					// Get the HTML and cache it
