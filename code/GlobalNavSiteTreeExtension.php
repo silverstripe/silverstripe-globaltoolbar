@@ -112,7 +112,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		
 		$this->owner->extend('updateGlobalNavLink', $link);
 
-		return $link;		
+		return $link;
 	}
 
 
