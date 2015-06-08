@@ -1,0 +1,274 @@
+<nav class="navbar navbar-inverse navbar-global" role="navigation">
+	<div class="container">
+
+		<div class="navbar-header">
+			<div class="navbar-brand">
+				<a class="logo" title="SilverStripe" href="$BaseHref">
+					<% include BrandSvg %>
+				</a>
+				<h1 class="brand-name">
+					<a title="SilverStripe" href="$BaseHref">
+						<span>Silver</span>Stripe
+					</a>
+				</h1>
+
+				<span class="mobile-page-name visible-xs">
+					<svg viewBox="0 0 12.9 44.5" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
+						<path class="nav-breadcrumb-divider" d="M11 0l1.9.5-11 44-1.9-.5 11-44z" fill="#fff" clip-rule="evenodd" fill-rule="evenodd" />
+					</svg>
+					<h1 id="mobile-nav-title" class="page-title"></h1>
+				</span>
+
+			</div>
+
+			<a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
+				<span class="ion-navicon"></span>
+				<span class="sr-only">Toggle navigation</span>
+			</a>
+		</div>
+
+		<%-- Profile menu --%>
+		<ul id="profile-menu" class="nav navbar-nav global-right pull-right" style="display:none;">
+
+			<li class="nav-search">
+				<a class="search" href="javascript:void(0)" title="Search">
+					<% include SearchSvg %>
+					<span class="sr-only">Search site</span>
+				</a>
+			</li>
+			<!-- <li class="hidden-xs">
+				<a class="ion-ios7-bell" href="javascript:void(0);" title="Notifications"></a>
+			</li> -->
+
+			<li>
+				<iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
+			</li>
+
+		</ul>
+		<i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios7-reloading"></i>
+		<%-- Navigation top level --%>
+
+		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
+			<% loop $Pages %>
+				<li 
+					<% if $Top.ActivePage.ID == $ID %>
+						class="current"
+					<% else_if $Top.ActivePage.ParentID == $ID %>
+						class="section"
+					<% end_if %>
+				>
+					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML $ActivePage.Title</a>
+				</li>
+			<% end_loop %>
+		</ul>
+
+		<nav class="slide-menu visible-xs" role="navigation">
+			<ul class="nav list-unstyled">
+				<li class="text-right"><a href="#" id="nav-close" class="ion-ios7-close-empty"></a></li>
+				<li><a href="$ToolbarHostname" title="Go to the Home page">Home</a></li>
+				<% loop $Pages %>
+				<li class="$LinkingMode<% if $Children %> children<% end_if %>">
+					<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
+					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+					<% if $Children %>
+					<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
+						<% loop Children %>
+						<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
+							<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
+							<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+							<% if $Children %>
+							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
+								<% loop Children %>
+								<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
+									<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios7-arrow-down"></span><% end_if %>
+									<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios7-arrow-right"></span><% end_if %></a>
+									<% if $Children %>
+									<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
+										<% loop Children %>
+										<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
+											<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+										</li>
+										<% end_loop %>
+									</ul>
+									<% end_if %>
+								</li>
+								<% end_loop %>
+							</ul>
+							<% end_if %>
+						</li>
+						<% end_loop %>
+					</ul>
+					<% end_if %>
+				</li>
+				<% end_loop %>
+			</ul>
+		</nav>
+
+	</div>
+</nav>
+<% if $StaticRender %>
+	<% with $ActiveParent %>
+		<% if $ShouldShowChildren %>
+		<nav class="navbar navbar-inverse navbar-secondary navbar-toolbar" role="navigation" style="display:block;">
+			<div class="container">
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav" role="navigation">
+						<% loop $GlobalNavChildren %>
+							<li <% if $Top.ActivePage.ID == $ID %>class="active"<% end_if %>>
+								<a href="$GlobalNavLink" title="Go to the $Title.XML page" class="<% if $HighlightMenu %>btn btn-default <% end_if %>">$MenuTitle.XML</a>
+							</li>
+						<% end_loop %>
+					</ul>
+				</div><!--/.navbar-collapse -->
+			</div>
+		</nav>
+		<% end_if %>
+	<% end_with %>
+<% end_if %>
+<script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
+<script type="text/javascript">
+
+(function() {
+	// Define some utility functions - we can't use jQuery, from http://youmightnotneedjquery.com/.
+	function elHasClass(el, className) {
+		if (el.classList) {
+			return el.classList.contains(className);
+		} else {
+			return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+		}
+	}
+
+	function elAddClass(el, className) {
+		if (el.classList) {
+			el.classList.add(className);
+		} else {
+			el.className += ' ' + className;
+		}
+	}
+
+	function elRemoveClass(el, className) {
+		if (el.classList) {
+			el.classList.remove(className);
+		} else {
+			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+		}
+	}
+
+
+	(function() {
+		document.addEventListener('DOMContentLoaded', function () {
+			var tabHolderElem = document.querySelector('.search-pane');
+			var desktopSearchElem = document.getElementById('desktopSearch');
+			var navSearchA = document.querySelector('.nav-search a');
+			var searchClose = document.querySelector('a.search-close');
+
+			iFrameResize({
+				enablePublicMethods: true,
+				sizeWidth: true,
+				autoResize: false,
+				log: false
+			}, '#toolbar-iframe');
+
+
+			function scrollToElement(el, scrollDuration, padding) {
+				scrollDuration = scrollDuration || 300;
+				padding = padding || 0;
+
+				if(typeof el === "string") {
+					el = document.querySelector(selector);
+				}
+
+				if(!el) return;
+
+				var interval = 10;
+				requestAnimationFrame(step);
+
+				function step () {
+					setTimeout(function() {
+						if(scrollDuration < 1) {
+							return;
+						}
+						var scrollPos = window.scrollY,
+							offset = el.getBoundingClientRect().top,
+							togo = offset - padding,
+							clicksRemaining = scrollDuration/interval,
+							stepSize = togo/clicksRemaining;
+
+						if(Math.round(window.scrollY)  == padding) {
+							return;
+						}
+						if(offset - stepSize < padding) {
+							stepSize = offset - padding;
+						}
+
+						nextY = scrollPos+stepSize;
+						window.scrollTo( 0, nextY );
+
+						scrollDuration -= interval;
+
+						requestAnimationFrame(step);
+					}, interval );
+				}
+			}
+
+			setTimeout(function() {
+				document.getElementById('profile-menu').style.display='block';
+				document.getElementById('loader-menu').style.display='none';
+			}, 1000);
+
+
+			function desktopClose(elem) {
+				searchClose.addEventListener('click', function (e) {
+					e.preventDefault();
+					elRemoveClass(elem, 'show');
+				});
+			}
+
+			// search tabs
+			if(navSearchA) {
+				navSearchA.addEventListener('click', function (e) {
+					e.preventDefault();
+					elAddClass(e.target.parentNode, 'current');
+					elAddClass(desktopSearchElem, 'show');
+					if(elHasClass(document.body, 'top-level')) {
+						scrollToElement(desktopSearchElem, 200, 65);
+					}
+					if(elHasClass(desktopSearchElem, 'show')) {
+						var searchBox = document.querySelector('input.gsc-input');
+						setTimeout(function() {
+							event = document.createEvent('HTMLEvents');
+							event.initEvent('focus', true, false);
+							searchBox.dispatchEvent(event);
+						}, 10);
+						desktopClose(desktopSearchElem);
+					}
+				});
+			}
+
+		});
+
+	})();
+
+	(function() {
+		var interval = window.setInterval(function() {
+			for(var i=1;i<=3;i++) {
+				if(document.getElementById('gsc-i-id'+i)) {
+					window.clearInterval(interval);
+					document.getElementById('gsc-i-id'+i).setAttribute('placeholder', 'Search SilverStripe...');
+				}
+
+			}
+		}.bind(this), 500);
+	})();
+
+	(function() {
+		var cx = '$GoogleCustomSearchId';
+		var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+		gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+			'//www.google.com/cse/cse.js?cx=' + cx;
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+	})();
+
+})();
+
+</script>
