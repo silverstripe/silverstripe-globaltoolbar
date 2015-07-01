@@ -61,6 +61,7 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 			self::$global_nav_html = '';
 			// Prevent recursion from happening
 			if (empty($_GET['globaltoolbar'])) {
+				$path = Config::inst()->get('GlobalNav','snippet_path');
 				if(Config::inst()->get('GlobalNav', 'use_localhost')) {
 					self::$global_nav_html = file_get_contents(BASE_PATH . $path);
 				} else {
@@ -97,6 +98,11 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	protected static function curl_call($url, $connectTimeoutMs = 100, $timeoutMs = 200) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, true);
+
+		// Make protocolless URL curl-compatible
+		if(strpos($url, '//') === 0) {
+			$url = substr($url, 2);
+		}
 
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
