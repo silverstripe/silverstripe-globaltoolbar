@@ -3,12 +3,11 @@
 
 		<div class="navbar-header">
 			<div class="navbar-brand">
-				<a class="logo" title="SilverStripe" href="$BaseHref">
-					<% include BrandSvg %>
-				</a>
+				
 				<h1 class="brand-name">
-					<a title="SilverStripe" href="$BaseHref">
-						<span>Silver</span>Stripe
+					<a class="logo" title="SilverStripe" href="$BaseHref">
+						<% include BrandSvg %>
+						<span><strong>Silver</strong>Stripe</span>
 					</a>
 				</h1>
 
