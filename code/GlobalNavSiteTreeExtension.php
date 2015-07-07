@@ -130,8 +130,26 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}
 
 
+	protected function needsRegeneration() {
+		$fields = Config::inst()->get('GlobalNav','regenerate_on_changed');
+		if($fields) {	
+			$changed = $this->owner->getChangedFields(true);
+			// ->isChanged($field) was returning false positives. No idea why.
+			foreach($fields as $field) {
+				if(isset($changed[$field])) {					
+					if($changed[$field]['before'] != $changed[$field]['after']) {
+						return true;
+					}
+				}
+			}
+		}
+
+		return false;
+	}
+
+	
 	public function onAfterWrite() {
-		if ($this->owner->ParentID == 0) {
+		if ($this->owner->ParentID == 0 && $this->needsRegeneration()) {
 			self::create_static_navs();
 		}
 	}

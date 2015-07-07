@@ -7,6 +7,12 @@ Controller:
 GlobalNav:
   snippet_path: '/assets/'
   css_file: '/toolbar/css/toolbar.css'
+  regenerate_on_changed:
+    - Title
+    - MenuTitle
+    - URLSegment
+    - ParentID
+    - Sort
 GlobalNavTemplateProvider:
   connection_timeout: 100
   transfer_timeout: 200
