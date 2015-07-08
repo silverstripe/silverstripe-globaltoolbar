@@ -32,7 +32,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 
 	public static function is_host() {
-		return self::get_toolbar_hostname() == Director::absoluteBaseURL();
+		return self::get_toolbar_baseurl() == Director::absoluteBaseURL();
 	}
 
 
@@ -102,7 +102,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 	public function GlobalNavLink() {		
 		
-		if(GlobalNavSiteTreeExtension::is_host()) {
+		if(GlobalNavSiteTreeExtension::is_host()) {			
 			return $this->owner->Link();
 		}
 
