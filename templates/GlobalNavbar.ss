@@ -5,7 +5,7 @@
 			<div class="navbar-brand">
 				
 				<h1 class="brand-name">
-					<a class="logo" title="SilverStripe" href="$BaseHref">
+					<a class="logo" title="SilverStripe" href="$ToolbarHostname">
 						<% include BrandSvg %>
 						<span><strong>Silver</strong>Stripe</span>
 					</a>

@@ -44,7 +44,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			$page = Director::get_current_page();
 			$static = false;
 		}
-		
+
 		return ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
 				'Pages' => SiteTree::get()->filter(array(
@@ -110,9 +110,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			return $this->owner->ExternalURL;		
 		}
 
-
-		return Controller::join_links(
-			Director::absoluteBaseURL(),
+		return Controller::join_links(			
 			RegionalFluent::get_canonical_url($this->owner->Link())
 		);
 	}
