@@ -101,18 +101,10 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 
 	public function GlobalNavLink() {		
-		
-		if(GlobalNavSiteTreeExtension::is_host()) {			
-			return $this->owner->Link();
-		}
+		$link = $this->IsExternal() ? $this->owner->ExternalURL : $this->owner->Link();
+		$this->owner->invokeWithExtensions('updateGlobalNavLink', $link);
 
-		if($this->IsExternal()) {
-			return $this->owner->ExternalURL;		
-		}
-
-		return Controller::join_links(			
-			RegionalFluent::get_canonical_url($this->owner->Link())
-		);
+		return $link;
 	}
 
 
