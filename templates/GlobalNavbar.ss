@@ -247,6 +247,11 @@
 		});
 
 	})();
+	
+	(function() {
+		// set mobile title 
+		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
+	})();
 
 	(function() {
 		var interval = window.setInterval(function() {
