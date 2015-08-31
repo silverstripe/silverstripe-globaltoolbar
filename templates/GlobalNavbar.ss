@@ -250,7 +250,7 @@
 	
 	(function() {
 		// set mobile title 
-		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE || link.textContent);
+		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE);
 	})();
 
 	(function() {
