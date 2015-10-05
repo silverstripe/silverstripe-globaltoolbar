@@ -44,13 +44,10 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			$page = Director::get_current_page();
 			$static = false;
 		}
-
+		
 		return ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
-				'Pages' => SiteTree::get()->filter(array(
-					'ParentID' => 0,
-					'ShowInGlobalNav' => true
-				)),
+				'Pages' => Controller::curr()->getMenu(2)->filter('ShowInGlobalNav', 1),
 				'ActivePage' => $page,
 				'ActiveParent' => ($page instanceof SiteTree && $page->Parent()->exists()) ? $page->Parent() : $page,
 				'StaticRender' => $static,
