@@ -3,31 +3,21 @@
 		<div class="navbar-header">
 
 			<a id="js-nav-trigger" class="navbar-menu hidden-xs">
-				<span class="sr-only">Site Menu</span>
+				<span class="sr-only">Site Navigation</span>
 				<span class="icon ion-navicon-round"></span>
 			</a>
 
 			<div class="navbar-brand">
 				<h1 class="brand-name">
 					<a class="logo" title="SilverStripe" href="$ToolbarHostname">
-						<div class="visible-xs"><% include BrandSvg %></div>
-						<div class="hidden-xs">
-							<img class="global-logo" src="{$ToolbarHostname}/themes/ssv3/img/global-logo-<% if $Level(1) %>{$Level(1).URLSegment}<% else %>open-source<% end_if %>.svg" alt="{$Level(1).Title}">
-						</div>
+						<img class="global-logo" src="{$ToolbarHostname}/themes/ssv3/img/global-logo-<% if $Level(1) %>{$Level(1).URLSegment}<% else %>open-source<% end_if %>.svg" alt="{$Level(1).Title}">
 					</a>
 				</h1>
-
-				<span class="mobile-page-name visible-xs">
-					<svg viewBox="0 0 12.9 44.5" y="0px" x="0px" xmlns="http://www.w3.org/2000/svg">
-						<path class="nav-breadcrumb-divider" d="M11 0l1.9.5-11 44-1.9-.5 11-44z" fill="#fff" clip-rule="evenodd" fill-rule="evenodd" />
-					</svg>
-					<h1 id="mobile-nav-title" class="page-title"></h1>
-				</span>
 			</div>
 
-			<a id="nav-expander" class="nav-expander fixed visible-xs navbar-toggle">
-				<span class="ion-navicon"></span>
-				<span class="sr-only">Toggle navigation</span>
+			<a id="nav-expander" class="navbar-menu nav-expander fixed visible-xs">
+				<span class="icon ion-navicon-round"></span>
+				<span class="sr-only">Mobile site navigation</span>
 			</a>
 		</div>
 
@@ -46,20 +36,50 @@
 		</ul>
 
 		<%-- Navigation top level --%>
-		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
-		<% loop $Pages %>
-			<li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>">
-				<a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a>
-					<% if $ShouldShowChildren && $GlobalNavChildren %>
-					<nav class="navbar navbar-inverse navbar-secondary-dropdown">
-						<div class="container">
-							<% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$GlobalNavChildren %>
-						</div>
-					</nav>
-					<% end_if %>
-			</li>
-		<% end_loop %>
+		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">						
+			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><nav class="navbar navbar-inverse navbar-secondary-dropdown"><div class="container"><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$Children %></div></nav></li><% end_loop %>
 		</ul>
+
+		<nav class="slide-menu visible-xs" role="navigation">
+			<ul class="nav list-unstyled">
+				<li class="text-right"><a href="#" id="nav-close" class="ion-ios-close-empty"></a></li>
+				<% loop $Scope.Menu(1) %>
+				<li class="$LinkingMode<% if $Children %> children<% end_if %>">
+					<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
+					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>
+					<% if $Children %>
+					<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
+						<% loop Children %>
+						<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
+							<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
+							<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>
+							<% if $Children %>
+							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
+								<% loop Children %>
+								<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
+									<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
+									<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>
+									<% if $Children %>
+									<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
+										<% loop Children %>
+										<li class="$LinkingMode sub-nav<% if $Children %> children<% end_if %>">
+											<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
+										</li>
+										<% end_loop %>
+									</ul>
+									<% end_if %>
+								</li>
+								<% end_loop %>
+							</ul>
+							<% end_if %>
+						</li>
+						<% end_loop %>
+					</ul>
+					<% end_if %>
+				</li>
+				<% end_loop %>
+			</ul>
+		</nav>
 	</div>
 </nav>
 
