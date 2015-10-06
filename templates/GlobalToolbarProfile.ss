@@ -12,7 +12,7 @@
 		    padding: 0;
 		    margin: 0;
 		    color: #fff;
-		    max-width: 82px;
+		    max-width: 120px;
 		    width: auto;
 		    overflow: hidden;
 		}
@@ -20,17 +20,18 @@
 		a.logout,
 		a.login {	
 			display: inline-block;
-			width: 24px;
-			height: 24px;
+			width: 30px;
+			height: 30px;
 			vertical-align: top;
 		}
-
 		a.profile {
-			width: 28px;
-			height: 28px;
+			width: 40px;
+			height: 40px;
 			border-radius: 50%;
 			overflow: hidden;
-			margin: 11px 11px 0 5px;	
+			margin: 15px 0 15px 16px;
+			float: left;
+			background-color: #eee;
 
 			-webkit-transition: all ease-in-out .1s;
        		-o-transition: all ease-in-out .1s;
@@ -46,48 +47,43 @@
 			opacity: 1;
 		}
 		a.profile:hover {
-			width: 30px;
-			height: 30px;
-			margin: 10px 10px 0 4px;
+			transform: scale(1.1);
 		}
-
 		a.login {
-			margin-top: 10px;
-			margin-left: 12px;
+			padding: 13px 16px;
 			opacity: 0.7;
 		}
 			a.login:hover {
 				opacity: 1;
 			}
-
 		a.logout {
 			opacity: 0.7;
-			margin-top: 12px;
+			padding: 20px 16px;
 		}
-			a.logout:hover {
-				opacity: 1;
-			}
+		a.logout:hover {
+			opacity: 1;
+		}
 	</style>
 </head>
 
 <body>
 <% if CurrentMember %>
 	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">
-	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="26" height="26" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
+	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="30" height="30" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
 	</a>
-	<a id="logout" target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="24" height="24" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
+	<a id="logout" target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="30" height="30" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
 <% else %>
 	<a class="login" id="login" href="{$BaseHref}Security/login" title="Login">
-		<img width="26" height="26" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg">
+		<img width="30" height="30" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg">
 	</a>
 <% end_if %>
 <script src="js/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
 <script>
-<% if $CurrentMember %>var w=80;<% else %>var w=40;<% end_if %>
+<% if $CurrentMember %>var w=118;<% else %>var w=60;<% end_if %>
 document.addEventListener('DOMContentLoaded', function(){
 	var interval = window.setInterval(function() {
 		if('parentIFrame' in window) {
-			parentIFrame.size(39, w);
+			parentIFrame.size(70, w);
 			window.clearInterval(interval);
 		}
 	}, 100);
