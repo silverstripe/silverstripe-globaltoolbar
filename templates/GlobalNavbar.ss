@@ -36,14 +36,14 @@
 		</ul>
 
 		<%-- Navigation top level --%>
-		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">
-			<% loop $Pages %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><% if $ShouldShowChildren && $GlobalNavChildren %><nav class="navbar navbar-inverse navbar-secondary-dropdown"><div class="container"><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$GlobalNavChildren %></div></nav><% end_if %></li><% end_loop %>
+		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">						
+			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><nav class="navbar navbar-inverse navbar-secondary-dropdown"><div class="container"><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$Children %></div></nav></li><% end_loop %>
 		</ul>
 
 		<nav class="slide-menu visible-xs" role="navigation">
 			<ul class="nav list-unstyled">
 				<li class="text-right"><a href="#" id="nav-close" class="ion-ios-close-empty"></a></li>
-				<% loop $Pages %>
+				<% loop $Scope.Menu(1) %>
 				<li class="$LinkingMode<% if $Children %> children<% end_if %>">
 					<% if $Children %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
 					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $Children %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>

@@ -2,11 +2,6 @@
 
 class GlobalNavSiteTreeExtension extends DataExtension {
 
-	private static $db = array(
-		'ShowInGlobalNav' => 'Boolean',
-		'ShowChildrenInGlobalNav' => 'Boolean',
-	);
-
 
 	/**
 	 * Gets the hostname
@@ -44,10 +39,19 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			$page = Director::get_current_page();
 			$static = false;
 		}
+
+		$controller = Controller::curr();
+		if(!$controller instanceof ContentController) {			
+			$controller = ModelAsController::controller_for(
+				$p =SiteTree::get_by_link(
+					Config::inst()->get('GlobalNav','default_section')
+				)
+			);			
+		}
 		
 		return ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
-				'Pages' => Controller::curr()->getMenu(2)->filter('ShowInGlobalNav', 1),
+				'Scope' => $controller,
 				'ActivePage' => $page,
 				'ActiveParent' => ($page instanceof SiteTree && $page->Parent()->exists()) ? $page->Parent() : $page,
 				'StaticRender' => $static,
@@ -78,24 +82,6 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}    
 
 
-	public function updateSettingsFields(FieldList $fields) {
-		$p = $this->owner->Parent();
-		if (!$p->exists()) {
-			$fields->addFieldToTab("Root.Settings", CheckboxField::create('ShowInGlobalNav','Show in global nav'));
-			$fields->addFieldToTab("Root.Settings", CheckboxField::create('ShowChildrenInGlobalNav','Include child pages')
-				->displayIf('ShowInGlobalNav')->isChecked()
-				->end()
-			);
-		} else if ($p->ShouldShowChildren()) {
-			$fields->addFieldToTab("Root.Settings", CheckboxField::create('ShowInGlobalNav','Show in global nav'));
-		}
-	}
-
-
-	public function ShouldShowChildren() {
-		return $this->owner->ShowInGlobalNav && $this->owner->ShowChildrenInGlobalNav;
-	}
-
 
 	public function GlobalNavLink() {		
 		$link = $this->IsExternal() ? $this->owner->ExternalURL : $this->owner->Link();
@@ -107,13 +93,6 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 	public function IsExternal() {
 		return ($this->owner instanceof RedirectorPage && $this->owner->ExternalURL);
-	}
-
-
-	public function GlobalNavChildren() {
-		return $this->owner->Children()->filter(array(
-			'ShowInGlobalNav' => true,
-		));
 	}
 
 
