@@ -29,9 +29,9 @@
 			height: 40px;
 			border-radius: 50%;
 			overflow: hidden;
-			margin: 15px 0 15px 16px;
+			margin: 10px 0 10px 14px;
 			float: left;
-			background-color: #eee;
+			background-color: #e6e6e6;
 
 			-webkit-transition: all ease-in-out .1s;
        		-o-transition: all ease-in-out .1s;
@@ -50,7 +50,7 @@
 			transform: scale(1.1);
 		}
 		a.login {
-			padding: 13px 16px;
+			padding: 13px 14px;
 			opacity: 0.7;
 		}
 			a.login:hover {
@@ -58,7 +58,7 @@
 			}
 		a.logout {
 			opacity: 0.7;
-			padding: 20px 16px;
+			padding: 15px 12px;
 		}
 		a.logout:hover {
 			opacity: 1;
@@ -79,11 +79,11 @@
 <% end_if %>
 <script src="js/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
 <script>
-<% if $CurrentMember %>var w=118;<% else %>var w=60;<% end_if %>
+<% if $CurrentMember %>var w=108;<% else %>var w=58;<% end_if %>
 document.addEventListener('DOMContentLoaded', function(){
 	var interval = window.setInterval(function() {
 		if('parentIFrame' in window) {
-			parentIFrame.size(70, w);
+			parentIFrame.size(60, w);
 			window.clearInterval(interval);
 		}
 	}, 100);
