@@ -10,7 +10,7 @@
 			<div class="navbar-brand">
 				<h1 class="brand-name">
 					<a class="logo" title="SilverStripe" href="$ToolbarHostname">
-						<img class="global-logo" src="{$ToolbarHostname}/themes/ssv3/img/global-logo-<% if $Level(1) %>{$Level(1).URLSegment}<% else %>open-source<% end_if %>.svg" alt="{$Level(1).Title}">
+						<img class="global-logo" src="{$ToolbarHostname}/themes/ssv3/img/global-logo-<% if $Scope.Level(1) %>{$Scope.Level(1).URLSegment}<% else %>open-source<% end_if %>.svg" alt="{$Scope.Menu(1).Title}">
 					</a>
 				</h1>
 			</div>
@@ -37,7 +37,7 @@
 
 		<%-- Navigation top level --%>
 		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">						
-			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><nav class="navbar navbar-inverse navbar-secondary-dropdown"><div class="container"><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$Children %></div></nav></li><% end_loop %>
+			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$Children %></li><% end_loop %>
 		</ul>
 
 		<nav class="slide-menu visible-xs" role="navigation">
@@ -82,6 +82,9 @@
 		</nav>
 	</div>
 </nav>
+
+<%-- Mega nav popup --%>
+<% include GlobalNav_popup %>
 
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
 <script type="text/javascript">
