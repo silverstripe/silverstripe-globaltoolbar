@@ -115,6 +115,45 @@
 		}
 	}
 
+	(function() {
+	    var MQL = 1170;
+	    var q = function (sel) {
+	    	return document.querySelector(sel);
+	    };
+	    //primary navigation slide-in effect for pop out mega navigation
+	    if(window.innerWidth > MQL) {
+	        var headerHeight = q('header').offsetHeight;
+	        window.addEventListener('scroll', function () {
+	            var currentTop = window.scrollTop;
+	            //check if user is scrolling up
+	            if (currentTop < this.previousTop ) {
+	                //if scrolling up...
+	                if (currentTop > 0 && q('header').classList.contains('is-fixed')) {
+	                    q('header').classList.add('is-visible');	                
+	                } else {
+	                    q('header').classList.remove('is-visible is-fixed');
+	                }
+	            } else {
+	                //if scrolling down...
+	                q('header').classList.remove('is-visible');
+	                if( currentTop > headerHeight && !q('header').classList.contains('is-fixed')) {
+	                	q('header').classList.add('is-fixed');
+	                }
+	            }
+	            this.previousTop = currentTop;
+	        });
+	    }
+
+	    //open/close primary pop out mega navigation
+	    var triggers = document.querySelectorAll('#js-nav-trigger, #js-nav-trigger-close');
+	    var transitionEvents = ['webkitTransitionEnd','otransitionend','oTransitionEnd','msTransitionEnd','transitionend'];
+	    [].forEach.call(triggers, function (node) {
+		    node.addEventListener('click', function(){		        
+		        q('header').classList.toggle('menu-is-open');
+		    });
+
+	    })
+	})();
 
 	(function() {
 		document.addEventListener('DOMContentLoaded', function () {
