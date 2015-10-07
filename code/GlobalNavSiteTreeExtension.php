@@ -113,6 +113,12 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		return false;
 	}
 
+
+	// Can be overriden by pages
+	public function GlobalNavChildren() {
+		return $this->owner->Children();
+	}
+
 	
 	public function onAfterWrite() {
 		if ($this->owner->ParentID == 0 && $this->needsRegeneration()) {
