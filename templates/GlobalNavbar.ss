@@ -31,6 +31,7 @@
 			</li>
 
 			<li>
+				<div id="loader-menu"></div>
 				<iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
 			</li>
 		</ul>
@@ -210,11 +211,6 @@
 
 	})();
 	
-	(function() {
-		// set mobile title 
-		document.getElementById('mobile-nav-title').innerHTML = (window.GLOBAL_NAV_MOBILE_TITLE);
-	})();
-
 	(function() {
 		var interval = window.setInterval(function() {
 			for(var i=1;i<=3;i++) {
