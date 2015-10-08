@@ -122,22 +122,22 @@
 	    };
 	    //primary navigation slide-in effect for pop out mega navigation
 	    if(window.innerWidth > MQL) {
-	        var headerHeight = q('header').offsetHeight;
+	        var headerHeight = q('.site-header').offsetHeight;
 	        window.addEventListener('scroll', function () {
 	            var currentTop = window.scrollTop;
 	            //check if user is scrolling up
 	            if (currentTop < this.previousTop ) {
 	                //if scrolling up...
-	                if (currentTop > 0 && q('header').classList.contains('is-fixed')) {
-	                    q('header').classList.add('is-visible');	                
+	                if (currentTop > 0 && q('.site-header').classList.contains('is-fixed')) {
+	                    q('.site-header').classList.add('is-visible');	                
 	                } else {
-	                    q('header').classList.remove('is-visible is-fixed');
+	                    q('.site-header').classList.remove('is-visible is-fixed');
 	                }
 	            } else {
 	                //if scrolling down...
-	                q('header').classList.remove('is-visible');
-	                if( currentTop > headerHeight && !q('header').classList.contains('is-fixed')) {
-	                	q('header').classList.add('is-fixed');
+	                q('.site-header').classList.remove('is-visible');
+	                if( currentTop > headerHeight && !q('.site-header').classList.contains('is-fixed')) {
+	                	q('.site-header').classList.add('is-fixed');
 	                }
 	            }
 	            this.previousTop = currentTop;
@@ -148,7 +148,8 @@
 	    var triggers = document.querySelectorAll('.js-nav-trigger');
 	    [].forEach.call(triggers, function (node) {
 		    node.addEventListener('click', function(){		        		    	
-		        q('header').classList.toggle('menu-is-open');
+		        q('.site-header').classList.toggle('menu-is-open');
+		        q('.popup-primary-nav').classList.toggle('open');
 		    });
 
 	    })
