@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 
-			<a id="js-nav-trigger" class="navbar-menu hidden-xs">
+			<a class="js-nav-trigger navbar-menu hidden-xs">
 				<span class="sr-only">Site Navigation</span>
 				<span class="icon ion-navicon-round"></span>
 			</a>
@@ -145,10 +145,9 @@
 	    }
 
 	    //open/close primary pop out mega navigation
-	    var triggers = document.querySelectorAll('#js-nav-trigger, #js-nav-trigger-close');
-	    var transitionEvents = ['webkitTransitionEnd','otransitionend','oTransitionEnd','msTransitionEnd','transitionend'];
+	    var triggers = document.querySelectorAll('.js-nav-trigger');
 	    [].forEach.call(triggers, function (node) {
-		    node.addEventListener('click', function(){		        
+		    node.addEventListener('click', function(){		        		    	
 		        q('header').classList.toggle('menu-is-open');
 		    });
 
