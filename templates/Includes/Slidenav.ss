@@ -1,6 +1,6 @@
 <nav class="slide-menu visible-xs" role="navigation">
 			<ul class="nav list-unstyled">
-				<li class="text-right"><a href="#" id="nav-close" class="ion-ios7-close-empty"></a></li>
+				<li class="text-right"><a id="nav-close" class="ion-ios7-close-empty"></a></li>
 				<li><a href="$ToolbarHostname" title="Go to the Home page">Home</a></li>
 				<% loop $Pages %>
 				<li class="$LinkingMode<% if $Children %> children<% end_if %>">

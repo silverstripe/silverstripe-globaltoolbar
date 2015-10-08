@@ -1,7 +1,7 @@
 <nav class="hidden-xs">
 	<div class="popup-primary-nav">
 
-		<a class="navbar-menu-close js-nav-trigger hidden-xs" href="#">
+		<a class="navbar-menu-close js-nav-trigger hidden-xs">
 			<span class="sr-only">Site Menu</span>
 			<span class="icon ion-close"></span>
 		</a>

@@ -42,7 +42,7 @@
 
 		<nav class="slide-menu visible-xs" role="navigation">
 			<ul class="nav list-unstyled">
-				<li class="text-right"><a href="#" id="nav-close" class="ion-ios-close-empty"></a></li>
+				<li class="text-right"><a id="nav-close" class="ion-ios-close-empty"></a></li>
 				<% loop $Scope.Menu(1) %>
 				<li class="$LinkingMode<% if $GlobalNavChildren %> children<% end_if %>">
 					<% if $GlobalNavChildren %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
