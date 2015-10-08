@@ -1,4 +1,4 @@
-<nav class="slide-menu visible-xs" role="navigation">
+<nav class="slide-menu visible-xs visible-sm" role="navigation">
 			<ul class="nav list-unstyled">
 				<li class="text-right"><a id="nav-close" class="ion-ios7-close-empty"></a></li>
 				<li><a href="$ToolbarHostname" title="Go to the Home page">Home</a></li>

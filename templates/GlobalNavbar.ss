@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="navbar-header">
 
-			<a class="js-nav-trigger navbar-menu hidden-xs">
+			<a class="navbar-menu js-nav-trigger hidden-xs hidden-sm">
 				<span class="sr-only">Site Navigation</span>
 				<span class="icon ion-navicon-round"></span>
 			</a>
@@ -15,7 +15,7 @@
 				</h1>
 			</div>
 
-			<a id="nav-expander" class="navbar-menu nav-expander fixed visible-xs">
+			<a class="js-nav-expander navbar-menu nav-expander fixed visible-xs visible-sm">
 				<span class="icon ion-navicon-round"></span>
 				<span class="sr-only">Mobile site navigation</span>
 			</a>
@@ -36,11 +36,11 @@
 		</ul>
 		<i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios-reloading"></i>
 		<%-- Navigation top level --%>
-		<ul class="nav navbar-nav global-nav hidden-xs" role="navigation">						
+		<ul class="nav navbar-nav global-nav hidden-xs hidden-sm" role="navigation">						
 			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$GlobalNavChildren %></li><% end_loop %>
 		</ul>
 
-		<nav class="slide-menu visible-xs" role="navigation">
+		<nav class="slide-menu visible-xs visible-sm" role="navigation">
 			<ul class="nav list-unstyled">
 				<li class="text-right"><a id="nav-close" class="ion-ios-close-empty"></a></li>
 				<% loop $Scope.Menu(1) %>
