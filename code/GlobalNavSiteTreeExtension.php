@@ -43,7 +43,7 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		$controller = Controller::curr();
 		if(!$controller instanceof ContentController) {			
 			$controller = ModelAsController::controller_for(
-				$p =SiteTree::get_by_link(
+				$page = SiteTree::get_by_link(
 					Config::inst()->get('GlobalNav','default_section')
 				)
 			);			
@@ -94,6 +94,18 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	public function IsExternal() {
 		return ($this->owner instanceof RedirectorPage && $this->owner->ExternalURL);
 	}
+
+
+	public function InNode($parentID) {
+		$page = $this->owner;
+		while($page) {
+			if($parentID == $page->ID)
+				return true;
+			$page = $page->Parent;
+		}
+		return false;
+	}
+
 
 
 	protected function needsRegeneration() {
