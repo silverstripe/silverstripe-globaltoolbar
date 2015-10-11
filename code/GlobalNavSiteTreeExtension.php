@@ -40,8 +40,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			$static = false;
 		}
 
-		$controller = Controller::curr();
-		if(!$controller instanceof ContentController) {			
+		$controller = Controller::curr();		
+		if(!$controller instanceof ContentController || !$controller->data()->isInDB()) {			
 			$controller = ModelAsController::controller_for(
 				$page = SiteTree::get_by_link(
 					Config::inst()->get('GlobalNav','default_section')
