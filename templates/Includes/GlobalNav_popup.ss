@@ -14,7 +14,7 @@
 		<% loop $Scope.Menu(1) %>
 			<div class="popup-primary-section <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.InNode($ID) %>section<% end_if %>">
 				<img src="{$Top.ToolbarHostname}/themes/ssv3/img/icons/section-{$URLSegment}.png" alt="$Title" />
-				<h5><a href="$GlobalNavLink">$MenuTitle.XML $Top.ActivePage.ParentID $ID</a></h5>
+				<h5><a href="$GlobalNavLink">$MenuTitle.XML</a></h5>
 				<% if Children %>
 				<ul>
 					<% loop Children %>
