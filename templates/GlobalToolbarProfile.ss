@@ -56,6 +56,9 @@
 			a.login:hover {
 				opacity: 1;
 			}
+		img.login {
+			border: 0px;
+		}
 		a.logout {
 			opacity: 0.7;
 			padding: 15px 12px;

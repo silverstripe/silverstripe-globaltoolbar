@@ -44,25 +44,25 @@
 			<ul class="nav list-unstyled">
 				<li class="text-right"><a id="nav-close" class="ion-ios-close-empty"></a></li>
 				<% loop $Scope.Menu(1) %>
-				<li class="$LinkingMode<% if $GlobalNavChildren %> children<% end_if %>">
+				<li class="$LinkingMode<% if $GlobalNavChildren %> children<% end_if %><% if $Top.ActivePage.ID == $ID %> current<% else_if $Top.ActivePage.ParentID == $ID %> section<% end_if %>">
 					<% if $GlobalNavChildren %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
 					<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $GlobalNavChildren %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>
 					<% if $GlobalNavChildren %>
 					<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 						<% loop Children %>
-						<li class="$LinkingMode sub-nav<% if $GlobalNavChildren %> children<% end_if %>">
+						<li class="$LinkingMode sub-nav<% if $GlobalNavChildren %> children<% end_if %><% if $Top.ActivePage.ID == $ID %> current<% else_if $Top.ActivePage.ParentID == $ID %> section<% end_if %>">
 							<% if $GlobalNavChildren %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
 							<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $GlobalNavChildren %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>
 							<% if $GlobalNavChildren %>
 							<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 								<% loop Children %>
-								<li class="$LinkingMode sub-nav<% if $GlobalNavChildren %> children<% end_if %>">
+								<li class="$LinkingMode sub-nav<% if $GlobalNavChildren %> children<% end_if %><% if $Top.ActivePage.ID == $ID %> current<% else_if $Top.ActivePage.ParentID == $ID %> section<% end_if %>">
 									<% if $GlobalNavChildren %><span data-toggle="collapse" data-target="#nav-{$ID}" class="icon ion-ios-arrow-down"></span><% end_if %>
 									<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML<% if $GlobalNavChildren %><% else %><span class="icon ion-ios-arrow-right"></span><% end_if %></a>
 									<% if $GlobalNavChildren %>
 									<ul class="collapse list-unstyled" id="nav-{$ID}" role="menu">
 										<% loop Children %>
-										<li class="$LinkingMode sub-nav<% if $GlobalNavChildren %> children<% end_if %>">
+										<li class="$LinkingMode sub-nav<% if $GlobalNavChildren %> children<% end_if %><% if $Top.ActivePage.ID == $ID %> current<% else_if $Top.ActivePage.ParentID == $ID %> section<% end_if %>">
 											<a href="$GlobalNavLink" title="Go to the $Title.XML page">$MenuTitle.XML</a>
 										</li>
 										<% end_loop %>

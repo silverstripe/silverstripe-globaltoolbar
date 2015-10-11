@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container component-search">
 	<span id="SearchAnchor"><!-- search box anchor --></span>
 	<div class="search-pane search-pane-desktop" id="desktopSearch">
 		<a class="search-close" title="Close search">
