@@ -49,7 +49,9 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			);			
 		}
 		
-		return ViewableData::create()->customise(array(
+		$origStage = Versioned::current_stage();
+		Versioned::reading_stage('Live');
+		$result = ViewableData::create()->customise(array(
 				'ToolbarHostname' => $url,
 				'Scope' => $controller,
 				'ActivePage' => $page,
@@ -57,6 +59,9 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 				'StaticRender' => $static,
 				'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
 		))->renderWith('GlobalNavbar');
+		Versioned::reading_stage($origStage);
+
+		return $result;
 	}
 
 
