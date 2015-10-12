@@ -36,12 +36,17 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		$url = self::remove_protocol_from_url(self::get_toolbar_hostname());
 		$static = true;
 		if(!$page instanceof SiteTree) {
-			$page = Director::get_current_page();
+			$page = Director::get_current_page();			
 			$static = false;
 		}
 
-		$controller = Controller::curr();		
-		if(!$controller instanceof ContentController || !$controller->data()->isInDB()) {			
+		// Use controller_for to negotiate sub controllers, e.g. /showcase/listing/slug
+		// (Controller::curr() would return the nested RequestHandler)
+		$controller = ModelAsController::controller_for($page);
+
+		// In some cases, controllers are bound to "mock" pages, like Security. In that case,
+		// throw the "default section" as the current controller.
+		if(!$controller->data() instanceof SiteTree || !$controller->data()->isInDB()) {
 			$controller = ModelAsController::controller_for(
 				$page = SiteTree::get_by_link(
 					Config::inst()->get('GlobalNav','default_section')
@@ -49,19 +54,22 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			);			
 		}
 		
+		// Ensure staging links are not exported to the nav
 		$origStage = Versioned::current_stage();
 		Versioned::reading_stage('Live');
-		$result = ViewableData::create()->customise(array(
-				'ToolbarHostname' => $url,
-				'Scope' => $controller,
-				'ActivePage' => $page,
-				'ActiveParent' => ($page instanceof SiteTree && $page->Parent()->exists()) ? $page->Parent() : $page,
-				'StaticRender' => $static,
-				'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
+
+		$html = ViewableData::create()->customise(array(
+			'ToolbarHostname' => $url,
+			'Scope' => $controller,
+			'ActivePage' => $page,
+			'ActiveParent' => ($page instanceof SiteTree && $page->Parent()->exists()) ? $page->Parent() : $page,
+			'StaticRender' => $static,
+			'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
 		))->renderWith('GlobalNavbar');
+
 		Versioned::reading_stage($origStage);
 
-		return $result;
+		return $html;
 	}
 
 
