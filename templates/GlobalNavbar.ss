@@ -37,7 +37,7 @@
 		<i id="loader-menu" class="loader-profile pull-right icon icon-xs ion-ios-reloading"></i>
 		<%-- Navigation top level --%>
 		<ul class="nav navbar-nav global-nav hidden-xs hidden-sm" role="navigation">						
-			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$GlobalNavChildren %></li><% end_loop %>
+			<% loop $Scope.Menu(2) %><li class="dropdown-hover <% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.InNode($ID) %>section<% end_if %>"><a href="$GlobalNavLink" title="Go to the $Title.XML page" class="dropdown-toggle">$MenuTitle.XML</a><% include GlobalNav_secondary_pages ActivePageID=$Top.ActivePage.ID, ActiveParentID=$Top.ActivePage.ParentID, Pages=$GlobalNavChildren %></li><% end_loop %>
 		</ul>
 
 		<nav class="slide-menu visible-xs visible-sm" role="navigation">
