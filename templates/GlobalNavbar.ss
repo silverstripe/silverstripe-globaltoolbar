@@ -9,7 +9,7 @@
 
 			<div class="navbar-brand">
 				<h1 class="brand-name">
-					<a class="logo" title="SilverStripe" href="$ToolbarHostname">
+					<a class="logo" title="SilverStripe" href="$Scope.Level(1).Link">
 						<img class="global-logo" src="{$ToolbarHostname}/themes/ssv3/img/global-logo-<% if $Scope.Level(1) %>{$Scope.Level(1).URLSegment}<% else %>open-source<% end_if %>.svg" alt="{$Scope.Menu(1).Title}">
 					</a>
 				</h1>
