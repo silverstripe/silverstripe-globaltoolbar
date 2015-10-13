@@ -18,7 +18,7 @@
 				<% if Children %>
 				<ul>
 					<% loop Children %>
-					<li class="<% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.ParentID == $ID %>section<% end_if %>"><a href="$GlobalNavLink">$MenuTitle.XML</a></li>
+					<li class="<% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.InNode($ID) %>section<% end_if %>"><a href="$GlobalNavLink">$MenuTitle.XML</a></li>
 					<% end_loop %>
 				</ul>
 				<% end_if %>
