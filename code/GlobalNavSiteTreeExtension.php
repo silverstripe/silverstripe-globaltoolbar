@@ -110,15 +110,15 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 
 	public function InNode($parentID) {
-		$page = $this->owner;
-		while($page) {
-			if($parentID == $page->ID)
-				return true;
-			$page = $page->Parent;
-		}
-		return false;
-	}
-
+        $page = $this->owner;
+        $field = is_numeric($parentID) ? 'ID' : 'URLSegment';
+        while($page) {
+            if($parentID == $page->$field)
+                return true;
+            $page = $page->Parent;
+        }
+        return false;
+    }
 
 
 	protected function needsRegeneration() {

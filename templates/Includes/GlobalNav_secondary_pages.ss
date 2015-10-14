@@ -1,6 +1,7 @@
 <% if $Pages %>
 <nav class="navbar navbar-inverse navbar-secondary-dropdown">
-    <div class="container">
+    <div class="container-fluid">
+        <% if $InNode(blog) %><% include Nav_BlogArchive %><% end_if %>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" role="navigation">
                 <% loop $Pages %>
