@@ -107,15 +107,25 @@
 		}
 	}
 
-	function elRemoveClass(el, className) {
+	function elRemoveClass(el, kls) {
 		if (el.classList) {
-			el.classList.remove(className);
+			el.classList.remove(kls);
 		} else {
-			el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+			el.className = el.className.replace(' ' + kls, '');
 		}
 	}
 
-	(function() {
+	function elToggleClass(el, className) {		
+		if(el.classList) {
+			el.classList.toggle(className);
+		} else if (elHasClass(el, className)) {		
+			elRemoveClass(el, className);
+		} else {			
+			elAddClass(el, className);
+		}
+	}
+
+	(function() {		
 	    var MQL = 1170;
 	    var q = function (sel) {
 	    	return document.querySelector(sel);
@@ -128,28 +138,28 @@
 	            //check if user is scrolling up
 	            if (currentTop < this.previousTop ) {
 	                //if scrolling up...
-	                if (currentTop > 0 && q('.site-header').classList.contains('is-fixed')) {
-	                    q('.site-header').classList.add('is-visible');	                
+	                if (currentTop > 0 && elHasClass(q('.site-header'),'is-fixed')) {
+	                    elAddClass(q('.site-header'),'is-visible');
 	                } else {
-	                    q('.site-header').classList.remove('is-visible is-fixed');
+	                    elRemoveClass(q('.site-header'),'is-visible is-fixed');
 	                }
 	            } else {
 	                //if scrolling down...
-	                q('.site-header').classList.remove('is-visible');
-	                if( currentTop > headerHeight && !q('.site-header').classList.contains('is-fixed')) {
-	                	q('.site-header').classList.add('is-fixed');
+	                elRemoveClass(q('.site-header'),'is-visible');
+	                if( currentTop > headerHeight && !elHasClass(q('.site-header'),'is-fixed')) {
+	                	elAddClass(q('.site-header'),'is-fixed');
 	                }
 	            }
 	            this.previousTop = currentTop;
 	        });
-	    }
+	    }	    
 
 	    //open/close primary pop out mega navigation
 	    var triggers = document.querySelectorAll('.js-nav-trigger');
-	    [].forEach.call(triggers, function (node) {
-		    node.addEventListener('click', function(){		        		    	
-		        q('.site-header').classList.toggle('menu-is-open');
-		        q('.popup-primary-nav').classList.toggle('open');
+	    [].forEach.call(triggers, function (node) {	 	    
+		    node.addEventListener('click', function() {
+		        elToggleClass(q('.site-header'), 'menu-is-open');
+		        elToggleClass(q('.popup-primary-nav'),'open');		        
 		    });
 
 	    })
