@@ -40,19 +40,22 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 			$static = false;
 		}
 
-		// Use controller_for to negotiate sub controllers, e.g. /showcase/listing/slug
-		// (Controller::curr() would return the nested RequestHandler)
-		$controller = ModelAsController::controller_for($page);
-
 		// In some cases, controllers are bound to "mock" pages, like Security. In that case,
 		// throw the "default section" as the current controller.
-		if(!$controller->data() instanceof SiteTree || !$controller->data()->isInDB()) {
+		if(!$page instanceof SiteTree || !$page->isInDB()) {
 			$controller = ModelAsController::controller_for(
 				$page = SiteTree::get_by_link(
 					Config::inst()->get('GlobalNav','default_section')
 				)
 			);			
 		}
+
+		else {
+			// Use controller_for to negotiate sub controllers, e.g. /showcase/listing/slug
+			// (Controller::curr() would return the nested RequestHandler)
+			$controller = ModelAsController::controller_for($page);
+		}
+
 		
 		// Ensure staging links are not exported to the nav
 		$origStage = Versioned::current_stage();
