@@ -30,7 +30,7 @@
 				</a>
 			</li>
 
-			<li>		
+			<li class="hidden-xs hidden-sm">
 				<iframe id="toolbar-iframe" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
 			</li>
 		</ul>
@@ -41,7 +41,10 @@
 		</ul>
 
 		<nav class="slide-menu visible-xs visible-sm" role="navigation">
-			<ul class="nav list-unstyled">
+			<ul class="nav">
+				<li class="mobile-nav-login pull-left">
+					<iframe id="toolbar-iframe-mobile" src="{$ToolbarHostname}/toolbar/profile" frameborder="0" width="0" scrolling="no"></iframe>
+				</li>
 				<li class="text-right"><a id="nav-close" class="ion-ios-close-empty"></a></li>
 				<% loop $Scope.Menu(1) %>
 				<li class="$LinkingMode<% if $GlobalNavChildren %> children<% end_if %><% if $Top.ActivePage.ID == $ID %> current<% else_if $Top.ActivePage.ParentID == $ID %> section<% end_if %>">
@@ -178,6 +181,13 @@
 				autoResize: false,
 				log: false
 			}, '#toolbar-iframe');
+
+			iFrameResize({
+				enablePublicMethods: true,
+				sizeWidth: true,
+				autoResize: false,
+				log: false
+			}, '#toolbar-iframe-mobile');
 
 
 			function scrollToElement(el, scrollDuration, padding) {

@@ -66,13 +66,16 @@
 		a.logout:hover {
 			opacity: 1;
 		}
+		img.default-avatar {
+			padding: 4px 0;
+		}
 	</style>
 </head>
 
 <body>
 <% if CurrentMember %>
 	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">
-	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="30" height="30" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
+	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="30" height="30" class="login default-avatar" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
 	</a>
 	<a id="logout" target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="30" height="30" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
 <% else %>
