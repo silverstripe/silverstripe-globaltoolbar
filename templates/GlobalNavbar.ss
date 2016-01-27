@@ -174,6 +174,8 @@
 			var desktopSearchElem = document.getElementById('desktopSearch');
 			var navSearchA = document.querySelector('.nav-search a');
 			var searchClose = document.querySelector('a.search-close');
+			var mobileNav = document.querySelector('.js-nav-expander');
+			var mobileNavClose = document.getElementById('nav-close');
 
 			iFrameResize({
 				enablePublicMethods: true,
@@ -228,6 +230,20 @@
 
 						requestAnimationFrame(step);
 					}, interval );
+				}
+			}
+
+			// Navigation Menu Slider
+			if(mobileNav) {
+				mobileNav.addEventListener('click', function (e) {
+					e.preventDefault();
+					elToggleClass(q('body'), 'menu-is-open');
+				}
+			}
+			if(mobileNavClose) {
+				mobileNavClose.addEventListener('click', function (e) {
+					e.preventDefault();
+					elRemoveClass(q('body'), 'nav-expanded');
 				}
 			}
 
