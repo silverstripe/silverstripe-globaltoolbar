@@ -1,9 +1,9 @@
-SiteTree:
+SilverStripe\CMS\Model\SiteTree:
   extensions:
-    - GlobalNavSiteTreeExtension
-Controller:
+    - SilverStripe\Toolbar\SiteTreeExtension
+SilverStripe\Control\Controller:
   extensions:
-    - GlobalNavControllerExtension
+    - SilverStripe\Toolbar\ControllerExtension
 GlobalNav:
   snippet_path: '/assets/'
   css_file: '/toolbar/css/toolbar.css'
@@ -13,9 +13,9 @@ GlobalNav:
     - URLSegment
     - ParentID
     - Sort
-GlobalNavTemplateProvider:
+SilverStripe\Toolbar\TemplateProvider:
   connection_timeout: 100
   transfer_timeout: 200
-Director:
+SilverStripe\Control\Director:
   rules:
-    'toolbar//$Action': 'GlobalToolbarController'
+    'toolbar//$Action': 'SilverStripe\Toolbar\Controller'

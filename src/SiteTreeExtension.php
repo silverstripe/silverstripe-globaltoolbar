@@ -1,6 +1,18 @@
 <?php
 
-class GlobalNavSiteTreeExtension extends DataExtension {
+namespace SilverStripe\Toolbar;
+
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Control\Director;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\CMS\Controllers\ModelAsController;
+use SilverStripe\ORM\Versioning\Versioned;
+use SilverStripe\ORM\ViewableData;
+use SilverStripe\CMS\Model\RedirectorPage;
+
+class SiteTreeExtension extends DataExtension 
+{
 
 
 	/**
@@ -8,7 +20,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	 *
 	 * @return string Protocol and hostname only
 	 */
-	public static function get_toolbar_hostname() {
+	public static function get_toolbar_hostname() 
+	{
 		return Config::inst()->get('GlobalNav','use_localhost')
 			? Director::protocolAndHost()
 			: Config::inst()->get('GlobalNav','hostname');
@@ -19,19 +32,22 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	 *
 	 * @return string Path including baseurl
 	 */
-	public static function get_toolbar_baseurl() {
+	public static function get_toolbar_baseurl() 
+	{
 		return Config::inst()->get('GlobalNav','use_localhost')
 			? Director::absoluteBaseURL()
 			: Config::inst()->get('GlobalNav','hostname');
 	}
 
 
-	public static function is_host() {
+	public static function is_host() 
+	{
 		return self::get_toolbar_baseurl() == Director::absoluteBaseURL();
 	}
 
 
-	public static function get_navbar_html($page = null) {
+	public static function get_navbar_html($page = null) 
+	{
 		// remove the protocol from the URL, otherwise we run into https/http issues
 		$url = self::remove_protocol_from_url(self::get_toolbar_hostname());
 		$static = true;
@@ -76,7 +92,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}
 
 
-	public static function get_navbar_filename($key) {
+	public static function get_navbar_filename($key) 
+	{
 		return Controller::join_links(
 			BASE_PATH,
 			Config::inst()->get('GlobalNav', 'snippet_path'),
@@ -84,7 +101,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 		);
 	}
 
-	public static function create_static_navs() {
+	public static function create_static_navs() 
+	{
 		$domains = Config::inst()->get('GlobalNav','static_navs');
 		if($domains) {
 			foreach($domains as $key => $id) {
@@ -99,7 +117,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 
 
-	public function GlobalNavLink() {		
+	public function GlobalNavLink() 
+	{		
 		$link = $this->IsExternal() ? $this->owner->ExternalURL : $this->owner->Link();
 		$this->owner->invokeWithExtensions('updateGlobalNavLink', $link);
 
@@ -107,12 +126,14 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	}
 
 
-	public function IsExternal() {
+	public function IsExternal() 
+	{
 		return ($this->owner instanceof RedirectorPage && $this->owner->ExternalURL);
 	}
 
 
-	public function InNode($parentID) {
+	public function InNode($parentID) 
+	{
         $page = $this->owner;
         $field = is_numeric($parentID) ? 'ID' : 'URLSegment';
         while($page) {
@@ -124,7 +145,8 @@ class GlobalNavSiteTreeExtension extends DataExtension {
     }
 
 
-	protected function needsRegeneration() {
+	protected function needsRegeneration() 
+	{
 		$fields = Config::inst()->get('GlobalNav','regenerate_on_changed');
 		if($fields) {	
 			$changed = $this->owner->getChangedFields(true);
@@ -143,12 +165,14 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 
 
 	// Can be overriden by pages
-	public function GlobalNavChildren() {
+	public function GlobalNavChildren() 
+	{
 		return $this->owner->Children();
 	}
 
 	
-	public function onAfterWrite() {
+	public function onAfterWrite() 
+	{
 		if ($this->owner->ParentID == 0 && $this->needsRegeneration()) {
 			self::create_static_navs();
 		}
@@ -161,14 +185,16 @@ class GlobalNavSiteTreeExtension extends DataExtension {
 	 * @param string URL to remove the protocol from
 	 * @return string URL with protocol removed
 	 */
-	protected static function remove_protocol_from_url($url) {
+	protected static function remove_protocol_from_url($url) 
+	{
 		$url = parse_url($url);
 		unset($url['scheme']); // remove the scheme
 		return self::unparse_url($url);
 	}
 
 
-	protected static function unparse_url($parsed_url) {
+	protected static function unparse_url($parsed_url) 
+	{
 		$scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '//';
 		$host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
 		$port = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : '';

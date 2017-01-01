@@ -1,5 +1,15 @@
 <?php
 
+namespace SilverStripe\Toolbar;
+
+use SilverStripe\View\TemplateGlobalProvider;
+use SilverStripe\View\Requirements;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Control\Director;
+use SilverStripe\ORM\FieldType\DBField;
+use SilverStripe\Logging\Log;
+use Exception;
+
 /**
  * Class GlobalNavTemplateProvider
  *
@@ -13,7 +23,8 @@
  *     transfer_timeout: 200
  *
  */
-class GlobalNavTemplateProvider implements TemplateGlobalProvider {
+class TemplateProvider implements TemplateGlobalProvider 
+{
 
 	/**
 	 * @var int - timeout in ms
@@ -37,38 +48,39 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	 *
 	 * @return array
 	 */
-	public static function get_template_global_variables() {
-		return array(
+	public static function get_template_global_variables() 
+	{
+		return [
 			'GlobalNav',
 			'DynamicGlobalNav'
-		);
+		];
 	}
 
 	/**
 	 * @param   $key The nav key, e.g. "doc", "userhelp"
 	 * @return HTMLText
 	 */
-	public static function GlobalNav($key) {
-		$baseURL = GlobalNavSiteTreeExtension::get_toolbar_baseurl();
+	public static function GlobalNav($key) 
+	{
+		$baseURL = SiteTreeExtension::get_toolbar_baseurl();
 		Requirements::css(Controller::join_links(
 			$baseURL,
-			Config::inst()->get('GlobalNav','css_path')
+			Config::inst()->get('GlobalNav','css_file')
 		));
-
 		// If this method haven't been called before, get the toolbar and cache it
 		if(self::$global_nav_html === null) {
 			// Set the default to empty
 			self::$global_nav_html = '';
 			// Prevent recursion from happening
 			if (empty($_GET['globaltoolbar'])) {
-				$host = GlobalNavSiteTreeExtension::get_toolbar_hostname();		
-				$path = Director::makeRelative(GlobalNavSiteTreeExtension::get_navbar_filename($key));								
+				$host = SiteTreeExtension::get_toolbar_hostname();		
+				$path = Director::makeRelative(SiteTreeExtension::get_navbar_filename($key));								
 				if(Config::inst()->get('GlobalNav', 'use_localhost')) {
 					self::$global_nav_html = file_get_contents(BASE_PATH . $path);
 				} else {
 					$url = Controller::join_links($baseURL, $path, '?globaltoolbar=true');
-					$connectionTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'connection_timeout');
-					$transferTimeout = Config::inst()->get('GlobalNavTemplateProvider', 'transfer_timeout');
+					$connectionTimeout = Config::inst()->get('SilverStripe\Toolbar\TemplateProvider', 'connection_timeout');
+					$transferTimeout = Config::inst()->get('SilverStripe\Toolbar\TemplateProvider', 'transfer_timeout');
 					// Get the HTML and cache it
 
 					self::$global_nav_html = self::curl_call($url, $connectionTimeout, $transferTimeout);
@@ -82,8 +94,9 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	}
 
 
-	public static function DynamicGlobalNav() {
-		return GlobalNavSiteTreeExtension::get_navbar_html();
+	public static function DynamicGlobalNav() 
+	{
+		return SiteTreeExtension::get_navbar_html();
 	}
 
 	/**
@@ -96,7 +109,8 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 	 * @param int $timeoutMs - milliseconds for transfer timeout
 	 * @return string - the response body
 	 */
-	protected static function curl_call($url, $connectTimeoutMs = 100, $timeoutMs = 200) {
+	protected static function curl_call($url, $connectTimeoutMs = 100, $timeoutMs = 200) 
+	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_HEADER, true);
 
@@ -124,13 +138,13 @@ class GlobalNavTemplateProvider implements TemplateGlobalProvider {
 
 		if($response === false || curl_errno($ch)) {
 			$message = 'Could not fetch toolbar from '.$url.': ' . curl_error($ch);
-			SS_Log::log(new Exception($message, 500), SS_Log::ERR);
+			Log::log(new Exception($message, 500), Log::ERR);
 			return '';
 		}
 
 		if($responseInfo['http_code'] < 200 || $responseInfo['http_code'] > 299) {
 			$message = 'Could not fetch toolbar, http_status "'.$responseInfo['http_code'].'" from "'.$url.'" ';
-			SS_Log::log(new Exception($message, $responseInfo['http_code']), SS_Log::ERR);
+			Log::log(new Exception($message, $responseInfo['http_code']), Log::ERR);
 			return '';
 		}
 		return $responseBody;
