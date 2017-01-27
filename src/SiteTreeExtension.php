@@ -2,25 +2,23 @@
 
 namespace SilverStripe\Toolbar;
 
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\Core\Config\Config;
 use SilverStripe\Control\Director;
-use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\CMS\Controllers\ModelAsController;
-use SilverStripe\ORM\Versioning\Versioned;
-use SilverStripe\ORM\ViewableData;
 use SilverStripe\CMS\Model\RedirectorPage;
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\ORM\DataExtension;
+use SilverStripe\ORM\Versioning\Versioned;
+use SilverStripe\View\ViewableData;
 
-class SiteTreeExtension extends DataExtension 
+class SiteTreeExtension extends DataExtension
 {
-
-
 	/**
 	 * Gets the hostname
 	 *
 	 * @return string Protocol and hostname only
 	 */
-	public static function get_toolbar_hostname() 
+	public static function get_toolbar_hostname()
 	{
 		return Config::inst()->get('GlobalNav','use_localhost')
 			? Director::protocolAndHost()
@@ -32,7 +30,7 @@ class SiteTreeExtension extends DataExtension
 	 *
 	 * @return string Path including baseurl
 	 */
-	public static function get_toolbar_baseurl() 
+	public static function get_toolbar_baseurl()
 	{
 		return Config::inst()->get('GlobalNav','use_localhost')
 			? Director::absoluteBaseURL()
@@ -40,19 +38,19 @@ class SiteTreeExtension extends DataExtension
 	}
 
 
-	public static function is_host() 
+	public static function is_host()
 	{
 		return self::get_toolbar_baseurl() == Director::absoluteBaseURL();
 	}
 
 
-	public static function get_navbar_html($page = null) 
+	public static function get_navbar_html($page = null)
 	{
 		// remove the protocol from the URL, otherwise we run into https/http issues
 		$url = self::remove_protocol_from_url(self::get_toolbar_hostname());
 		$static = true;
 		if(!$page instanceof SiteTree) {
-			$page = Director::get_current_page();			
+			$page = Director::get_current_page();
 			$static = false;
 		}
 
@@ -63,7 +61,7 @@ class SiteTreeExtension extends DataExtension
 				$page = SiteTree::get_by_link(
 					Config::inst()->get('GlobalNav','default_section')
 				)
-			);			
+			);
 		}
 
 		else {
@@ -72,10 +70,10 @@ class SiteTreeExtension extends DataExtension
 			$controller = ModelAsController::controller_for($page);
 		}
 
-		
+
 		// Ensure staging links are not exported to the nav
-		$origStage = Versioned::current_stage();
-		Versioned::reading_stage('Live');
+		$origStage = Versioned::get_stage();
+		Versioned::set_stage('Live');
 
 		$html = ViewableData::create()->customise(array(
 			'ToolbarHostname' => $url,
@@ -86,13 +84,13 @@ class SiteTreeExtension extends DataExtension
 			'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
 		))->renderWith('GlobalNavbar');
 
-		Versioned::reading_stage($origStage);
+		Versioned::set_stage($origStage);
 
 		return $html;
 	}
 
 
-	public static function get_navbar_filename($key) 
+	public static function get_navbar_filename($key)
 	{
 		return Controller::join_links(
 			BASE_PATH,
@@ -101,7 +99,7 @@ class SiteTreeExtension extends DataExtension
 		);
 	}
 
-	public static function create_static_navs() 
+	public static function create_static_navs()
 	{
 		$domains = Config::inst()->get('GlobalNav','static_navs');
 		if($domains) {
@@ -110,15 +108,15 @@ class SiteTreeExtension extends DataExtension
 				if(!$page) continue;
 
 				$filename = self::get_navbar_filename($key);
-				file_put_contents($filename, self::get_navbar_html($page));			
+				file_put_contents($filename, self::get_navbar_html($page));
 			}
 		}
-	}    
+	}
 
 
 
-	public function GlobalNavLink() 
-	{		
+	public function GlobalNavLink()
+	{
 		$link = $this->IsExternal() ? $this->owner->ExternalURL : $this->owner->Link();
 		$this->owner->invokeWithExtensions('updateGlobalNavLink', $link);
 
@@ -126,13 +124,13 @@ class SiteTreeExtension extends DataExtension
 	}
 
 
-	public function IsExternal() 
+	public function IsExternal()
 	{
 		return ($this->owner instanceof RedirectorPage && $this->owner->ExternalURL);
 	}
 
 
-	public function InNode($parentID) 
+	public function InNode($parentID)
 	{
         $page = $this->owner;
         $field = is_numeric($parentID) ? 'ID' : 'URLSegment';
@@ -145,14 +143,14 @@ class SiteTreeExtension extends DataExtension
     }
 
 
-	protected function needsRegeneration() 
+	protected function needsRegeneration()
 	{
 		$fields = Config::inst()->get('GlobalNav','regenerate_on_changed');
-		if($fields) {	
+		if($fields) {
 			$changed = $this->owner->getChangedFields(true);
 			// ->isChanged($field) was returning false positives. No idea why.
 			foreach($fields as $field) {
-				if(isset($changed[$field])) {					
+				if(isset($changed[$field])) {
 					if($changed[$field]['before'] != $changed[$field]['after']) {
 						return true;
 					}
@@ -165,13 +163,13 @@ class SiteTreeExtension extends DataExtension
 
 
 	// Can be overriden by pages
-	public function GlobalNavChildren() 
+	public function GlobalNavChildren()
 	{
 		return $this->owner->Children();
 	}
 
-	
-	public function onAfterWrite() 
+
+	public function onAfterWrite()
 	{
 		if ($this->owner->ParentID == 0 && $this->needsRegeneration()) {
 			self::create_static_navs();
@@ -185,7 +183,7 @@ class SiteTreeExtension extends DataExtension
 	 * @param string URL to remove the protocol from
 	 * @return string URL with protocol removed
 	 */
-	protected static function remove_protocol_from_url($url) 
+	protected static function remove_protocol_from_url($url)
 	{
 		$url = parse_url($url);
 		unset($url['scheme']); // remove the scheme
@@ -193,7 +191,7 @@ class SiteTreeExtension extends DataExtension
 	}
 
 
-	protected static function unparse_url($parsed_url) 
+	protected static function unparse_url($parsed_url)
 	{
 		$scheme = isset($parsed_url['scheme']) ? $parsed_url['scheme'] . '://' : '//';
 		$host = isset($parsed_url['host']) ? $parsed_url['host'] : '';
