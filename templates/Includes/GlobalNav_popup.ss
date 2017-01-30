@@ -16,9 +16,9 @@
 				<a href="$GlobalNavLink">
 					<h5><img src="{$Top.ToolbarHostname}/themes/ssv3/img/icons/section-{$URLSegment}.png" alt="$Title" />$MenuTitle.XML</h5>
 				</a>
-				<% if Children %>
+				<% if $Children %>
 				<ul>
-					<% loop Children %>
+					<% loop $Children %>
 					<li class="<% if $Top.ActivePage.ID == $ID %>current<% else_if $Top.ActivePage.InNode($ID) %>section<% end_if %>"><a href="$GlobalNavLink">$MenuTitle.XML</a></li>
 					<% end_loop %>
 				</ul>
