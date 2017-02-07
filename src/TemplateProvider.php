@@ -75,7 +75,7 @@ class TemplateProvider implements TemplateGlobalProvider
             if (empty($_GET['globaltoolbar'])) {
                 $host = SiteTreeExtension::get_toolbar_hostname();
                 $path = Director::makeRelative(SiteTreeExtension::get_navbar_filename($key));
-                if (Config::inst()->get(self::class, 'use_localhost')) {
+                if (Config::inst()->get('GlobalNav', 'use_localhost')) {
                     self::$global_nav_html = file_get_contents(BASE_PATH . $path);
                 } else {
                     $url = Controller::join_links($baseURL, $path, '?globaltoolbar=true');
