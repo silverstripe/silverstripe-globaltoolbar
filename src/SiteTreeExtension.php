@@ -68,8 +68,8 @@ class SiteTreeExtension extends DataExtension
 
 
         // Ensure staging links are not exported to the nav
-        $origStage = Versioned::get_stage();
-        Versioned::set_stage('Live');
+        $origStage = Versioned::get_reading_mode();
+        Versioned::set_reading_mode('Stage.Live');
 
         $html = ViewableData::create()->customise(array(
             'ToolbarHostname' => $url,
@@ -80,7 +80,7 @@ class SiteTreeExtension extends DataExtension
             'GoogleCustomSearchId' => Config::inst()->get('GlobalNav', 'google_search_id')
         ))->renderWith('GlobalNavbar');
 
-        Versioned::set_stage($origStage);
+        Versioned::set_reading_mode($origStage);
 
         return $html;
     }
