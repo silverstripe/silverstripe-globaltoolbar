@@ -5,11 +5,12 @@ namespace SilverStripe\Toolbar;
 use Exception;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Logging\Log;
 use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\Toolbar\TemplateProvider;
 use SilverStripe\View\Requirements;
 use SilverStripe\View\TemplateGlobalProvider;
+use SilverStripe\Core\Injector\Injector;
+use Psr\Log\LoggerInterface;
 
 /**
  * Class GlobalNavTemplateProvider
@@ -137,15 +138,27 @@ class TemplateProvider implements TemplateGlobalProvider
 
         if ($response === false || curl_errno($ch)) {
             $message = 'Could not fetch toolbar from '.$url.': ' . curl_error($ch);
-            Log::log(new Exception($message, 500), Log::ERR);
+            self::logException(new Exception($message, 500), 'warning');
             return '';
         }
 
         if ($responseInfo['http_code'] < 200 || $responseInfo['http_code'] > 299) {
             $message = 'Could not fetch toolbar, http_status "'.$responseInfo['http_code'].'" from "'.$url.'" ';
-            Log::log(new Exception($message, $responseInfo['http_code']), Log::ERR);
+            self::logException(new Exception($message, $responseInfo['http_code']), 'warning');
             return '';
         }
         return $responseBody;
+    }
+
+    /**
+     * Log an exception in the standard PSR3 logger
+     */
+    protected static function logException(\Exception $ex, $logLevel = 'error')
+    {
+        Injector::inst()->get(LoggerInterface::class)->log(
+            $logLevel,
+            sprintf('Uncaught Exception %s: "%s" at %s line %s', get_class($ex), $ex->getMessage(), $ex->getFile(), $ex->getLine()),
+            array('exception' => $ex)
+        );
     }
 }
