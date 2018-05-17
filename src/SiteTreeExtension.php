@@ -8,8 +8,9 @@ use SilverStripe\CMS\Controllers\ModelAsController;
 use SilverStripe\CMS\Model\RedirectorPage;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\ORM\DataExtension;
-use SilverStripe\ORM\Versioning\Versioned;
 use SilverStripe\View\ViewableData;
+use SilverStripe\Versioned\Versioned;
+
 
 class SiteTreeExtension extends DataExtension
 {
