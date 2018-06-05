@@ -12,7 +12,7 @@
 		"psr-4": {
 			"SilverStripe\\Toolbar\\": "src/"
 		}
-	},	
+	},
 	"authors":[
 		{
 			"name": "Ingo Schommer",
@@ -24,6 +24,10 @@
 			"homepage": "http://leftandmain.com",
 			"email" : "unclecheese@leftandmain.com"
 		}
-
-	]
+	],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.x-dev"
+        }
+    }
 }
