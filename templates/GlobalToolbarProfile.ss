@@ -32,40 +32,51 @@
 			margin: 10px 0 10px 14px;
 			float: left;
 			background-color: #e6e6e6;
-
 			-webkit-transition: all ease-in-out .1s;
-       		-o-transition: all ease-in-out .1s;
-          	transition: all ease-in-out .1s;
+			-o-transition: all ease-in-out .1s;
+			transition: all ease-in-out .1s;
 		}
 		a.profile img {
 			width: 100%;
-		}
-		a.profile img.login {
-			opacity: 0.7;
-		}
-		a.profile img.login:hover {
-			opacity: 1;
 		}
 		a.profile:hover {
 			transform: scale(1.1);
 		}
 		a.login {
 			padding: 13px 14px;
-			opacity: 0.7;
+			opacity: 0.8;
 		}
-			a.login:hover {
-				opacity: 1;
-			}
-		img.login {
-			border: 0px;
+		a.login:hover {
+			opacity: 1;
 		}
 		a.logout {
-			opacity: 0.7;
 			padding: 15px 12px;
+			opacity: 0.8;
 		}
 		a.logout:hover {
 			opacity: 1;
 		}
+
+		/* Mobile only - login and logout states */
+		.toolbar-iframe-mobile a.login .profile-login {
+			fill: #9ea8b2;
+		}
+		.toolbar-iframe-mobile a.login:hover .profile-login {
+			fill: #fff;
+		}
+
+		/* No profile avatar state */
+		.toolbar-iframe-mobile a.profile .profile-login {
+			fill: #9ea8b2;
+		}
+
+		.toolbar-iframe-mobile a.logout .profile-logout {
+			fill: #9ea8b2;
+		}
+		.toolbar-iframe-mobile a.logout:hover .profile-logout {
+			fill: #fff;
+		}
+
 		img.default-avatar {
 			padding: 4px 0;
 		}
@@ -75,12 +86,14 @@
 <body>
 <% if $CurrentMember %>
 	<a href="{$BaseHref}ForumMemberProfile/show/$CurrentMember.ID" class="profile" title="$CurrentMember.Nickname profile">
-	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><img width="30" height="30" class="login default-avatar" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg"><% end_if %>
+	<% if $CurrentMember.Avatar %>$CurrentMember.Avatar.CroppedImage(34,34)<% else %><% include ProfileSvg %><% end_if %>
 	</a>
-	<a id="logout" target="_parent" href="{$BaseHref}Security/logout" class="logout"><img width="30" height="30" alt="Logout" src="../$ThemeDir/img/icons/log-out.svg"></a>
+	<a class="logout" id="logout" href="{$BaseHref}Security/logout" target="_parent">
+		<% include LogoutSvg %>
+	</a>
 <% else %>
 	<a class="login" id="login" href="{$BaseHref}Security/login" title="Login">
-		<img width="30" height="30" class="login" alt="Login" src="../$ThemeDir/img/icons/ios7-contact-outline.svg">
+		<% include ProfileSvg %>
 	</a>
 <% end_if %>
 <script src="js/iframe-resizer/js/iframeResizer.contentWindow.min.js"></script>
@@ -91,6 +104,10 @@ document.addEventListener('DOMContentLoaded', function(){
 		if('parentIFrame' in window) {
 			parentIFrame.size(60, w);
 			window.clearInterval(interval);
+
+			<%-- Add Iframe ID's as classes to global toolbar body to target 
+			mobile/desktop versions separately --%>
+			document.body.classList.add(parentIFrame.getId());
 		}
 	}, 100);
 });
