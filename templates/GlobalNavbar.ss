@@ -89,6 +89,7 @@
 <% include GlobalNav_popup %>
 
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/bootstrap/modal.js"></script>
 <script type="text/javascript">
 
