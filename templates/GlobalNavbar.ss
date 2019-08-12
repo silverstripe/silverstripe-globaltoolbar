@@ -24,7 +24,7 @@
 		<%-- Profile menu --%>
 		<ul id="profile-menu" class="nav navbar-nav global-right pull-right" style="display:none;">
 			<li class="nav-search">
-				<button class="search" data-toggle="modal" data-target="#modalSearch" aria-label="Search site">
+				<button class="search" aria-label="Search site" data-toggle="modal" data-target="#modalSearch">
 					<% include SearchSvg %>
 				</button>
 			</li>
@@ -89,7 +89,7 @@
 <% include GlobalNav_popup %>
 
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/iframe-resizer/js/iframeResizer.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript" src="{$ToolbarHostname}/toolbar/js/bootstrap/modal.js"></script>
 <script type="text/javascript">
 
@@ -171,11 +171,6 @@
 
 	(function() {
 		document.addEventListener('DOMContentLoaded', function () {
-			var tabHolderElem = document.querySelector('.search-pane');
-			var desktopSearchElem = document.getElementById('desktopSearch');
-			var navSearchA = document.querySelector('.nav-search a');
-			var searchClose = document.querySelector('a.search-close');
-
 			iFrameResize({
 				enablePublicMethods: true,
 				sizeWidth: true,
@@ -190,84 +185,11 @@
 				log: false
 			}, '#toolbar-iframe-mobile');
 
-
-			function scrollToElement(el, scrollDuration, padding) {
-				scrollDuration = scrollDuration || 300;
-				padding = padding || 0;
-
-				if(typeof el === "string") {
-					el = document.querySelector(selector);
-				}
-
-				if(!el) return;
-
-				var interval = 10;
-				requestAnimationFrame(step);
-
-				function step () {
-					setTimeout(function() {
-						if(scrollDuration < 1) {
-							return;
-						}
-						var scrollPos = window.scrollY,
-							offset = el.getBoundingClientRect().top,
-							togo = offset - padding,
-							clicksRemaining = scrollDuration/interval,
-							stepSize = togo/clicksRemaining;
-
-						if(Math.round(window.scrollY)  == padding) {
-							return;
-						}
-						if(offset - stepSize < padding) {
-							stepSize = offset - padding;
-						}
-
-						nextY = scrollPos+stepSize;
-						window.scrollTo( 0, nextY );
-
-						scrollDuration -= interval;
-
-						requestAnimationFrame(step);
-					}, interval );
-				}
-			}
-
 			setTimeout(function() {
 				document.getElementById('profile-menu').style.display='block';
 				document.getElementById('loader-menu').style.display='none';
 			}, 1000);
-
-
-			function desktopClose(elem) {
-				searchClose.addEventListener('click', function (e) {
-					e.preventDefault();
-					elRemoveClass(elem, 'show');
-				});
-			}
-
-			// search tabs
-			if(navSearchA) {
-				navSearchA.addEventListener('click', function (e) {
-					e.preventDefault();
-					elAddClass(e.target.parentNode, 'current');
-					elAddClass(desktopSearchElem, 'show');
-					if(elHasClass(document.body, 'top-level')) {
-						scrollToElement(desktopSearchElem, 200, 65);
-					}
-					if(elHasClass(desktopSearchElem, 'show')) {
-						var searchBox = document.querySelector('input.gsc-input');
-						setTimeout(function() {
-							event = document.createEvent('HTMLEvents');
-							event.initEvent('focus', true, false);
-							searchBox.dispatchEvent(event);
-						}, 10);
-						desktopClose(desktopSearchElem);
-					}
-				});
-			}
-
 		});
-
 	})();
 
 	(function() {
