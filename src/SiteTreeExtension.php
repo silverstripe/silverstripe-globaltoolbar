@@ -46,7 +46,7 @@ class SiteTreeExtension extends DataExtension
     public static function get_navbar_html($page = null)
     {
         // remove the protocol from the URL, otherwise we run into https/http issues
-        $url = self::remove_protocol_from_url(self::get_toolbar_hostname());
+        $url = self::remove_protocol_from_url(Director::absoluteBaseURL());
         $static = true;
         if (!$page instanceof SiteTree) {
             $page = Director::get_current_page();
